@@ -3,6 +3,10 @@ JobHunter
 
 Open Source Jobs tracking tool. 
 
+![Imgur](http://i.imgur.com/XUUXoJm.png)
+
+![Imgur](http://i.imgur.com/7L3oXZW.png)
+
 The idea is to ease the burden of managing/accessing data about your job applications in different portals.
 
 For some portals (those which provide a public API) the application can be integrated via a simple plugin system to extract job offers.
