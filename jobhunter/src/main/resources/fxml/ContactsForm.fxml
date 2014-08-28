@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="430.0" prefWidth="520.0" styleClass="form-container" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" minWidth="50.0" prefWidth="150.0" sortable="false" text="Name" />
+          <TableColumn fx:id="phoneColumn" sortable="false" text="Phone" />
+            <TableColumn fx:id="emailColumn" prefWidth="218.0" sortable="false" text="eMail" />
+        </columns>
+         <contextMenu>
+            <ContextMenu fx:id="tableContextMenu">
+              <items>
+                <MenuItem fx:id="addRowMenuItem" mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="Add contact" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</AnchorPane>

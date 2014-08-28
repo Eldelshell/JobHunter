@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jobhunter.gui.FXMLController">
+    <children>
+        <MenuBar styleClass="main-menu-bar">
+            <menus>
+                <Menu mnemonicParsing="false" styleClass="main-menu" text="File">
+                    <items>
+                        <MenuItem fx:id="newMenuItem" mnemonicParsing="false" onAction="#onActionNewMenuItemHandler" styleClass="main-menu-item" text="New">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#onActionOpenMenuItemHandler" styleClass="main-menu-item" text="Open">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#onActionSaveMenuItemHandler" styleClass="main-menu-item" text="Save">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#onActionSaveAsMenuItemHandler" styleClass="main-menu-item" text="Save As..." />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#onActionQuitMenuItemHandler" styleClass="main-menu-item" text="Quit">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" styleClass="main-menu" text="View">
+                    <items>
+                        <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onActionDeletedMenuItemHandler" styleClass="main-menu-item" text="Deleted Jobs" />
+                        <Menu mnemonicParsing="false" styleClass="main-menu" text="Order By">
+                            <items>
+                                <MenuItem mnemonicParsing="false" styleClass="main-menu-item" text="Date" />
+                            </items>
+                        </Menu>
+                    </items>
+                </Menu>
+            <Menu mnemonicParsing="false" text="Jobs">
+              <items>
+                <MenuItem fx:id="addJobButton" mnemonicParsing="false" onAction="#addJobButtonActionHandler" text="Add Job" />
+                  <Menu mnemonicParsing="false" fx:id="importMenu" text="Import From...">
+                    <!--
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#onImportFromInfoJobsAction" text="InfoJobs" />
+                    </items>
+                     -->
+                  </Menu>
+              </items>
+            </Menu>
+                <Menu mnemonicParsing="false" styleClass="main-menu" text="Help">
+                    <items>
+                        <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#onActionAboutMenuItemHandler" styleClass="main-menu-item" text="About" />
+                        <MenuItem fx:id="preferencesMenuItem" mnemonicParsing="false" onAction="#onActionPreferencesMenuItemHandler" styleClass="main-menu-item" text="Preferences" />
+                    </items>
+                </Menu>
+                <Menu fx:id="developmentMenu" mnemonicParsing="false" styleClass="main-menu" text="Development" visible="false">
+                    <items>
+                        <MenuItem fx:id="clearDataMenuItem" mnemonicParsing="false" onAction="#onActionClearDataMenuItemHandler" styleClass="main-menu-item" text="Clear Data" />
+                        <MenuItem fx:id="insertRandomJobMenuItem" mnemonicParsing="false" onAction="#onInsertRandomJob" styleClass="main-menu-item" text="Insert Random Job" />
+                        <MenuItem fx:id="loadPlugInsMenuItem" mnemonicParsing="false" onAction="#onLoadPlugIns" styleClass="main-menu-item" text="Load Plugins" />
+                        <MenuItem fx:id="showJobsMenuItem" mnemonicParsing="false" onAction="#onShowJobs" styleClass="main-menu-item" text="Show Jobs" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+      <BorderPane VBox.vgrow="ALWAYS">
+         <left>
+              <ListView id="jobs-list-view" fx:id="jobsListView" fixedCellSize="40.0" maxWidth="-Infinity" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0" styleClass="job-form-list-view" BorderPane.alignment="TOP_LEFT" />
+         </left>
+         <center>
+            <WebView fx:id="mainWebView" opacity="0.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="5.0" />
+               </BorderPane.margin>
+           </WebView>
+         </center>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </BorderPane>
+    </children>
+</VBox>

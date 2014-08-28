@@ -1,0 +1,86 @@
+<html>
+<head>
+    <style type="text/css">
+        h2 {
+            color: blue;
+        }
+        
+        body {
+            border-color: #ececec;
+        }
+        
+        #top, #bottom, #left, #right {
+            background: #ececec;
+            position: fixed;
+        }
+        #left, #right {
+            top: 0; bottom: 0;
+            width: 1px;
+        }
+        #left { left: 0; }
+        #right { right: 0; }
+            
+        #top, #bottom {
+            left: 0; right: 0;
+            height: 1px;
+        }
+        #top { top: 0; }
+        #bottom { bottom: 0; }
+        
+    </style>
+    
+    <style type="text/css">
+      @include{styles_path}
+    </style>
+    
+</head>
+<body>
+    <!-- Hack to apply a border to the WebView -->
+    <div id="left"></div>
+    <div id="right"></div>
+    <div id="top"></div>
+    <div id="bottom"></div>
+    
+    <div class="container">
+      
+      <div class="row">
+        <div class="col-lg-12">
+            <h3>
+                @if{link != null}
+                    <a href="@{link}">@{position != null ? position : ''}</a>
+                @else{}
+                    @{position != null ? position : ''}
+                @end{}
+            </h3>
+            <h4>
+              <a href="@{company.url}">@{company.name}</a> (@{address != null ? address : ''})
+            </h4>
+         </div>
+      </div>
+      
+      <table class="table">
+        <thead>
+            <tr>
+                <th>Salary</th>
+                <th>Rating</th>
+                <th>Portal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@{salary != null ? salary : ''}</td>
+                <td>@{rating}</td>
+                <td>@{portal != null ? portal : ''}</td>
+            </tr>
+        </tbody>
+      </table>
+      <hr>
+      <div class="row">
+        <div class="col-lg-12">
+          <pre>@{description}</pre>
+        </div>
+      </div>
+    </div>
+    
+</body>
+</html>

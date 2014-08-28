@@ -1,0 +1,123 @@
+{
+   "title": "Application Support Analist",
+   "id": "fdcad3a7be4b7a962dbc8644c53520",
+   "state": 1,
+   "creationDate": "2014-07-22T10:22:07.000+0000",
+   "updateDate": "2014-07-22T10:22:07.000+0000",
+   "city": "Leganés",
+   "externalUrlForm": "",
+   "blocked": false,
+   "applications": 23,
+   "province": {
+      "id": 33,
+      "value": "Madrid"
+   },
+   "experienceMin": {
+      "id": 4,
+      "value": "Al menos 4 años"
+   },
+   "category": {
+      "id": 150,
+      "value": "Informática y telecomunicaciones"
+   },
+   "subcategories": [
+      {
+         "id": 3113,
+         "value": "Sistemas",
+         "order": 20,
+         "key": "sistemas",
+         "parent": 150
+      }
+   ],
+   "studiesMin": {
+      "id": 125,
+      "value": "Grado"
+   },
+   "residence": {
+      "id": 0,
+      "value": "(Seleccionar)"
+   },
+   "country": {
+      "id": 17,
+      "value": "España"
+   },
+   "contractType": {
+      "id": 1,
+      "value": "Indefinido"
+   },
+   "journey": {
+      "id": 1,
+      "value": "Completa"
+   },
+   "profile": {
+      "id": "961255524526202050913215154838",
+      "name": "GLORY GLOBAL SOLUTIONS (SPAIN) SA.",
+      "description": "Descripción de empresa:Talaris es uno de ",
+      "province": {
+         "id": 33,
+         "value": "Madrid"
+      },
+      "web": "http://www.delarue.com",
+      "numberWorkers": 125,
+      "url": "http://www.delarue.com",
+      "corporateWebsiteUrl": "/glory-global-solutions-spain-sa./em-i961255524526202050913215154838",
+      "websiteUrl": "",
+      "hidden": false
+   },
+   "cityPD": 3526,
+   "zipCode": "28919",
+   "latitude": 0,
+   "longitude": 0,
+   "exactLocation": false,
+   "department": "",
+   "vacancies": 1,
+   "minRequirements": "Knowledge & Experience",
+   "description": "PURPOSE OF THE ROLE",
+   "desiredRequirements": "",
+   "commissions": "",
+   "contractDuration": "",
+   "referenceId": "",
+   "detailedStudiesId": 1672,
+   "studying": false,
+   "showPay": true,
+   "maxPay": {
+      "amount": 42000,
+      "amountId": 300,
+      "periodId": 3,
+      "periodValue": "Bruto/año",
+      "amountValue": "42.000 €"
+   },
+   "minPay": {
+      "amount": 33000,
+      "amountId": 285,
+      "periodId": 3,
+      "periodValue": "Bruto/año",
+      "amountValue": "33.000 €"
+   },
+   "schedule": "",
+   "jobLevel": {
+      "id": 2,
+      "value": "Empleado"
+   },
+   "staffInCharge": {
+      "id": 1,
+      "value": "0"
+   },
+   "hasKillerQuestions": 0,
+   "hasOpenQuestions": 0,
+   "upsellings": {
+      "highlightColor": false,
+      "highlightUrgent": false,
+      "highlightHomeMonth": false,
+      "highlightHomeWeek": false,
+      "highlightSubcategory": false,
+      "highlightLogo": false,
+      "highlightStandingOffer": false
+   },
+   "link": "https://www.infojobs.net/leganes/application-support-analist/of-ifdcad3a7be4b7a962dbc8644c53520",
+   "active": true,
+   "archived": false,
+   "deleted": false,
+   "disponibleForFullVisualization": true,
+   "availableForVisualization": true
+}

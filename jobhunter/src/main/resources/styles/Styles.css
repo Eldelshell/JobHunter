@@ -1,0 +1,68 @@
+.job-list-view-label {
+    
+}
+
+#job-list-view-label-1 {
+    -fx-font-size: 10pt;
+}
+
+#job-list-view-label-2 {
+    -fx-font-size: 8pt;
+    -fx-text-fill: grey;
+}
+
+.deleted-label {
+    -fx-strikethrough: true;
+}
+
+.form-textfield {
+}
+
+.form-textarea {
+    
+}
+
+.form-title {
+    -fx-pref-height: 25px;
+    -fx-font-size: 18pt;
+    -fx-font-weight: bold;
+}
+
+.dialog-toolbar {
+}
+
+.job-form-button {
+    -fx-fill: green;
+    -fx-alignment: center_left;
+}
+
+.job-form-button .text{
+    -fx-fill: red;
+    -fx-alignment: left;
+}
+
+.job-form-list-view {
+    -fx-background-insets: 0;
+    -fx-fixed-cell-size: 50;
+    -fx-border-color: #ececec;
+}
+
+.form-container {
+    -fx-background-color: white;
+    -fx-border-color: #ececec;
+    -fx-padding: 10px;
+}
+
+#dialog-bottom-square {
+    -fx-fill: white;
+    -fx-stroke-width: 0;
+}
+
+.dialog-separator-line {
+    -fx-stroke-width: 0.2px;
+    -fx-stroke-color: #ececec;
+}
+
+.dialog-toolbar {
+    -fx-background-color: white;
+}
