@@ -234,11 +234,13 @@ public class FXMLController implements Initializable, Observer {
     	pl.setOnSucceeded(event -> {
     		List<PlugIn> plugins = (List<PlugIn>) event.getSource().getValue();
     		plugins.forEach(plugin -> {
+    			l.debug("Adding Plugin {} to menu", plugin.getPortal());
     			MenuItem item = plugin.getMenuItem();
     			importMenu.getItems().add(item);
     		});
-    		
     	});
+    	
+    	Dialogs.create().message("Loading Plugins").showWorkerProgress(pl);
     	pl.start();
     }
     
