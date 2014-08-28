@@ -56,6 +56,8 @@ public class PlugInLoader extends Service<List<PlugIn>> {
 				}
 			});
 			
+			l.debug("Registered {} plugins", plugins.size());
+			
 			return plugins;
 		}
 	}
