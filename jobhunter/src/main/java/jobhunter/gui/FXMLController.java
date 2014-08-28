@@ -292,30 +292,6 @@ public class FXMLController implements Initializable, Observer {
     	onLoadPlugIns(null);
     }
     
-//    static class JobCell extends ListCell<Job> {
-//    	
-//    	final JobListCellController cellController = new JobListCellController();
-//    	
-//		public JobCell() {
-//			super();
-//		}
-//
-//		@Override
-//		protected void updateItem(Job job, boolean empty) {
-//			super.updateItem(job, empty);
-//			
-//			if(!empty) {
-//				cellController.setJob(job);
-//				this.setGraphic(cellController.getNode());
-//			}else{
-//				this.setText(null);
-//				this.setGraphic(null);
-//			}
-//			
-//		}
-//    	
-//    }
-
 	@Override
 	public void update(Observable o, Object arg) {
 		l.debug("Update!!!" + o.getClass().getCanonicalName());
