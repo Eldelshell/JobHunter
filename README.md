@@ -13,6 +13,8 @@ For some portals (those which provide a public API) the application can be integ
 
 ## Installation
 
+You'll need Java Version 8 or later.
+
 Download the latest ZIP file from Releases and execute the `jobhunter` script.
 
 Plugins can be added by placing them in the `lib` folder.
