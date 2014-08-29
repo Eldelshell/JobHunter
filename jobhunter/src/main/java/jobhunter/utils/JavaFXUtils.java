@@ -19,15 +19,18 @@ package jobhunter.utils;
 import java.io.IOException;
 import java.util.Optional;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
@@ -95,5 +98,19 @@ public class JavaFXUtils {
 			l.error("Failed to open file {}", path, e);
 		}
 		return Optional.empty();
+	}
+	
+	public static void toast(final Label label, final String message) {
+		label.setText(message);
+		FadeTransition trans = new FadeTransition();
+		trans.setDuration(Duration.millis(3));
+		trans.setFromValue(0);
+		trans.setToValue(1);
+		trans.setNode(label);
+		trans.playFromStart();
+		
+		trans.setOnFinished((e) -> {
+			label.setOpacity(0);
+		});
 	}
 }
