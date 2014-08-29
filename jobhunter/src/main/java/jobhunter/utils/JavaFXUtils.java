@@ -57,6 +57,7 @@ public class JavaFXUtils {
 		} catch (Exception e) {
 			Dialogs
 				.create()
+				.lightweight()
 				.message(e.getLocalizedMessage())
 				.title("Failed to open link")
 				.showException(e);
@@ -76,6 +77,7 @@ public class JavaFXUtils {
     		Action response = Dialogs.create()
     			.masthead("There are pending changes")
     			.message("Do you want to continue without saving?")
+    			.lightweight()
     			.showConfirm();
     		
     		if (response != Dialog.Actions.YES) {

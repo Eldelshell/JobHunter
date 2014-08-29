@@ -136,6 +136,7 @@ public class FXMLController implements Initializable, Observer {
     		Action response = Dialogs.create()
     			.masthead("There are pending changes")
     			.message("Do you want to save your changes?")
+    			.lightweight()
     			.showConfirm();
     		
     		if (response == Dialog.Actions.YES){
@@ -159,6 +160,7 @@ public class FXMLController implements Initializable, Observer {
     		Action response = Dialogs.create()
     			.title("Open file " + fopen.get().getName())
     			.message("All changes will be lost. Do you want to continue?")
+    			.lightweight()
     			.showConfirm();
     		
     		if (response == Dialog.Actions.YES) {
@@ -246,6 +248,7 @@ public class FXMLController implements Initializable, Observer {
     	});
     	
     	Dialogs.create().message("Loading Plugins").showWorkerProgress(pl);
+    	
     	pl.start();
     }
     

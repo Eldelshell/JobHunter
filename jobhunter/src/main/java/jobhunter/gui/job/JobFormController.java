@@ -98,8 +98,8 @@ public class JobFormController extends Observable implements Initializable {
 	@FXML
 	void deleteButtonHandler(ActionEvent event) {
 		Action response = Dialogs.create()
-		        .owner(event.getSource())
 		        .title("Delete job")
+		        .lightweight()
 		        .masthead("You're about to delete this job.")
 		        .message("Do you want to continue?")
 		        .showConfirm();
