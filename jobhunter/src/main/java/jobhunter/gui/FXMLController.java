@@ -136,10 +136,13 @@ public class FXMLController implements Initializable, Observer {
     		
     		if (response == Dialog.Actions.YES){
     			onActionSaveMenuItemHandler(e);
-    			preferencesController.setLastFilePath("");
+    		}else if (response == Dialog.Actions.CANCEL){
+    			return;
     		}
+    		
     	}
     	
+    	preferencesController.setLastFilePath("");
     	profileController.clear();
     	refresh();
     }
@@ -168,7 +171,6 @@ public class FXMLController implements Initializable, Observer {
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
     		profileController.save(fout);
-    		state.changesPending(false);
     	}else{
     		onActionSaveAsMenuItemHandler(event);
     	}
@@ -180,7 +182,6 @@ public class FXMLController implements Initializable, Observer {
     	final Optional<File> fopen = FileChooserFactory.saveAs(JavaFXUtils.getWindow(mainWebView));
     	if(fopen.isPresent()){
     		profileController.save(fopen.get());
-    		state.changesPending(false);
     		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     	}
     }
@@ -296,8 +297,7 @@ public class FXMLController implements Initializable, Observer {
     
 	@Override
 	public void update(Observable o, Object arg) {
-		l.debug("Update!!!" + o.getClass().getCanonicalName());
-		state.changesPending(true);
+		l.debug("Update");
 		refresh();
 	}
 	

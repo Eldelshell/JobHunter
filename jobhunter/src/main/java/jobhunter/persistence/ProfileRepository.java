@@ -48,6 +48,7 @@ public enum ProfileRepository {
 		l.debug(job.toString());
 		current.addJob(job);
 		fireEvent();
+		ApplicationState.instanceOf().changesPending(true);
 	}
 
 	public void deleteJob(final Job job) {
@@ -55,6 +56,7 @@ public enum ProfileRepository {
 			.filter(j -> j.equals(job))
 			.forEach(j -> j.setActive(Boolean.FALSE));
 		fireEvent();
+		ApplicationState.instanceOf().changesPending(true);
 		
 	}
 
@@ -116,12 +118,12 @@ public enum ProfileRepository {
 
 	public void save(final File file) {
 		Persistence.save(current, file);
+		ApplicationState.instanceOf().changesPending(false);
 	}
 	
 	private void fireEvent() {
 		if(this.listener != null)
 			this.listener.changed();
-		ApplicationState.instanceOf().changesPending(true);
 	}
 
 	public ProfileRepositoryListener getListener() {
