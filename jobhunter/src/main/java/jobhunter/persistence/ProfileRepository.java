@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 import jobhunter.models.Job;
 import jobhunter.models.Profile;
+import jobhunter.utils.ApplicationState;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,12 +59,16 @@ public enum ProfileRepository {
 	}
 
 	public Optional<Job> getJob(final ObjectId id) {
-		return current.getJobs().stream().filter(j -> j.getId().equals(id))
+		return current.getJobs()
+				.stream()
+				.filter(j -> j.getId().equals(id))
 				.findFirst();
 	}
 
 	public Set<Job> getActiveJobs() {
-		return current.getJobs().stream().filter(j -> j.getActive()).sorted()
+		return current.getJobs()
+				.stream()
+				.filter(j -> j.getActive()).sorted()
 				.collect(Collectors.toSet());
 	}
 
@@ -116,6 +121,7 @@ public enum ProfileRepository {
 	private void fireEvent() {
 		if(this.listener != null)
 			this.listener.changed();
+		ApplicationState.instanceOf().changesPending(true);
 	}
 
 	public ProfileRepositoryListener getListener() {
