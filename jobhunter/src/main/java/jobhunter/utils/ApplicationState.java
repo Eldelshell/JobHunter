@@ -16,6 +16,9 @@
 
 package jobhunter.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public enum ApplicationState {
 	
 	_INSTANCE;
@@ -23,6 +26,7 @@ public enum ApplicationState {
 	private Boolean changesPending = Boolean.FALSE;
 	private Boolean debug = (System.getProperty("debug") != null);
 	private Boolean development = (System.getProperty("development") != null);
+	private static final Logger l = LoggerFactory.getLogger(ApplicationState.class);
 	
 	public static ApplicationState instanceOf() {
 		return _INSTANCE;
@@ -33,6 +37,7 @@ public enum ApplicationState {
 	}
 	
 	public void changesPending(Boolean val){
+		l.debug("Changes pending: {}", val);
 		this.changesPending = val;
 	}
 	
