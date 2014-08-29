@@ -40,11 +40,6 @@
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="View">
                     <items>
                         <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onActionDeletedMenuItemHandler" styleClass="main-menu-item" text="Deleted Jobs" />
-                        <Menu mnemonicParsing="false" styleClass="main-menu" text="Order By">
-                            <items>
-                                <MenuItem mnemonicParsing="false" styleClass="main-menu-item" text="Date" />
-                            </items>
-                        </Menu>
                     </items>
                 </Menu>
             <Menu mnemonicParsing="false" text="Jobs">
