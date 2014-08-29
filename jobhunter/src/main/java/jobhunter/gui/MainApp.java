@@ -42,7 +42,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("JobHunter 0.0.1-SNAPSHOT");
+        stage.setTitle("JobHunter 0.0.2");
         stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
         stage.show();
