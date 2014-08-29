@@ -52,7 +52,8 @@ public enum ProfileRepository {
 	}
 
 	public void deleteJob(final Job job) {
-		current.getJobs().stream()
+		current.getJobs()
+			.stream()
 			.filter(j -> j.equals(job))
 			.forEach(j -> j.setActive(Boolean.FALSE));
 		fireEvent();
@@ -70,17 +71,16 @@ public enum ProfileRepository {
 	public Set<Job> getActiveJobs() {
 		return current.getJobs()
 				.stream()
-				.filter(j -> j.getActive()).sorted()
+				.filter(j -> j.getActive())
+				.sorted()
 				.collect(Collectors.toSet());
 	}
-
-	public Set<Job> getJobsByDate() {
-		return current.getJobs().stream().filter(j -> j.getActive())
-				.sorted(new Job.DateComparator()).collect(Collectors.toSet());
-	}
-
+	
 	public Set<Job> getAllJobs() {
-		return current.getJobs();
+		return current.getJobs()
+				.stream()
+				.sorted()
+				.collect(Collectors.toSet());
 	}
 
 	public Profile getProfile() {
@@ -102,8 +102,7 @@ public enum ProfileRepository {
 
 	public Set<String> getAutocompleteCompanies() {
 		Set<String> companies = new HashSet<>();
-		getProfile().getJobs().forEach(
-				j -> companies.add(j.getCompany().getName()));
+		getProfile().getJobs().forEach(j -> companies.add(j.getCompany().getName()));
 		return companies;
 	}
 
