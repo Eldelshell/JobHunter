@@ -103,7 +103,7 @@ public class JavaFXUtils {
 	public static void toast(final Label label, final String message) {
 		label.setText(message);
 		FadeTransition trans = new FadeTransition();
-		trans.setDuration(Duration.millis(3));
+		trans.setDuration(Duration.seconds(3));
 		trans.setFromValue(0);
 		trans.setToValue(1);
 		trans.setNode(label);
