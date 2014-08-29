@@ -31,6 +31,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -105,6 +106,9 @@ public class FXMLController implements Initializable, Observer {
     @FXML
     private ComboBox<String> sortCombo;
     
+    @FXML
+    private Label statusLabel;
+    
     private FadeTransition mainWebViewFadeTransition;
     
     private ResourceBundle bundle;
@@ -171,6 +175,7 @@ public class FXMLController implements Initializable, Observer {
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
     		profileController.save(fout);
+    		JavaFXUtils.toast(statusLabel, "Changes saved");
     	}else{
     		onActionSaveAsMenuItemHandler(event);
     	}
@@ -183,6 +188,7 @@ public class FXMLController implements Initializable, Observer {
     	if(fopen.isPresent()){
     		profileController.save(fopen.get());
     		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
+    		JavaFXUtils.toast(statusLabel, "Changes saved");
     	}
     }
 
