@@ -16,7 +16,6 @@
 
 package jobhunter.gui.job;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -25,9 +24,7 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -81,6 +78,7 @@ public class ActivityLogController implements Initializable, JobFormChild<Activi
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		l.debug("Initializing");
 		dateColumn.setCellValueFactory(new PropertyValueFactory<ActivityLog, String>("date"));
 		eventColumn.setCellValueFactory(new PropertyValueFactory<ActivityLog, String>("event"));
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<ActivityLog, String>("description"));
@@ -92,17 +90,10 @@ public class ActivityLogController implements Initializable, JobFormChild<Activi
 		ctrl.setLogs(logs);
     	return ctrl;
     }
-
+	
 	@Override
-	public Optional<Parent> load() {
-		FXMLLoader fxmlLoader = new FXMLLoader(ApplicationFormController.class.getResource(PATH));
-    	fxmlLoader.setController(this);
-		try {
-			return Optional.of((Parent)fxmlLoader.load());
-		} catch (IOException e) {
-			l.error("Failed to open file {}", PATH, e);
-		}
-		return Optional.empty();
+	public String getFXMLPath() {
+		return PATH;
 	}
 
 	@Override

@@ -16,19 +16,37 @@
 
 package jobhunter.gui.job;
 
+import java.io.IOException;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import jobhunter.gui.FormChangeListener;
 
 public interface JobFormChild<T> {
-
-	Optional<Parent> load();
 	
+	static final Logger l = LoggerFactory.getLogger(JobFormChild.class);
+
 	abstract void changed();
 	
 	FormChangeListener<T> getListener();
 	
 	void setListener(FormChangeListener<T> listener);
+	
+	String getFXMLPath();
+	
+	default Optional<Parent> load() {
+		FXMLLoader fxmlLoader = new FXMLLoader(JobFormChild.class.getResource(getFXMLPath()));
+    	fxmlLoader.setController(this);
+		try {
+			return Optional.of((Parent)fxmlLoader.load());
+		} catch (IOException e) {
+			l.error("Failed to open file {}", getFXMLPath(), e);
+		}
+		return Optional.empty();
+	}
 	
 }

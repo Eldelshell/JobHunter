@@ -16,17 +16,13 @@
 
 package jobhunter.gui.job;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
@@ -82,16 +78,9 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
     }
     
     @Override
-    public Optional<Parent> load() {
-    	FXMLLoader fxmlLoader = new FXMLLoader(ApplicationFormController.class.getResource(PATH));
-    	fxmlLoader.setController(this);
-		try {
-			return Optional.of((Parent)fxmlLoader.load());
-		} catch (IOException e) {
-			l.error("Failed to open file {}", PATH, e);
-		}
-		return Optional.empty();
-    }
+	public String getFXMLPath() {
+		return PATH;
+	}
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
