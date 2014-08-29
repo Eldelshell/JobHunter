@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,6 +87,13 @@ public enum PreferencesController {
 	public List<String> getPortalsList() {
 		final String portals = current.get(PORTALS_PROPERTY, DEFAULT_PORTALS);
 		return Arrays.asList(portals.split(", "));
+	}
+	
+	public void addNewPortal(final String portal){
+		final String portals = current.get(PORTALS_PROPERTY, DEFAULT_PORTALS);
+		if(!StringUtils.contains(portals, portal))
+			setPortals(portals + ", " + portal);
+		
 	}
 	
 	public void save() {

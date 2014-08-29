@@ -36,7 +36,7 @@
             <TextField fx:id="positionTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="addressTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="salaryTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ChoiceBox fx:id="portalCombo" prefHeight="25.0" prefWidth="390.0" styleClass="form-combo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="portalCombo" editable="true" prefHeight="25.0" prefWidth="390.0" styleClass="form-combo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="linkTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Slider fx:id="ratingSlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextArea fx:id="descriptionTextArea" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />

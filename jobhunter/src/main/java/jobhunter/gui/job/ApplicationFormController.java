@@ -28,6 +28,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -55,7 +56,7 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
     private TextField positionTextField;
 
     @FXML
-    private ChoiceBox<String> portalCombo;
+    private ComboBox<String> portalCombo;
 
     @FXML
     private ChoiceBox<String> statusCombo;
@@ -170,6 +171,7 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
 		portalCombo.valueProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setPortal(neu);
+				preferencesController.addNewPortal(neu);
 				changed();
 			}
 		});
@@ -196,7 +198,6 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
 		
 		if(!job.getActive())
 			initializeInactive();
-		
 	}
 	
 	private void initializeInactive() {
