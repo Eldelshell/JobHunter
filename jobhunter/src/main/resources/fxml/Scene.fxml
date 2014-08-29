@@ -81,5 +81,6 @@
             <WebView fx:id="mainWebView" opacity="0.0" prefHeight="200.0" prefWidth="200.0" />
          </items>
       </SplitPane>
+      <Label fx:id="statusLabel" contentDisplay="TEXT_ONLY" opacity="0.0" prefHeight="24.0" styleClass="status-label" text="buooooooooo" />
     </children>
 </VBox>
