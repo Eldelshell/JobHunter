@@ -325,4 +325,13 @@ public class Job implements Comparable<Job>{
 		
 	}
 	
+	public static class PositionComparator implements Comparator<Job> {
+
+		@Override
+		public int compare(Job o1, Job o2) {
+			return o1.getPosition().compareTo(o2.getPosition());
+		}
+		
+	}
+	
 }
