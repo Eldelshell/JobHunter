@@ -167,7 +167,6 @@ public class FXMLController implements Initializable, Observer {
     			refresh();
     		}
     	}
-    	
     }
 
     @FXML
@@ -179,7 +178,6 @@ public class FXMLController implements Initializable, Observer {
     	}else{
     		onActionSaveAsMenuItemHandler(event);
     	}
-    	
     }
 
     @FXML
