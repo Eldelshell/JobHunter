@@ -84,6 +84,7 @@
                 <configuration>
                     <descriptors>
                         <descriptor>${project.basedir}/extras/assembly.xml</descriptor>
+                        <descriptor>${project.basedir}/extras/assembly-plugins.xml</descriptor>
                     </descriptors>
                 </configuration>
             </plugin>

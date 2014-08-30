@@ -51,23 +51,6 @@
             <directoryMode>0755</directoryMode>
         </fileSet>
         
-        <!-- Include plugins -->
-        <fileSet>
-            <directory>${settings.localRepository}/jobhunter/infojobs-plugin/0.1/</directory>
-            <outputDirectory>/lib</outputDirectory>
-            <includes>
-                <include>infojobs-plugin-0.1.jar</include>
-            </includes>
-        </fileSet>
-        
-        <fileSet>
-            <directory>${settings.localRepository}/jobhunter/infoempleo-plugin/0.1/</directory>
-            <outputDirectory>/lib</outputDirectory>
-            <includes>
-                <include>infoempleo-plugin-0.1.jar</include>
-            </includes>
-        </fileSet>
-        
     </fileSets>
 
 </assembly>
