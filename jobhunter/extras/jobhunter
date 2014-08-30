@@ -24,7 +24,7 @@ do_start () {
 
     local exit_code=10
     while [ $exit_code -eq 10 ]; do
-        "${JAVA_HOME}/bin/java" ${opts} -cp "${path}" jobhunter.gui.MainApp
+        "${JAVA_HOME}/bin/java" ${opts} -cp "${path}" jobhunter.gui.MainApp > /dev/null 2>&1
         exit_code=$?
     done
 }
