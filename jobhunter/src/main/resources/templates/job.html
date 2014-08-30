@@ -45,39 +45,58 @@
       
       <div class="row">
         <div class="col-lg-12">
+            <h2>@{portal != empty ? portal : ''}</h2>
             <h3>
-                @if{link != null}
-                    <a href="@{link}">@{position != null ? position : ''}</a>
+                @if{link != empty}
+                    <a href="@{link}">@{position != empty ? position : ''}</a>
                 @else{}
-                    @{position != null ? position : ''}
+                    @{position != empty ? position : ''}
                 @end{}
             </h3>
             <h4>
-              <a href="@{company.url}">@{company.name}</a> (@{address != null ? address : ''})
+              @if{company.url != empty}
+                  <a href="@{company.url}">@{company.name}</a>
+              @else{}
+                  @{company.name != empty ? company.name : ''}
+              @end{}
+              
+              @if{address != empty}
+                  (@{address})
+              @end{}
             </h4>
+            
          </div>
       </div>
       
-      <table class="table">
-        <thead>
-            <tr>
-                <th>Salary</th>
-                <th>Rating</th>
-                <th>Portal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@{salary != null ? salary : ''}</td>
-                <td>@{rating}</td>
-                <td>@{portal != null ? portal : ''}</td>
-            </tr>
-        </tbody>
-      </table>
+      <div class="row">
+        <div class="col-lg-12" style="font-size: 14pt;">
+            Salary @{salary != empty ? salary : 'N/A'}
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-lg-12" style="font-size: 14pt;">
+            @if{rating == 0}
+                &#9734; &#9734; &#9734; &#9734; &#9734;
+            @else{rating == 1}
+                &#9733; &#9734; &#9734; &#9734; &#9734;
+            @else{rating == 2}
+                &#9733; &#9733; &#9734; &#9734; &#9734;
+            @else{rating == 3}
+                &#9733; &#9733; &#9733; &#9734; &#9734;
+            @else{rating == 4}
+                &#9733; &#9733; &#9733; &#9733; &#9734;
+            @else{}
+                &#9733; &#9733; &#9733; &#9733; &#9733;
+            @end{}
+        </div>
+      </div>
+      
       <hr>
+      
       <div class="row">
         <div class="col-lg-12">
-          <pre>@{description}</pre>
+            <div style="white-space: pre-wrap;">@{description}</div>
         </div>
       </div>
     </div>
