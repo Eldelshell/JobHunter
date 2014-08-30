@@ -19,6 +19,7 @@
             <ContextMenu fx:id="tableContextMenu">
               <items>
                 <MenuItem fx:id="addRowMenuItem" mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="Add Event" />
+                  <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="Delete Event" />
               </items>
             </ContextMenu>
          </contextMenu>

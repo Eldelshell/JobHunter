@@ -76,6 +76,17 @@ public class ActivityLogController implements Initializable, JobFormChild<Activi
     	
     }
 	
+    @FXML
+    void onDeleteRowMenuItemAction(ActionEvent event) {
+    	ActivityLog selected = table.getSelectionModel().getSelectedItem();
+    	int index = table.getSelectionModel().getSelectedIndex();
+    	
+    	if(selected == null) return;
+    	
+    	this.logs.remove(selected);
+    	table.getItems().remove(index);
+    }
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		l.debug("Initializing");
