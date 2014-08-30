@@ -18,6 +18,7 @@ package jobhunter.api.infojobs.model;
 
 import jobhunter.models.Company;
 import jobhunter.models.Job;
+import jobhunter.plugin.InfoJobsAPIPlugin;
 
 public class ModelMapper {
 
@@ -35,7 +36,7 @@ public class ModelMapper {
 		j.setAddress(offer.getCity());
 		j.setDescription(mapDescription(offer));
 		j.setLink(offer.getLink());
-		j.setPortal("InfoJobs"); //This has to come from the API!!!
+		j.setPortal(InfoJobsAPIPlugin.portal);
 		j.setPosition(offer.getTitle());
 		j.setSalary(mapSalary(offer));
 		

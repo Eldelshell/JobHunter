@@ -30,10 +30,12 @@ import jobhunter.plugins.PlugIn;
 import org.controlsfx.dialog.Dialogs;
 
 public class InfoJobsAPIPlugin implements PlugIn {
+	
+	public static final String portal = "InfoJobs";
 
 	@Override
 	public String getPortal() {
-		return "InfoJobs API";
+		return portal;
 	}
 
 	@Override
@@ -43,7 +45,7 @@ public class InfoJobsAPIPlugin implements PlugIn {
 
 	@Override
 	public MenuItem getMenuItem() {
-		MenuItem item = new MenuItem("InfoJobs");
+		MenuItem item = new MenuItem(portal);
 		item.setOnAction(new MenuItemHandler());
 		return item;
 	}
@@ -53,9 +55,11 @@ public class InfoJobsAPIPlugin implements PlugIn {
 		@Override
 		public void handle(ActionEvent arg0) {
 			Optional<String> result = Dialogs
-	    		.create()
-	    		.masthead("Add job from InfoJobs")
-	    		.message("Copy and paste the URL")
+				.create()
+	    		.title("Add job from " + portal)
+	    		.masthead("Copy and paste the URL")
+	    		.message("URL (with http)")
+	    		.lightweight()
 	    		.showTextInput();
 			
 			if(result.isPresent()){
@@ -74,7 +78,7 @@ public class InfoJobsAPIPlugin implements PlugIn {
 						.showException(event.getSource().getException());
 	    		});
 	    		
-	    		Dialogs.create().message("Importing...").showWorkerProgress(s);
+	    		Dialogs.create().message("Importing...").lightweight().showWorkerProgress(s);
 	    		s.start();
 			}
 		}
