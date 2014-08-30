@@ -162,5 +162,11 @@
             <artifactId>reflections</artifactId>
             <version>0.9.9-RC2</version>
         </dependency>
+        <dependency>
+            <!-- jsoup HTML parser library -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.3</version>
+        </dependency>
     </dependencies>
 </project>
