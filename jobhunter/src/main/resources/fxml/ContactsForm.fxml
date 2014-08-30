@@ -18,7 +18,8 @@
          <contextMenu>
             <ContextMenu fx:id="tableContextMenu">
               <items>
-                <MenuItem fx:id="addRowMenuItem" mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="Add contact" />
+                <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="Add Contact" />
+                <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="Delete Contact" />
               </items>
             </ContextMenu>
          </contextMenu>

@@ -112,6 +112,17 @@ public class ContactsFormController implements Initializable, JobFormChild<Conta
 		table.getSelectionModel().selectLast();
 	}
 	
+	@FXML
+    void onDeleteRowMenuItemAction(ActionEvent event) {
+    	Contact selected = table.getSelectionModel().getSelectedItem();
+    	int index = table.getSelectionModel().getSelectedIndex();
+    	
+    	if(selected == null) return;
+    	
+    	this.contacts.remove(selected);
+    	table.getItems().remove(index);
+    }
+	
 	private void updateContact(final Contact contact) {
 		this.contacts.stream()
 			.filter(c -> c.getId().equals(contact.getId()))
