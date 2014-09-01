@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jobhunter</groupId>
     <artifactId>infoempleo-plugin</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <name>JobHunter Plugin for InfoEmpleo</name>
     <description>JobHunter Plugin to Import from InfoEmpleo</description>
 
