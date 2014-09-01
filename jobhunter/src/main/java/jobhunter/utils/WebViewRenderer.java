@@ -34,13 +34,12 @@ import org.w3c.dom.html.HTMLAnchorElement;
 public class WebViewRenderer {
 
 	public static void render(final WebView view, Job job) {
-		
-		final Optional<Object> obj = HTMLRenderer.render(job);
-		if(obj.isPresent()){
-			final String str = (String) obj.get();
-			view.getEngine().loadContent(str);
-		}
-		
+		HTMLRenderer.render(job).ifPresent(obj -> {
+			view.getEngine().loadContent((String) obj);
+		});
+	}
+	
+	public static void setListener(final WebView view){
 		// We want to handle all anchor click events after the view has loaded
 		
 		view.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
