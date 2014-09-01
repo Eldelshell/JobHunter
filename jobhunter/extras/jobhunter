@@ -41,7 +41,7 @@ case ${1} in
     ;;
 
     debug)
-        do_demo
+        do_debug
     ;;
 
     *)
