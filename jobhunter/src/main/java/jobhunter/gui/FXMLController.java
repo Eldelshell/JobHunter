@@ -50,6 +50,7 @@ import jobhunter.persistence.ProfileRepository;
 import jobhunter.plugins.PlugIn;
 import jobhunter.plugins.PlugInLoader;
 import jobhunter.utils.ApplicationState;
+import jobhunter.utils.HTMLRenderer;
 import jobhunter.utils.JavaFXUtils;
 import jobhunter.utils.Random;
 import jobhunter.utils.WebViewRenderer;
@@ -190,6 +191,13 @@ public class FXMLController implements Initializable, Observer {
     		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     		JavaFXUtils.toast(statusLabel, "Changes saved");
     	}
+    }
+    
+    @FXML
+    void onExportHTML(ActionEvent event) {
+    	FileChooserFactory
+    		.exportHTML(JavaFXUtils.getWindow(mainWebView))
+    		.ifPresent(fopen ->HTMLRenderer.export(fopen, this.jobs));
     }
 
     @FXML

@@ -29,6 +29,11 @@
                             </accelerator>
                         </MenuItem>
                         <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#onActionSaveAsMenuItemHandler" styleClass="main-menu-item" text="Save As..." />
+                  <Menu mnemonicParsing="false" text="Export">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#onExportHTML" text="HTML" />
+                    </items>
+                  </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#onActionQuitMenuItemHandler" styleClass="main-menu-item" text="Quit">
                             <accelerator>
