@@ -25,7 +25,7 @@ public class AboutDialog {
 			.create()
 			.title("About JobHunter")
 			.lightweight()
-			.masthead("JobHunter 0.0.2")
+			.masthead("JobHunter 0.0.3")
 			.message("Copyright © Alejandro Ayuso\nJobHunter is licensed under the GPLv3 Open Source License")
 			.showInformation();
 	}
