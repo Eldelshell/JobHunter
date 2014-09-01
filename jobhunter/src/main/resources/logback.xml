@@ -9,7 +9,7 @@
         </encoder>
     </appender>
 
-    <logger name="jobhunter" level="INFO" additivity="false">
+    <logger name="jobhunter" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
