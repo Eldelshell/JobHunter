@@ -38,7 +38,7 @@ public class ImportService extends Service<Job> {
 		return new ImportTask(url);
 	}
 	
-	static class ImportTask extends Task<Job> {
+	static class ImportTask extends Task<Job>  {
 		
 		private final String url;
 		
@@ -49,10 +49,23 @@ public class ImportService extends Service<Job> {
 
 		@Override
 		protected Job call() throws Exception {
+			
+			update("Connecting", 1L);
 			Optional<Offer> offer = OfferRequest.of(url).execute();
-			if(offer.isPresent())
-				return ModelMapper.map(offer.get());
+			
+			if(offer.isPresent()){
+				update("Parsing response", 2L);
+				Job job = ModelMapper.map(offer.get());
+				
+				update("Done", 3L);
+				return job;
+			}
 			return null;
+		}
+		
+		private void update(String message, Long position) {
+			updateMessage(message);
+			updateProgress(position, 5);
 		}
 		
 	}

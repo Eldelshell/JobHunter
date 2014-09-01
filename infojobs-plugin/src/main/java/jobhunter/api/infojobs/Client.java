@@ -19,6 +19,8 @@ package jobhunter.api.infojobs;
 import java.io.IOException;
 import java.util.Optional;
 
+import jobhunter.api.infojobs.model.Error;
+
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -30,7 +32,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import jobhunter.api.infojobs.model.Error;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
