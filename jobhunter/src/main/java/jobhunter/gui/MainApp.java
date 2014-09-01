@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jobhunter.controllers.PreferencesController;
+import jobhunter.utils.ApplicationState;
 import jobhunter.utils.JavaFXUtils;
 
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("JobHunter 0.0.2");
+        stage.setTitle(ApplicationState.APP_STRING);
         stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
         stage.show();

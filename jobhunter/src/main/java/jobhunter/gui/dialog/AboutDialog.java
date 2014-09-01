@@ -16,6 +16,8 @@
 
 package jobhunter.gui.dialog;
 
+import jobhunter.utils.ApplicationState;
+
 import org.controlsfx.dialog.Dialogs;
 
 public class AboutDialog {
@@ -25,7 +27,7 @@ public class AboutDialog {
 			.create()
 			.title("About JobHunter")
 			.lightweight()
-			.masthead("JobHunter 0.0.3")
+			.masthead(ApplicationState.APP_STRING)
 			.message("Copyright © Alejandro Ayuso\nJobHunter is licensed under the GPLv3 Open Source License")
 			.showInformation();
 	}

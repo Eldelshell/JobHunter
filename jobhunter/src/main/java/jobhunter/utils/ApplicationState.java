@@ -26,7 +26,9 @@ public enum ApplicationState {
 	private Boolean changesPending = Boolean.FALSE;
 	private Boolean debug = (System.getProperty("debug") != null);
 	private Boolean development = (System.getProperty("development") != null);
+	
 	private static final Logger l = LoggerFactory.getLogger(ApplicationState.class);
+	public static final String APP_STRING = "JobHunter 0.0.3";
 	
 	public static ApplicationState instanceOf() {
 		return _INSTANCE;
