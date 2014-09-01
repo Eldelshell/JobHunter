@@ -315,6 +315,8 @@ public class FXMLController implements Initializable, Observer {
 		mainWebViewFadeTransition.setToValue(1);
 		mainWebViewFadeTransition.setNode(mainWebView);
 		
+		WebViewOnClickListener.set(mainWebView);
+		
 		// Load Plugins
     	onLoadPlugIns(null);
     }
