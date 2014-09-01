@@ -16,8 +16,6 @@
 
 package jobhunter.utils;
 
-import java.util.Optional;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
