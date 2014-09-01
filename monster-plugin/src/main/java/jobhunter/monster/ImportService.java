@@ -16,6 +16,12 @@
 
 package jobhunter.monster;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import jobhunter.models.Job;
@@ -23,6 +29,8 @@ import jobhunter.models.Job;
 public class ImportService extends Service<Job> {
 
 private final String url;
+
+	private static final Logger l = LoggerFactory.getLogger(ImportService.class);
 	
 	public ImportService(String url) {
 		super();
@@ -34,7 +42,7 @@ private final String url;
 		return new ImportTask(url);
 	}
 	
-	static class ImportTask extends Task<Job> {
+	static class ImportTask extends Task<Job> implements Observer {
 		
 		private final String url;
 		
@@ -46,10 +54,18 @@ private final String url;
 		@Override
 		protected Job call() throws Exception {
 			try{
-				return Client.get(url);
+				return Client.of(url).observe(this).execute();
 			}catch(Exception e) {
 				throw new MonsterAPIException("Failed to import");
 			}
+		}
+		
+		@Override
+		public void update(Observable o, Object arg) {
+			l.debug("Update progress");
+			Client.Event event = (Client.Event) arg;
+			updateMessage(event.message);
+			updateProgress(event.position, event.total);
 		}
 		
 	}
