@@ -1,0 +1,79 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Your jobs list exported by JobHunter</title>
+    
+    <style type="text/css">
+      @include{styles_path}
+    </style>
+    
+</head>
+<body>
+    @foreach{job : jobs}
+    
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-lg-12">
+              <h2>@{job.portal != empty ? job.portal : ''}</h2>
+              <h3>
+                  @if{job.link != empty}
+                      <a href="@{job.link}">@{job.position != empty ? job.position : ''}</a>
+                  @else{}
+                      @{job.position != empty ? job.position : ''}
+                  @end{}
+              </h3>
+              <h4>
+                @if{job.company.url != empty}
+                    <a href="@{job.company.url}">@{job.company.name}</a>
+                @else{}
+                    @{job.company.name != empty ? job.company.name : ''}
+                @end{}
+                
+                @if{job.address != empty}
+                    (@{job.address})
+                @end{}
+              </h4>
+              
+           </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-12" style="font-size: 14pt;">
+              Salary @{job.salary != empty ? job.salary : 'N/A'}
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-12" style="font-size: 14pt;">
+              @if{job.rating == 0}
+                  &#9734; &#9734; &#9734; &#9734; &#9734;
+              @else{job.rating == 1}
+                  &#9733; &#9734; &#9734; &#9734; &#9734;
+              @else{job.rating == 2}
+                  &#9733; &#9733; &#9734; &#9734; &#9734;
+              @else{job.rating == 3}
+                  &#9733; &#9733; &#9733; &#9734; &#9734;
+              @else{job.rating == 4}
+                  &#9733; &#9733; &#9733; &#9733; &#9734;
+              @else{}
+                  &#9733; &#9733; &#9733; &#9733; &#9733;
+              @end{}
+          </div>
+        </div>
+        
+        <hr>
+        
+        <div class="row">
+          <div class="col-lg-12">
+              <div style="white-space: pre-wrap;">@{job.description}</div>
+          </div>
+        </div>
+      </div>
+      
+      <hr>
+    
+    @end{}
+    
+</body>
+</html>

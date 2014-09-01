@@ -32,7 +32,7 @@ import org.w3c.dom.html.HTMLAnchorElement;
 public class WebViewRenderer {
 
 	public static void render(final WebView view, Job job) {
-		HTMLRenderer.render(job).ifPresent(obj -> {
+		HTMLRenderer.of().render(job).ifPresent(obj -> {
 			view.getEngine().loadContent((String) obj);
 		});
 	}

@@ -195,9 +195,18 @@ public class FXMLController implements Initializable, Observer {
     
     @FXML
     void onExportHTML(ActionEvent event) {
-    	FileChooserFactory
-    		.exportHTML(JavaFXUtils.getWindow(mainWebView))
-    		.ifPresent(fopen ->HTMLRenderer.export(fopen, this.jobs));
+    	final Optional<File> fopen = FileChooserFactory.exportHTML(JavaFXUtils.getWindow(mainWebView));
+    	
+    	if(fopen.isPresent() && HTMLRenderer.of().export(fopen.get(), profileController.getProfile())){
+    		JavaFXUtils.toast(statusLabel, "Exported to HTML");
+    	}else{
+    		Dialogs
+    			.create()
+    			.lightweight()
+    			.message("Failed to export to HTML")
+    			.showError();
+    	}
+    	
     }
 
     @FXML
