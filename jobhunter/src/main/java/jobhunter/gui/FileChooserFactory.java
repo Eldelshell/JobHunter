@@ -26,6 +26,8 @@ import javafx.stage.Window;
 public class FileChooserFactory {
 
 	private static final ExtensionFilter JHF_FILTER = new ExtensionFilter("JobHunter File", "*.jhf");
+	private static final ExtensionFilter HTM_FILTER = new ExtensionFilter("HTML File", "*.html");
+	private static final ExtensionFilter PDF_FILTER = new ExtensionFilter("PDF File", "*.pdf");
 	
 	public static Optional<File> open(final Window window) {
 		final FileChooser fc = new FileChooser();
@@ -40,6 +42,22 @@ public class FileChooserFactory {
     	fc.setTitle("Save JobHunter File");
     	fc.setSelectedExtensionFilter(JHF_FILTER);
     	fc.getExtensionFilters().add(JHF_FILTER);
+    	return Optional.ofNullable(fc.showSaveDialog(window));
+	}
+	
+	public static Optional<File> exportHTML(final Window window) {
+		final FileChooser fc = new FileChooser();
+    	fc.setTitle("Export as HTML");
+    	fc.setSelectedExtensionFilter(HTM_FILTER);
+    	fc.getExtensionFilters().add(HTM_FILTER);
+    	return Optional.ofNullable(fc.showSaveDialog(window));
+	}
+	
+	public static Optional<File> exportPDF(final Window window) {
+		final FileChooser fc = new FileChooser();
+    	fc.setTitle("Export as PDF");
+    	fc.setSelectedExtensionFilter(PDF_FILTER);
+    	fc.getExtensionFilters().add(PDF_FILTER);
     	return Optional.ofNullable(fc.showSaveDialog(window));
 	}
 	
