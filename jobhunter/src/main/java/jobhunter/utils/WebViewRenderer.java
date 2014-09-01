@@ -16,12 +16,7 @@
 
 package jobhunter.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -29,7 +24,6 @@ import javafx.concurrent.Worker.State;
 import javafx.scene.web.WebView;
 import jobhunter.models.Job;
 
-import org.mvel2.templates.TemplateRuntime;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.events.Event;
@@ -39,16 +33,12 @@ import org.w3c.dom.html.HTMLAnchorElement;
 
 public class WebViewRenderer {
 
-	private static void render(final WebView view, Job job, final Map<String, String> values) {
-		String path = "templates/job.html";
+	public static void render(final WebView view, Job job) {
 		
-		if(ApplicationState.instanceOf().isDevelopment())
-			path = "src/main/resources/templates/job.html";
-		
-		try(InputStream io = new FileInputStream(new File(path))){
-			view.getEngine().loadContent((String)TemplateRuntime.eval(io, job, values));
-		} catch (IOException e) {
-			e.printStackTrace();
+		final Optional<Object> obj = HTMLRenderer.render(job);
+		if(obj.isPresent()){
+			final String str = (String) obj.get();
+			view.getEngine().loadContent(str);
 		}
 		
 		// We want to handle all anchor click events after the view has loaded
@@ -67,19 +57,7 @@ public class WebViewRenderer {
 					}
 				}
 			}
-			
 		});
-		
-	}
-	
-	public static void render(final WebView view, final Job job) {
-		final Map<String, String> vals = new HashMap<>();
-		if(ApplicationState.instanceOf().isDevelopment()){
-			vals.put("styles_path", "src/main/resources/templates/styles.html");
-		}else{
-			vals.put("styles_path", "templates/styles.html");
-		}
-		render(view, job, vals);
 	}
 	
 	private static class OnLinkClickHandler implements EventListener {
