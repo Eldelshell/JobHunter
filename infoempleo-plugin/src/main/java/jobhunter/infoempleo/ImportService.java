@@ -16,21 +16,21 @@
 
 package jobhunter.infoempleo;
 
-import java.net.URI;
-
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import java.util.Observable;
+import java.util.Observer;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import jobhunter.models.Job;
-import jobhunter.plugin.InfoEmpleoWebPlugin;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ImportService extends Service<Job> {
+	
+	private static final Logger l = LoggerFactory.getLogger(ImportService.class);
 
-private final String url;
+	private final String url;
 	
 	public ImportService(String url) {
 		super();
@@ -42,7 +42,7 @@ private final String url;
 		return new ImportTask(url);
 	}
 	
-	static class ImportTask extends Task<Job> {
+	static class ImportTask extends Task<Job> implements Observer {
 		
 		private final String url;
 		
@@ -54,46 +54,18 @@ private final String url;
 		@Override
 		protected Job call() throws Exception {
 			try{
-				final Document doc = Jsoup.connect(url).get();
-				final Job job = Job.of();
-				
-				job.setPortal(InfoEmpleoWebPlugin.portal);
-				job.setLink(url);
-				job.setExtId("");
-				
-				final StringBuilder description = new StringBuilder();
-				
-				doc.getElementsByClass("linea").forEach(td -> {
-					td.getElementsByTag("p").forEach(p -> {
-						description
-							.append(StringEscapeUtils.unescapeHtml4(p.html()))
-							.append(System.lineSeparator());
-					});
-				});
-				
-				job.setDescription(description.toString());
-				
-				job.setPosition(
-					doc.getElementById("ctl00_CPH_Body_Link_Subtitulo").attr("title")
-				);
-				
-				job.getCompany().setName(
-					doc.getElementById("ctl00_CPH_Body_Logo_Empresa").attr("title")
-				);
-				
-				final String href = doc.getElementById("ctl00_CPH_Body_lnkEnviarAmigoI").attr("href");
-				
-				final String extId = URLEncodedUtils.parse(new URI(href), "UTF-8")
-					.stream()
-					.filter(nvp -> nvp.getName().equalsIgnoreCase("Id_Oferta"))
-					.findFirst().get()
-					.getValue();
-				
-				job.setExtId(extId);
-				return job;
+				return Client.of(url).observe(this).execute();
 			}catch(Exception e) {
 				throw new InfoEmpleoAPIException("Failed to import");
 			}
+		}
+
+		@Override
+		public void update(Observable o, Object arg) {
+			l.debug("Update progress");
+			Client.Event event = (Client.Event) arg;
+			updateMessage(event.message);
+			updateProgress(event.position, event.total);
 		}
 		
 	}
