@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jobhunter</groupId>
     <artifactId>monster-plugin</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <name>JobHunter plugin for Monster</name>
     <description>JobHunter plugin for Monster</description>
 
