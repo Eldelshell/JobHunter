@@ -16,24 +16,24 @@
 
 package jobhunter.gui;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.util.Callback;
 import jobhunter.models.Job;
 
 public class JobCell extends ListCell<Job> {
 	
 	private final AnchorPane container;
-	private final Text label1;
-	private final Text label2;
+	private final Label label1;
+	private final Label label2;
 	
 	public JobCell() {
 		super();
 		this.container = new AnchorPane();
-		this.label1 = new Text();
-		this.label2 = new Text();
+		this.label1 = new Label();
+		this.label2 = new Label();
 		
 		label1.setId("job-list-view-label-1");
 		AnchorPane.setLeftAnchor(label1, 5.0);
