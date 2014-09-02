@@ -35,6 +35,7 @@ public enum PreferencesController {
 	
 	public static final String PORTALS_PROPERTY = "portals";
 	public static final String LAST_FILE_PATH_PROPERTY = "last-file-path";
+	public static final String AUTOSAVE_PROPERTY = "autosave";
 	
 	public static PreferencesController instanceOf() {
 		return _INSTANCE;
@@ -62,6 +63,7 @@ public enum PreferencesController {
 	private void generate() {
 		current.put(LAST_FILE_PATH_PROPERTY, "");
 		current.put(PORTALS_PROPERTY, DEFAULT_PORTALS);
+		current.putBoolean(AUTOSAVE_PROPERTY, false);
 	}
 	
 	public void setLastFilePath(final String value) {
@@ -84,6 +86,14 @@ public enum PreferencesController {
 		return current.get(PORTALS_PROPERTY, DEFAULT_PORTALS);
 	}
 	
+	public Boolean isAutosave() {
+		return current.getBoolean(AUTOSAVE_PROPERTY, false);
+	}
+	
+	public void setAutosave(final Boolean bool){
+		current.putBoolean(AUTOSAVE_PROPERTY, bool);
+	}
+	
 	public List<String> getPortalsList() {
 		final String portals = current.get(PORTALS_PROPERTY, DEFAULT_PORTALS);
 		return Arrays.asList(portals.split(", "));
@@ -93,7 +103,6 @@ public enum PreferencesController {
 		final String portals = current.get(PORTALS_PROPERTY, DEFAULT_PORTALS);
 		if(!StringUtils.contains(portals, portal))
 			setPortals(portals + ", " + portal);
-		
 	}
 	
 	public void save() {

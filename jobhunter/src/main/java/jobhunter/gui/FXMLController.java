@@ -30,6 +30,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -82,6 +83,9 @@ public class FXMLController implements Initializable, Observer {
 
     @FXML
     private MenuItem saveMenuItem;
+    
+    @FXML
+    private CheckMenuItem autoSaveMenuItem;
 
     @FXML
     private RadioMenuItem deletedMenuItem;
@@ -191,6 +195,13 @@ public class FXMLController implements Initializable, Observer {
     		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     		JavaFXUtils.toast(statusLabel, "Changes saved");
     	}
+    }
+    
+    @FXML
+    void onAutoSaveAction(ActionEvent event) {
+    	// If a user selects this, a save is expected, right?
+    	autosave();
+    	preferencesController.setAutosave(autoSaveMenuItem.isSelected());
     }
     
     @FXML
@@ -305,6 +316,8 @@ public class FXMLController implements Initializable, Observer {
     		profileController.getProfile();
     	}
     	
+    	autoSaveMenuItem.setSelected(preferencesController.isAutosave());
+    	
     	jobs = FXCollections.observableArrayList(profileController.getActiveJobs());
     	jobsListView.setCellFactory(new JobCell.JobCellCallback());
     	jobsListView.setItems(jobs);
@@ -325,6 +338,7 @@ public class FXMLController implements Initializable, Observer {
 	public void update(Observable o, Object arg) {
 		l.debug("Update");
 		refresh();
+		autosave();
 	}
 	
 	private void openJobForm(final Optional<Job> job) {
@@ -343,6 +357,13 @@ public class FXMLController implements Initializable, Observer {
     	}
 		jobsListView.getSelectionModel().clearSelection();
     	jobsListView.setItems(jobs);
+	}
+	
+	private void autosave() {
+		if(!autoSaveMenuItem.isSelected()) return;
+		if(!state.changesPending()) return;
+		l.debug("Autosaving");
+		onActionSaveMenuItemHandler(null);
 	}
 
 }
