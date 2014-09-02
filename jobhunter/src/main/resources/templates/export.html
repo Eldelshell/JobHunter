@@ -11,96 +11,96 @@
 </head>
 <body>
     @foreach{job : jobs}
-    
-      <div class="container">
-        
-        <div class="row">
-          <div class="col-sm-12">
-              <h2>@{job.portal != empty ? job.portal : ''}</h2>
-              <h3>
-                  @if{job.link != empty}
-                      <a href="@{job.link}">@{job.position != empty ? job.position : ''}</a>
-                  @else{}
-                      @{job.position != empty ? job.position : ''}
-                  @end{}
-              </h3>
-              <h4>
-                @if{job.company.url != empty}
-                    <a href="@{job.company.url}">@{job.company.name}</a>
-                @else{}
-                    @{job.company.name != empty ? job.company.name : ''}
-                @end{}
-                
-                @if{job.address != empty}
-                    (@{job.address})
-                @end{}
-              </h4>
-              
-           </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-lg-12" style="font-size: 14pt;">
-              Salary @{job.salary != empty ? job.salary : 'N/A'}
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-lg-12" style="font-size: 14pt;">
-              @if{job.rating == 0}
-                  &#9734; &#9734; &#9734; &#9734; &#9734;
-              @else{job.rating == 1}
-                  &#9733; &#9734; &#9734; &#9734; &#9734;
-              @else{job.rating == 2}
-                  &#9733; &#9733; &#9734; &#9734; &#9734;
-              @else{job.rating == 3}
-                  &#9733; &#9733; &#9733; &#9734; &#9734;
-              @else{job.rating == 4}
-                  &#9733; &#9733; &#9733; &#9733; &#9734;
-              @else{}
-                  &#9733; &#9733; &#9733; &#9733; &#9733;
-              @end{}
-          </div>
-        </div>
-        
-        @if{job.contacts.size() > 0}
+      @if{job.active}
+        <div class="container">
+          
           <div class="row">
-            <div class="col-lg-12">
-              <h2>Contacts</h2>
-              <table class="table table-condensed">
-                <tbody>
-                  @foreach{contact : job.contacts}
-                    <tr>
-                      <td>@{contact.name != empty ? contact.name : ''}</td>
-                      <td>
-                        <a href="tel:@{contact.phone != empty ? contact.phone : ''}">
-                          @{contact.phone != empty ? contact.phone : ''}
-                        </a>
-                      </td>
-                      <td>
-                        <a href="mailto:@{contact.email != empty ? contact.email : ''}">
-                          @{contact.email != empty ? contact.email : ''}
-                        </a>
-                      </td>
-                    </tr>
+            <div class="col-sm-12">
+                <h2>@{job.portal != empty ? job.portal : ''}</h2>
+                <h3>
+                    @if{job.link != empty}
+                        <a href="@{job.link}">@{job.position != empty ? job.position : ''}</a>
+                    @else{}
+                        @{job.position != empty ? job.position : ''}
+                    @end{}
+                </h3>
+                <h4>
+                  @if{job.company.url != empty}
+                      <a href="@{job.company.url}">@{job.company.name}</a>
+                  @else{}
+                      @{job.company.name != empty ? job.company.name : ''}
                   @end{}
-                </tbody>
-              </table>
+                  
+                  @if{job.address != empty}
+                      (@{job.address})
+                  @end{}
+                </h4>
+                
+             </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-lg-12" style="font-size: 14pt;">
+                Salary @{job.salary != empty ? job.salary : 'N/A'}
             </div>
           </div>
-        @end{}
-        
-        <hr>
-        
-        <div class="row">
-          <div class="col-lg-12">
-              <div style="white-space: pre-wrap;">@{job.description}</div>
+          
+          <div class="row">
+            <div class="col-lg-12" style="font-size: 14pt;">
+                @if{job.rating == 0}
+                    &#9734; &#9734; &#9734; &#9734; &#9734;
+                @else{job.rating == 1}
+                    &#9733; &#9734; &#9734; &#9734; &#9734;
+                @else{job.rating == 2}
+                    &#9733; &#9733; &#9734; &#9734; &#9734;
+                @else{job.rating == 3}
+                    &#9733; &#9733; &#9733; &#9734; &#9734;
+                @else{job.rating == 4}
+                    &#9733; &#9733; &#9733; &#9733; &#9734;
+                @else{}
+                    &#9733; &#9733; &#9733; &#9733; &#9733;
+                @end{}
+            </div>
+          </div>
+          
+          @if{job.contacts.size() > 0}
+            <div class="row">
+              <div class="col-lg-12">
+                <h2>Contacts</h2>
+                <table class="table table-condensed">
+                  <tbody>
+                    @foreach{contact : job.contacts}
+                      <tr>
+                        <td>@{contact.name != empty ? contact.name : ''}</td>
+                        <td>
+                          <a href="tel:@{contact.phone != empty ? contact.phone : ''}">
+                            @{contact.phone != empty ? contact.phone : ''}
+                          </a>
+                        </td>
+                        <td>
+                          <a href="mailto:@{contact.email != empty ? contact.email : ''}">
+                            @{contact.email != empty ? contact.email : ''}
+                          </a>
+                        </td>
+                      </tr>
+                    @end{}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          @end{}
+          
+          <hr>
+          
+          <div class="row">
+            <div class="col-lg-12">
+                <div style="white-space: pre-wrap;">@{job.description}</div>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <hr>
-    
+        
+        <hr>
+      @end{}
     @end{}
     
 </body>
