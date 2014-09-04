@@ -109,9 +109,11 @@ public enum ProfileRepository {
 	public void load(final File file) {
 		Optional<Profile> profile = Persistence.read(file);
 
-		if (profile.isPresent())
+		if (profile.isPresent()){
 			this.current = profile.get();
-		
+		}else{
+			current = Profile.instanceOf();
+		}
 		fireEvent();
 	}
 
