@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -30,6 +31,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.gui.FormChangeListener;
+import jobhunter.gui.dialog.EditorDialog;
 import jobhunter.models.Job;
 import jobhunter.persistence.ProfileRepository;
 
@@ -105,6 +107,17 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
 			initializeFull();
 		}
 		
+	}
+	
+	@FXML
+	void onOpenEditorAction(ActionEvent event) {
+		EditorDialog
+			.create()
+			.setHtml(this.job.getDescription())
+			.setOnSaveEvent((e) -> {
+				EditorDialog dialog = (EditorDialog)e.getSource();
+				this.descriptionTextArea.setText(dialog.getHtml());
+			}).show();
 	}
 	
 	private void bindEvents() {
