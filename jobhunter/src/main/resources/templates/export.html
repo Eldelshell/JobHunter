@@ -10,14 +10,25 @@
     
 </head>
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="btn-group-vertical well" style="width: 100%;">
+          @foreach{job : jobs}
+            @if{job.active}
+              <a class="btn btn-default" href="#@{job.id}">@{job.position}<br>@{job.company.name != empty ? job.company.name : ''}</a>
+            @end{}
+          @end{}
+        </div>
+      </div>
+    </div>
     @foreach{job : jobs}
       @if{job.active}
-        <div class="container">
           
           <div class="row">
             <div class="col-sm-12">
                 <h2>@{job.portal != empty ? job.portal : ''}</h2>
-                <h3>
+                <h3 id="@{job.id}">
                     @if{job.link != empty}
                         <a href="@{job.link}">@{job.position != empty ? job.position : ''}</a>
                     @else{}
@@ -97,11 +108,10 @@
                 <div style="white-space: pre-wrap;">@{job.description}</div>
             </div>
           </div>
-        </div>
         
         <hr>
       @end{}
     @end{}
-    
+  </div>
 </body>
 </html>
