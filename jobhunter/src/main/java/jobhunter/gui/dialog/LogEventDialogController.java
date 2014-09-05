@@ -34,18 +34,21 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jobhunter.gui.Localizable;
 import jobhunter.models.ActivityLog;
 import jobhunter.utils.JavaFXUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogEventDialogController implements Initializable {
+public class LogEventDialogController implements Initializable, Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(LogEventDialogController.class);
 	private static final String PATH = "/fxml/LogEventDialog.fxml";
 	private static final int WIDTH 	= 420;
 	private static final int HEIGHT = 170;
+	
+	private ResourceBundle bundle;
 
 	@FXML
     private Button cancelButton;
@@ -79,7 +82,8 @@ public class LogEventDialogController implements Initializable {
     }
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL arg0, ResourceBundle bundle) {
+		this.bundle = bundle;
 		ObservableList<String> types = FXCollections.observableArrayList(
 			ActivityLog.Type.asList()
 		);
@@ -99,7 +103,7 @@ public class LogEventDialogController implements Initializable {
 		if(!root.isPresent()) return Optional.empty();
 		
 		Stage stage = new Stage();
-		stage.setTitle("Add Job");
+		stage.setTitle(getTranslation("message.add.event"));
 		
 		Scene scene = new Scene(root.get(), WIDTH, HEIGHT);
 		stage.setScene(scene);
@@ -117,6 +121,11 @@ public class LogEventDialogController implements Initializable {
 	public LogEventDialogController setLog(ActivityLog log) {
 		this.log = log;
 		return this;
+	}
+
+	@Override
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 	
 }

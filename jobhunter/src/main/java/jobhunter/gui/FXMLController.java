@@ -291,7 +291,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void onActionPreferencesMenuItemHandler(ActionEvent e) {
-    	PreferencesDialog.show(bundle);
+    	PreferencesDialog.create(getBundle()).show();
     }
     
     @FXML

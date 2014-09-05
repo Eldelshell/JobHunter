@@ -31,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jobhunter.controllers.PreferencesController;
+import jobhunter.gui.Localizable;
 import jobhunter.utils.JavaFXUtils;
 
 import org.controlsfx.control.PropertySheet;
@@ -38,14 +39,23 @@ import org.controlsfx.control.PropertySheet.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PreferencesDialog {
+public class PreferencesDialog implements Localizable {
 
 	private static final Logger l = LoggerFactory.getLogger(PreferencesDialog.class);
 	private static final int WIDTH 	= 400;
 	private static final int HEIGHT = 300;
 	
-	private ResourceBundle bundle;
+	private final ResourceBundle bundle;
 	
+	public static PreferencesDialog create(ResourceBundle bundle){
+		return new PreferencesDialog(bundle);
+	}
+	
+	private PreferencesDialog(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
+
 	private PreferencesController preferencesController = PreferencesController.instanceOf();
 	
 	public static abstract class Property implements PropertySheet.Item {
@@ -134,13 +144,13 @@ public class PreferencesDialog {
 		return list;
 	}
 	
-	private void show() {
+	public void show() {
 		l.debug("Showing Preferences Dialog");
 		final PropertySheet s = new PropertySheet(getItems());
     	s.setSearchBoxVisible(false);
     	s.setModeSwitcherVisible(false);
     	
-    	final Button closeButton = new Button("Close");
+    	final Button closeButton = new Button(getTranslation("button.close"));
     	
     	closeButton.setOnAction(event -> {
     		JavaFXUtils.closeWindow(event);
@@ -155,17 +165,16 @@ public class PreferencesDialog {
     	infoPane.setMaxHeight(Double.MAX_VALUE);
     	
     	final Stage stage = new Stage();
-		stage.setTitle("Preferences");
+		stage.setTitle(getTranslation("label.preferences"));
         stage.setScene(new Scene(infoPane, WIDTH, HEIGHT));
         stage.initStyle(StageStyle.UTILITY);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
 	}
 	
-	public static void show(final ResourceBundle bundle) {
-		PreferencesDialog dialog = new PreferencesDialog();
-		dialog.bundle = bundle;
-		dialog.show();
+	@Override
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 	
 }
