@@ -25,9 +25,9 @@ import javafx.stage.Window;
 
 public class FileChooserFactory {
 
-	private static final ExtensionFilter JHF_FILTER = new ExtensionFilter("JobHunter File", "*.jhf");
-	private static final ExtensionFilter HTM_FILTER = new ExtensionFilter("HTML File", "*.html");
-	private static final ExtensionFilter PDF_FILTER = new ExtensionFilter("PDF File", "*.pdf");
+	private static final ExtensionFilter JHF_FILTER = new ExtensionFilter("JobHunter (.jhf)", "*.jhf");
+	private static final ExtensionFilter HTM_FILTER = new ExtensionFilter("HTML", "*.html");
+	private static final ExtensionFilter PDF_FILTER = new ExtensionFilter("PDF", "*.pdf");
 	
 	public static Optional<File> open(final Window window) {
 		final FileChooser fc = new FileChooser();
