@@ -16,6 +16,8 @@
 
 package jobhunter.gui.dialog;
 
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -26,14 +28,21 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jobhunter.gui.Localizable;
 
-public class EditorDialog {
+public class EditorDialog implements Localizable {
 	
 	private final TextArea html = new TextArea();
+	private final ResourceBundle bundle;
 	private EventHandler<ActionEvent> handler;
 	
-	public static EditorDialog create() {
-		return new EditorDialog();
+	public EditorDialog(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
+
+	public static EditorDialog create(final ResourceBundle bundle) {
+		return new EditorDialog(bundle);
 	}
 	
 	public String getHtml() {
@@ -74,6 +83,11 @@ public class EditorDialog {
 	public EditorDialog setOnSaveEvent(EventHandler<ActionEvent> handler){
 		this.handler = handler;
 		return this;
+	}
+
+	@Override
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 	
 }
