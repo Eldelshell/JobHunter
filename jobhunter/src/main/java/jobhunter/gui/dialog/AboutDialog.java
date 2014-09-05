@@ -16,20 +16,34 @@
 
 package jobhunter.gui.dialog;
 
+import java.util.ResourceBundle;
+
+import jobhunter.gui.Localizable;
 import jobhunter.utils.ApplicationState;
 
 import org.controlsfx.dialog.Dialogs;
 
-public class AboutDialog {
+public class AboutDialog implements Localizable {
+	
+	private final ResourceBundle bundle;
+	
+	public AboutDialog(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
 
-	public static void show() {
-		Dialogs
-			.create()
-			.title("About JobHunter")
+	public void show() {
+		Dialogs.create()
+			.title(getTranslation("message.about"))
 			.lightweight()
 			.masthead(ApplicationState.APP_STRING)
-			.message("Copyright © Alejandro Ayuso\nJobHunter is licensed under the GPLv3 Open Source License")
+			.message(getTranslation("copyright"))
 			.showInformation();
+	}
+
+	@Override
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 	
 }
