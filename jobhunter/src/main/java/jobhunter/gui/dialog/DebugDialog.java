@@ -16,18 +16,32 @@
 
 package jobhunter.gui.dialog;
 
+import java.util.ResourceBundle;
+
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jobhunter.gui.Localizable;
 import jobhunter.persistence.Persistence;
 import jobhunter.persistence.ProfileRepository;
 
-public class DebugDialog {
+public class DebugDialog implements Localizable {
+	
+private final ResourceBundle bundle;
+	
+	private DebugDialog(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
+	
+	public static DebugDialog create(ResourceBundle bundle){
+		return new DebugDialog(bundle);
+	}
 
-	public static void show() {
+	public void show() {
 		TextArea text = new TextArea();
 		text.setText(Persistence.debugProfile(ProfileRepository.instanceOf().getProfile()));
 		text.setEditable(false);
@@ -48,7 +62,10 @@ public class DebugDialog {
 		
 	}
 	
-	
+	@Override
+	public ResourceBundle getBundle() {
+		return bundle;
+	}
 	
 	
 }

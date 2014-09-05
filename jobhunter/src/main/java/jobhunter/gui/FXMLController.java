@@ -309,7 +309,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void onShowJobs(ActionEvent e){
-    	DebugDialog.show();
+    	DebugDialog.create(getBundle()).show();
     }
     
     @Override
