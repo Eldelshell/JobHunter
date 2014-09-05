@@ -25,13 +25,13 @@
             <RowConstraints minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" GridPane.halignment="RIGHT" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Salary" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Portal" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Link" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.status" GridPane.halignment="RIGHT" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.position" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.address" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.salary" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.portal" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.link" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.rating" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
             <ChoiceBox fx:id="statusCombo" prefHeight="25.0" prefWidth="390.0" GridPane.columnIndex="1" />
             <TextField fx:id="positionTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="addressTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -40,8 +40,8 @@
             <TextField fx:id="linkTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Slider fx:id="ratingSlider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextArea fx:id="descriptionTextArea" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="TOP" />
-            <Button mnemonicParsing="false" onAction="#onOpenEditorAction" text="Open editor" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.description" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="TOP" />
+            <Button mnemonicParsing="false" onAction="#onOpenEditorAction" text="%label.open.editor" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
          </children>
       </GridPane>
       

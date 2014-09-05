@@ -11,15 +11,15 @@
    <children>
       <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn fx:id="nameColumn" minWidth="50.0" prefWidth="150.0" sortable="false" text="Name" />
-          <TableColumn fx:id="phoneColumn" sortable="false" text="Phone" />
-            <TableColumn fx:id="emailColumn" prefWidth="218.0" sortable="false" text="eMail" />
+          <TableColumn fx:id="nameColumn" minWidth="50.0" prefWidth="150.0" sortable="false" text="%label.name" />
+          <TableColumn fx:id="phoneColumn" sortable="false" text="%label.phone" />
+            <TableColumn fx:id="emailColumn" prefWidth="218.0" sortable="false" text="%label.email" />
         </columns>
          <contextMenu>
             <ContextMenu fx:id="tableContextMenu">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="Add Contact" />
-                <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="Delete Contact" />
+                <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.contact" />
+                <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.contact" />
               </items>
             </ContextMenu>
          </contextMenu>

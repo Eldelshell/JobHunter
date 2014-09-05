@@ -16,18 +16,16 @@
 
 package jobhunter.gui.job;
 
-import java.io.IOException;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import jobhunter.gui.FormChangeListener;
 import jobhunter.gui.Localizable;
 import jobhunter.utils.JavaFXUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public interface JobFormChild<T> extends Localizable, Initializable {
 	
@@ -42,15 +40,7 @@ public interface JobFormChild<T> extends Localizable, Initializable {
 	String getFXMLPath();
 	
 	default Optional<Parent> show() {
-		JavaFXUtils.loadFXML(this, getFXMLPath(), getBundle());
-		FXMLLoader fxmlLoader = new FXMLLoader(JobFormChild.class.getResource(getFXMLPath()));
-    	fxmlLoader.setController(this);
-		try {
-			return Optional.of((Parent)fxmlLoader.load());
-		} catch (IOException e) {
-			l.error("Failed to open file {}", getFXMLPath(), e);
-		}
-		return Optional.empty();
+		return JavaFXUtils.loadFXML(this, getFXMLPath(), getBundle());
 	}
 	
 }

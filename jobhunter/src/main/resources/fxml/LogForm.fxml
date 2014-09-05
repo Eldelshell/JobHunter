@@ -11,15 +11,15 @@
    <children>
       <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn fx:id="dateColumn" minWidth="50.0" prefWidth="60.0" sortable="false" text="Date" />
-          <TableColumn fx:id="eventColumn" sortable="false" text="Event" />
-            <TableColumn fx:id="descriptionColumn" prefWidth="218.0" sortable="false" text="Description" />
+          <TableColumn fx:id="dateColumn" minWidth="50.0" prefWidth="60.0" sortable="false" text="%label.date" />
+          <TableColumn fx:id="eventColumn" sortable="false" text="%label.event" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="218.0" sortable="false" text="%label.description" />
         </columns>
          <contextMenu>
             <ContextMenu fx:id="tableContextMenu">
               <items>
-                <MenuItem fx:id="addRowMenuItem" mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="Add Event" />
-                  <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="Delete Event" />
+                <MenuItem fx:id="addRowMenuItem" mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.event" />
+                  <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.event" />
               </items>
             </ContextMenu>
          </contextMenu>

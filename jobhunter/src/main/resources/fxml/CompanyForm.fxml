@@ -20,9 +20,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Company" GridPane.halignment="RIGHT" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Link" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.company" GridPane.halignment="RIGHT" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.address" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.link" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <TextField fx:id="companyTextField" GridPane.columnIndex="1" />
             <TextField fx:id="addressTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="linkTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />

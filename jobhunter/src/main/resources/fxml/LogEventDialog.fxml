@@ -20,17 +20,17 @@
         </rowConstraints>
          <children>
             <DatePicker fx:id="dateField" prefHeight="25.0" prefWidth="354.0" GridPane.columnIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.halignment="RIGHT" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.date" GridPane.halignment="RIGHT" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.event" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%label.description" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <TextField fx:id="descriptionText" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ChoiceBox fx:id="typeCombo" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <ToolBar layoutY="120.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="50.0" prefWidth="420.0" styleClass="dialog-toolbar">
         <items>
-          <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onCancelButtonAction" text="Cancel" />
-            <Button fx:id="saveButton" defaultButton="true" mnemonicParsing="false" onAction="#onSaveButtonAction" text="Save" />
+          <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onCancelButtonAction" text="%label.cancel" />
+            <Button fx:id="saveButton" defaultButton="true" mnemonicParsing="false" onAction="#onSaveButtonAction" text="%label.save" />
         </items>
       </ToolBar>
       <Line endX="420.0" layoutY="120.0" styleClass="dialog-separator-line" />
