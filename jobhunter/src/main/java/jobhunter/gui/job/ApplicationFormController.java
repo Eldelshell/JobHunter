@@ -31,6 +31,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.gui.FormChangeListener;
+import jobhunter.gui.Localizable;
 import jobhunter.gui.dialog.EditorDialog;
 import jobhunter.models.Job;
 import jobhunter.persistence.ProfileRepository;
@@ -39,10 +40,12 @@ import org.controlsfx.control.textfield.TextFields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ApplicationFormController implements Initializable, JobFormChild<Job> {
+public class ApplicationFormController implements Initializable, JobFormChild<Job>, Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(ApplicationFormController.class);
 	private static final String PATH = "/fxml/ApplicationForm.fxml";
+	
+	private ResourceBundle bundle;
 	
 	@FXML
     private TextField salaryTextField;
@@ -85,8 +88,10 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
 	}
     
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL arg0, ResourceBundle bundle) {
 		l.debug("Init me {}", this.getClass().getCanonicalName());
+		
+		this.bundle = bundle;
 
 		ObservableList<String> portals = FXCollections.observableArrayList(
 			preferencesController.getPortalsList()
@@ -112,7 +117,7 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
 	@FXML
 	void onOpenEditorAction(ActionEvent event) {
 		EditorDialog
-			.create()
+			.create(bundle)
 			.setHtml(this.job.getDescription())
 			.setOnSaveEvent((e) -> {
 				EditorDialog dialog = (EditorDialog)e.getSource();
@@ -234,6 +239,11 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
 	@Override
 	public void setListener(FormChangeListener<Job> listener) {
 		this.listener = listener;
+	}
+
+	@Override
+	public ResourceBundle getBundle() {
+		return this.bundle;
 	}
 	
 }
