@@ -16,6 +16,9 @@
 
 package jobhunter.utils;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +27,10 @@ public enum ApplicationState {
 	_INSTANCE;
 	
 	private Boolean changesPending = Boolean.FALSE;
-	private Boolean debug = (System.getProperty("debug") != null);
-	private Boolean development = (System.getProperty("development") != null);
+	private final Boolean debug = (System.getProperty("debug") != null);
+	private final Boolean development = (System.getProperty("development") != null);
+	private final Locale locale = getLocaleOption();
+	private final ResourceBundle bundle = loadBundle();
 	
 	private static final Logger l = LoggerFactory.getLogger(ApplicationState.class);
 	public static final String APP_STRING = "JobHunter 0.0.3";
@@ -49,6 +54,31 @@ public enum ApplicationState {
 	
 	public Boolean isDevelopment() {
 		return this.development;
+	}
+	
+	public Locale getLocale() {
+		return this.locale;
+	}
+	
+	public ResourceBundle getBundle() {
+		return bundle;
+	}
+
+	private static Locale getLocaleOption() {
+		final String cliLocale = System.getProperty("locale");
+		
+		if(cliLocale != null){
+			//locale should come as a en_US, en_UK, es_ES, fr_FR
+			final String [] str = cliLocale.split("_");
+			return new Locale(str[0], str[1]);
+		}else{
+			return Locale.getDefault();
+		}
+	}
+	
+	private static ResourceBundle loadBundle() {
+		final Locale local = getLocaleOption();
+		return ResourceBundle.getBundle("i18n.jobhunter", local);
 	}
 	
 }

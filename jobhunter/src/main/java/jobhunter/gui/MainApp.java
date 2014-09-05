@@ -36,9 +36,10 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
     	l.debug("Running in debug {}", System.getProperty("debug"));
+    	
     	PreferencesController.instanceOf().init();
     	
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"), ApplicationState.instanceOf().getBundle());
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
