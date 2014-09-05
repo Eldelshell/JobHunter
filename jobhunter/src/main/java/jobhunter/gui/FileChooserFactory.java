@@ -18,24 +18,31 @@ package jobhunter.gui;
 
 import java.io.File;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
 
-public class FileChooserFactory {
+public class FileChooserFactory implements Localizable{
 
 	private static final ExtensionFilter JHF_FILTER = new ExtensionFilter("JobHunter (.jhf)", "*.jhf");
 	private static final ExtensionFilter HTM_FILTER = new ExtensionFilter("HTML", "*.html");
 	private static final ExtensionFilter PDF_FILTER = new ExtensionFilter("PDF", "*.pdf");
 	
-	public static FileChooserFactory create(){
-		return new FileChooserFactory();
+	private final ResourceBundle bundle;
+	
+	public static FileChooserFactory create(ResourceBundle bundle){
+		return new FileChooserFactory(bundle);
+	}
+	
+	private FileChooserFactory(ResourceBundle bundle){
+		this.bundle = bundle;
 	}
 	
 	public Optional<File> open(final Window window) {
 		final FileChooser fc = new FileChooser();
-    	fc.setTitle("Open JobHunter File");
+    	fc.setTitle(getTranslation("message.open.jhf"));
     	fc.setSelectedExtensionFilter(JHF_FILTER);
     	fc.getExtensionFilters().add(JHF_FILTER);
     	return Optional.ofNullable(fc.showOpenDialog(window));
@@ -43,7 +50,7 @@ public class FileChooserFactory {
 	
 	public Optional<File> saveAs(final Window window) {
 		final FileChooser fc = new FileChooser();
-    	fc.setTitle("Save JobHunter File");
+    	fc.setTitle(getTranslation("message.save.jhf"));
     	fc.setSelectedExtensionFilter(JHF_FILTER);
     	fc.getExtensionFilters().add(JHF_FILTER);
     	return Optional.ofNullable(fc.showSaveDialog(window));
@@ -51,7 +58,7 @@ public class FileChooserFactory {
 	
 	public Optional<File> exportHTML(final Window window) {
 		final FileChooser fc = new FileChooser();
-    	fc.setTitle("Export as HTML");
+    	fc.setTitle(getTranslation("message.export.html"));
     	fc.setSelectedExtensionFilter(HTM_FILTER);
     	fc.getExtensionFilters().add(HTM_FILTER);
     	return Optional.ofNullable(fc.showSaveDialog(window));
@@ -59,10 +66,14 @@ public class FileChooserFactory {
 	
 	public Optional<File> exportPDF(final Window window) {
 		final FileChooser fc = new FileChooser();
-    	fc.setTitle("Export as PDF");
+    	fc.setTitle(getTranslation("message.export.pdf"));
     	fc.setSelectedExtensionFilter(PDF_FILTER);
     	fc.getExtensionFilters().add(PDF_FILTER);
     	return Optional.ofNullable(fc.showSaveDialog(window));
+	}
+
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 	
 }

@@ -159,7 +159,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
 
     @FXML
     void onActionOpenMenuItemHandler(ActionEvent event) {
-    	Optional<File> fopen = FileChooserFactory.create().open(JavaFXUtils.getWindow(mainWebView));
+    	Optional<File> fopen = FileChooserFactory
+    			.create(bundle)
+    			.open(JavaFXUtils.getWindow(mainWebView));
     	
     	if(fopen.isPresent()) {
     		Action response = Dialogs.create()
@@ -189,7 +191,10 @@ public class FXMLController implements Initializable, Observer, Localizable {
 
     @FXML
     void onActionSaveAsMenuItemHandler(ActionEvent event) {
-    	final Optional<File> fopen = FileChooserFactory.create().saveAs(JavaFXUtils.getWindow(mainWebView));
+    	final Optional<File> fopen = FileChooserFactory
+    			.create(bundle)
+    			.saveAs(JavaFXUtils.getWindow(mainWebView));
+    	
     	if(fopen.isPresent()){
     		profileController.save(fopen.get());
     		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
@@ -206,7 +211,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void onExportHTML(ActionEvent event) {
-    	final Optional<File> fopen = FileChooserFactory.create().exportHTML(JavaFXUtils.getWindow(mainWebView));
+    	final Optional<File> fopen = FileChooserFactory
+    			.create(bundle)
+    			.exportHTML(JavaFXUtils.getWindow(mainWebView));
     	
     	if(fopen.isPresent() && HTMLRenderer.of().export(fopen.get(), profileController.getProfile())){
     		JavaFXUtils.toast(statusLabel, getTranslation("message.exported.html"));
