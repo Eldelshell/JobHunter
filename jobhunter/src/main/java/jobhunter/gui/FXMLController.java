@@ -240,7 +240,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 
     @FXML
     void onActionAboutMenuItemHandler(ActionEvent event) {
-    	AboutDialog.show();
+    	AboutDialog.create(getBundle()).show();
     }
 
     @FXML

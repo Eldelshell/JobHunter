@@ -27,9 +27,13 @@ public class AboutDialog implements Localizable {
 	
 	private final ResourceBundle bundle;
 	
-	public AboutDialog(ResourceBundle bundle) {
+	private AboutDialog(ResourceBundle bundle) {
 		super();
 		this.bundle = bundle;
+	}
+	
+	public static AboutDialog create(ResourceBundle bundle){
+		return new AboutDialog(bundle);
 	}
 
 	public void show() {
