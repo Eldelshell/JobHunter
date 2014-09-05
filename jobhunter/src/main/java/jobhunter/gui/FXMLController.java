@@ -62,7 +62,7 @@ import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FXMLController implements Initializable, Observer {
+public class FXMLController implements Initializable, Observer, Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(FXMLController.class);
 	
@@ -139,8 +139,8 @@ public class FXMLController implements Initializable, Observer {
     void onActionNewMenuItemHandler(ActionEvent e) {
     	if(state.changesPending()) {
     		Action response = Dialogs.create()
-    			.masthead("There are pending changes")
-    			.message("Do you want to save your changes?")
+    			.masthead(getTranslation("message.pending.changes"))
+    			.message(getTranslation("message.save.changes"))
     			.lightweight()
     			.showConfirm();
     		
@@ -163,8 +163,8 @@ public class FXMLController implements Initializable, Observer {
     	
     	if(fopen.isPresent()) {
     		Action response = Dialogs.create()
-    			.title("Open file " + fopen.get().getName())
-    			.message("All changes will be lost. Do you want to continue?")
+    			.title(getTranslation("message.open.file", fopen.get().getName()))
+    			.message(getTranslation("message.changes.lost"))
     			.lightweight()
     			.showConfirm();
     		
@@ -181,7 +181,7 @@ public class FXMLController implements Initializable, Observer {
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
     		profileController.save(fout);
-    		JavaFXUtils.toast(statusLabel, "Changes saved");
+    		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}else{
     		onActionSaveAsMenuItemHandler(event);
     	}
@@ -193,7 +193,7 @@ public class FXMLController implements Initializable, Observer {
     	if(fopen.isPresent()){
     		profileController.save(fopen.get());
     		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
-    		JavaFXUtils.toast(statusLabel, "Changes saved");
+    		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}
     }
     
@@ -209,12 +209,12 @@ public class FXMLController implements Initializable, Observer {
     	final Optional<File> fopen = FileChooserFactory.exportHTML(JavaFXUtils.getWindow(mainWebView));
     	
     	if(fopen.isPresent() && HTMLRenderer.of().export(fopen.get(), profileController.getProfile())){
-    		JavaFXUtils.toast(statusLabel, "Exported to HTML");
+    		JavaFXUtils.toast(statusLabel, getTranslation("message.exported.html"));
     	}else{
     		Dialogs
     			.create()
     			.lightweight()
-    			.message("Failed to export to HTML")
+    			.message(getTranslation("message.failed.export.html"))
     			.showError();
     	}
     	
@@ -275,7 +275,9 @@ public class FXMLController implements Initializable, Observer {
     		});
     	});
     	
-    	Dialogs.create().message("Loading Plugins").showWorkerProgress(pl);
+    	Dialogs.create()
+    		.message(getTranslation("message.loading.plugins"))
+    		.showWorkerProgress(pl);
     	
     	pl.start();
     }
@@ -366,4 +368,9 @@ public class FXMLController implements Initializable, Observer {
 		onActionSaveMenuItemHandler(null);
 	}
 
+	@Override
+	public ResourceBundle getBundle() {
+		return this.bundle;
+	}
+	
 }
