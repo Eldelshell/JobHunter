@@ -23,7 +23,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
@@ -31,7 +30,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.gui.FormChangeListener;
-import jobhunter.gui.Localizable;
 import jobhunter.gui.dialog.EditorDialog;
 import jobhunter.models.Job;
 import jobhunter.persistence.ProfileRepository;
@@ -40,12 +38,12 @@ import org.controlsfx.control.textfield.TextFields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ApplicationFormController implements Initializable, JobFormChild<Job>, Localizable {
+public class ApplicationFormController implements JobFormChild<Job> {
 	
 	private static final Logger l = LoggerFactory.getLogger(ApplicationFormController.class);
 	private static final String PATH = "/fxml/ApplicationForm.fxml";
 	
-	private ResourceBundle bundle;
+	private final ResourceBundle bundle;
 	
 	@FXML
     private TextField salaryTextField;
@@ -76,11 +74,14 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
     private final ProfileRepository profileController = ProfileRepository.instanceOf();
     private FormChangeListener<Job> listener;
     
-    public static ApplicationFormController of(final Job job) {
-    	ApplicationFormController instance = new ApplicationFormController();
-    	instance.setJob(job);
-    	return instance;
+    public static ApplicationFormController create(ResourceBundle bundle) {
+    	return new ApplicationFormController(bundle);
     }
+    
+    private ApplicationFormController(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
     
     @Override
 	public String getFXMLPath() {
@@ -91,8 +92,6 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
 	public void initialize(URL arg0, ResourceBundle bundle) {
 		l.debug("Init me {}", this.getClass().getCanonicalName());
 		
-		this.bundle = bundle;
-
 		ObservableList<String> portals = FXCollections.observableArrayList(
 			preferencesController.getPortalsList()
 		);
@@ -221,8 +220,9 @@ public class ApplicationFormController implements Initializable, JobFormChild<Jo
 		return job;
 	}
 
-	public void setJob(Job job) {
+	public ApplicationFormController setJob(Job job) {
 		this.job = job;
+		return this;
 	}
 	
 	@Override

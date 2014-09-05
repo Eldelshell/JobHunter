@@ -48,7 +48,7 @@ public class LogEventDialogController implements Initializable, Localizable {
 	private static final int WIDTH 	= 420;
 	private static final int HEIGHT = 170;
 	
-	private ResourceBundle bundle;
+	private final ResourceBundle bundle;
 
 	@FXML
     private Button cancelButton;
@@ -66,8 +66,17 @@ public class LogEventDialogController implements Initializable, Localizable {
     private ChoiceBox<String> typeCombo;
     
     private ActivityLog log;
+    
+    public static LogEventDialogController create(ResourceBundle bundle){
+    	return new LogEventDialogController(bundle);
+    }
+    
+    private LogEventDialogController(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
 
-    @FXML
+	@FXML
     void onCancelButtonAction(ActionEvent event) {
     	this.log = null;
     	JavaFXUtils.closeWindow(event);
@@ -82,8 +91,8 @@ public class LogEventDialogController implements Initializable, Localizable {
     }
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle bundle) {
-		this.bundle = bundle;
+	public void initialize(URL arg0, ResourceBundle b) {
+		l.debug("Initializing {}", b);
 		ObservableList<String> types = FXCollections.observableArrayList(
 			ActivityLog.Type.asList()
 		);
@@ -91,14 +100,8 @@ public class LogEventDialogController implements Initializable, Localizable {
 		typeCombo.setItems(types);
 	}
 	
-	public static LogEventDialogController of(final ActivityLog log) {
-		LogEventDialogController ctrl = new LogEventDialogController();
-		ctrl.setLog(log);
-    	return ctrl;
-    }
-	
 	public Optional<ActivityLog> show() {
-		Optional<Parent> root = JavaFXUtils.loadFXML(this, PATH);
+		Optional<Parent> root = JavaFXUtils.loadFXML(this, PATH, bundle);
 		
 		if(!root.isPresent()) return Optional.empty();
 		

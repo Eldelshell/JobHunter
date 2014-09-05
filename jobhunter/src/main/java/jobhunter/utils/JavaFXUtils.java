@@ -18,6 +18,7 @@ package jobhunter.utils;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -91,8 +92,9 @@ public class JavaFXUtils {
     	}
 	}
 	
-	public static Optional<Parent> loadFXML(Initializable clazz, String path) {
+	public static Optional<Parent> loadFXML(Initializable clazz, String path, ResourceBundle bundle) {
 		FXMLLoader fxmlLoader = new FXMLLoader(clazz.getClass().getResource(path));
+		fxmlLoader.setResources(bundle);
     	fxmlLoader.setController(clazz);
 		try {
 			return Optional.of((Parent)fxmlLoader.load());

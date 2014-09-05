@@ -17,14 +17,12 @@
 package jobhunter.gui.job;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -37,7 +35,7 @@ import jobhunter.models.ActivityLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ActivityLogController implements Initializable, JobFormChild<ActivityLog> {
+public class ActivityLogController implements JobFormChild<ActivityLog> {
 	
 	private static final Logger l = LoggerFactory.getLogger(ActivityLogController.class);
 	private static final String PATH = "/fxml/LogForm.fxml";
@@ -63,17 +61,28 @@ public class ActivityLogController implements Initializable, JobFormChild<Activi
     private Set<ActivityLog> logs;
     
     private FormChangeListener<ActivityLog> listener;
+    
+    private final ResourceBundle bundle;
+    
+    public static ActivityLogController create(ResourceBundle bundle){
+    	return new ActivityLogController(bundle);
+    }
+    
+    private ActivityLogController(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
 
-    @FXML
+	@FXML
     void onAddRowMenuItemAction(ActionEvent event) {
-    	Optional<ActivityLog> neu = LogEventDialogController.of(ActivityLog.of()).show();
-    	
-    	if(neu.isPresent()){
-    		this.logs.add(neu.get());
-    		table.getItems().add(neu.get());
-    		table.getSelectionModel().selectLast();
-    	}
-    	
+    	LogEventDialogController.create(bundle)
+			.setLog(ActivityLog.of())
+			.show()
+			.ifPresent(neu -> {
+				this.logs.add(neu);
+	    		table.getItems().add(neu);
+	    		table.getSelectionModel().selectLast();
+			});
     }
 	
     @FXML
@@ -95,12 +104,6 @@ public class ActivityLogController implements Initializable, JobFormChild<Activi
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<ActivityLog, String>("description"));
 		table.setItems(FXCollections.observableArrayList(this.logs));
 	}
-	
-	public static ActivityLogController of(final Set<ActivityLog> logs) {
-		ActivityLogController ctrl = new ActivityLogController();
-		ctrl.setLogs(logs);
-    	return ctrl;
-    }
 	
 	@Override
 	public String getFXMLPath() {
@@ -126,8 +129,13 @@ public class ActivityLogController implements Initializable, JobFormChild<Activi
 		return logs;
 	}
 
-	public void setLogs(Set<ActivityLog> logs) {
+	public ActivityLogController setLogs(Set<ActivityLog> logs) {
 		this.logs = logs;
+		return this;
+	}
+
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 	
 }

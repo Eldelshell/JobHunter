@@ -16,4 +16,7 @@ public interface Localizable {
 		return MessageFormat.format(i18n, objects);
 	}
 	
+	default String[] getTranslationArray(String str) {
+		return getBundle().getString(str).split(",");
+	}
 }

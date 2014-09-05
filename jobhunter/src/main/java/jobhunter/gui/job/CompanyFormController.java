@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import jobhunter.gui.FormChangeListener;
@@ -15,7 +14,7 @@ import org.controlsfx.control.textfield.TextFields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CompanyFormController implements Initializable, JobFormChild<Company> {
+public class CompanyFormController implements JobFormChild<Company> {
 	
 	private static final Logger l = LoggerFactory.getLogger(CompanyFormController.class);
 	private static final String PATH = "/fxml/CompanyForm.fxml";
@@ -37,11 +36,16 @@ public class CompanyFormController implements Initializable, JobFormChild<Compan
     
     private FormChangeListener<Company> listener;
     
-    public static CompanyFormController of(final Company company) {
-    	CompanyFormController instance = new CompanyFormController();
-    	instance.setCompany(company);
-    	return instance;
+    private final ResourceBundle bundle;
+    
+    public static CompanyFormController create(ResourceBundle bundle){
+    	return new CompanyFormController(bundle);
     }
+    
+    private CompanyFormController(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
     
     @Override
 	public String getFXMLPath() {
@@ -99,8 +103,9 @@ public class CompanyFormController implements Initializable, JobFormChild<Compan
 		return company;
 	}
 
-	public void setCompany(Company company) {
+	public CompanyFormController setCompany(Company company) {
 		this.company = company;
+		return this;
 	}
 	
 	@Override
@@ -117,6 +122,11 @@ public class CompanyFormController implements Initializable, JobFormChild<Compan
 	@Override
 	public void setListener(FormChangeListener<Company> listener) {
 		this.listener = listener;
+	}
+
+	@Override
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 	
 }

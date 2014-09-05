@@ -23,10 +23,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import jobhunter.gui.FormChangeListener;
+import jobhunter.gui.Localizable;
+import jobhunter.utils.JavaFXUtils;
 
-public interface JobFormChild<T> {
+public interface JobFormChild<T> extends Localizable, Initializable {
 	
 	static final Logger l = LoggerFactory.getLogger(JobFormChild.class);
 
@@ -38,7 +41,8 @@ public interface JobFormChild<T> {
 	
 	String getFXMLPath();
 	
-	default Optional<Parent> load() {
+	default Optional<Parent> show() {
+		JavaFXUtils.loadFXML(this, getFXMLPath(), getBundle());
 		FXMLLoader fxmlLoader = new FXMLLoader(JobFormChild.class.getResource(getFXMLPath()));
     	fxmlLoader.setController(this);
 		try {

@@ -16,7 +16,6 @@
 
 package jobhunter.gui.job;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -27,7 +26,6 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -40,8 +38,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jobhunter.gui.Localizable;
 import jobhunter.models.Job;
-import jobhunter.persistence.ObjectId;
 import jobhunter.persistence.ProfileRepository;
 import jobhunter.utils.JavaFXUtils;
 
@@ -51,7 +49,7 @@ import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JobFormController extends Observable implements Initializable {
+public class JobFormController extends Observable implements Initializable, Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(JobFormController.class);
 	private static final String PATH = "/fxml/JobForm.fxml";
@@ -63,12 +61,6 @@ public class JobFormController extends Observable implements Initializable {
 	@FXML
     private BorderPane mainPanel;
 	
-	@FXML
-    private Button saveButton;
-
-    @FXML
-    private Button cancelButton;
-
     @FXML
     private Button deleteButton;
 
@@ -76,11 +68,21 @@ public class JobFormController extends Observable implements Initializable {
     private ListView<String> jobFormListView;
     
 	private final ProfileRepository profileController = ProfileRepository.instanceOf();
+	private final ResourceBundle bundle;
 	
 	private ApplicationFormController applicationForm;
 	private CompanyFormController companyForm;
 	private ContactsFormController contactsForm;
 	private ActivityLogController logController;
+	
+	public static JobFormController create(ResourceBundle bundle){
+		return new JobFormController(bundle);
+	}
+
+	private JobFormController(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
 
 	@FXML
 	void cancelButtonHandler(ActionEvent event) {
@@ -98,10 +100,10 @@ public class JobFormController extends Observable implements Initializable {
 	@FXML
 	void deleteButtonHandler(ActionEvent event) {
 		Action response = Dialogs.create()
-		        .title("Delete job")
+		        .title(getTranslation("message.delete.job", this.job.getPosition()))
 		        .lightweight()
-		        .masthead("You're about to delete this job.")
-		        .message("Do you want to continue?")
+		        .masthead(getTranslation("message.delete.job.confirmation"))
+		        .message(getTranslation("message.confirmation"))
 		        .showConfirm();
 
 		if (response == Dialog.Actions.YES) {
@@ -117,16 +119,16 @@ public class JobFormController extends Observable implements Initializable {
 			
 			switch(index){
 			case 0:
-				applicationForm.load().ifPresent(this::drawForm);
+				applicationForm.show().ifPresent(this::drawForm);
 				break;
 			case 1:
-				companyForm.load().ifPresent(this::drawForm);
+				companyForm.show().ifPresent(this::drawForm);
 				break;
 			case 2:
-				contactsForm.load().ifPresent(this::drawForm);
+				contactsForm.show().ifPresent(this::drawForm);
 				break;
 			case 3:
-				logController.load().ifPresent(this::drawForm);
+				logController.show().ifPresent(this::drawForm);
 				break;
 			}
 		}
@@ -137,78 +139,56 @@ public class JobFormController extends Observable implements Initializable {
 		mainPanel.setCenter(node);
 	}
 	
-	public static JobFormController of(final ObjectId jobId) {
-		return of(ProfileRepository.instanceOf().getJob(jobId));
-    }
-	
-	public static JobFormController of(final Optional<Job> job) {
-		JobFormController instance = new JobFormController();
-		if(job.isPresent()) instance.setJob(job.get());
-		return instance;
-		
-	}
-    
-    public void load() {
-    	FXMLLoader fxmlLoader = new FXMLLoader(ApplicationFormController.class.getResource(PATH));
-    	fxmlLoader.setController(this);
+    public void show() {
+    	Optional<Parent> root = JavaFXUtils.loadFXML(this, PATH, bundle);
     	
-    	Scene scene = null;
-		try {
-			Parent root = (Parent)fxmlLoader.load();
-			scene = new Scene(root, WIDTH, HEIGHT);
-			
-		} catch (IOException e) {
-			l.error("Failed to open file {}", PATH, e);
+    	Scene scene = new Scene(root.get(), WIDTH, HEIGHT);
+		Stage stage = new Stage();
+		
+		if(this.job.getPosition() != null){
+			stage.setTitle(getTranslation("message.edit.job", job.getPosition()));
+		}else{
+			stage.setTitle(getTranslation("message.add.job"));
 		}
 		
-		if(scene != null){
-			Stage stage = new Stage();
-			
-			if(this.job != null){
-				stage.setTitle("Edit Job " + job.getPosition());
-			}else{
-				stage.setTitle("Add Job");
-			}
-			
-	        stage.setScene(scene);
-	        stage.initStyle(StageStyle.UTILITY);
-	        stage.initModality(Modality.WINDOW_MODAL);
-	        stage.showAndWait();
-		}
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
     }
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL arg0, ResourceBundle b) {
+		l.debug("Initializing {}", b);
 		
 		if(this.job == null){
 			this.job = Job.of();
 			this.deleteButton.setVisible(false);
 		}
 		
-		applicationForm = ApplicationFormController.of(job);
+		applicationForm = ApplicationFormController.create(bundle).setJob(job);
 		
 		applicationForm.setListener(e -> {
 			this.job = e;
 		});
 		
-		companyForm = CompanyFormController.of(job.getCompany());
+		companyForm = CompanyFormController.create(bundle).setCompany(job.getCompany());
 		
 		companyForm.setListener(e -> {
 			this.job.setCompany(e);
 		});
 		
-		contactsForm = ContactsFormController.of(job.getContacts());
+		contactsForm = ContactsFormController.create(bundle).setContacts(job.getContacts());
 		
-		logController = ActivityLogController.of(job.getLogs());
+		logController = ActivityLogController.create(bundle).setLogs(job.getLogs());
 
-		//FIXME: I don't like how this works by using the index. Fix later.
 		jobFormListView.setItems(FXCollections.observableArrayList(
-			"Job", "Company", "Contacts", "Log"
+			getTranslationArray("job.form.items")
 		));
 		
 		jobFormListView.getSelectionModel().selectFirst();
 		
-		applicationForm.load().ifPresent(this::drawForm);
+		applicationForm.show().ifPresent(this::drawForm);
 	}
 	
 	private void close(Event event, Boolean changed) {
@@ -231,6 +211,11 @@ public class JobFormController extends Observable implements Initializable {
 	public JobFormController setObserver(Observer obs){
 		addObserver(obs);
 		return this;
+	}
+
+	@Override
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 	
 }

@@ -352,9 +352,10 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	
 	private void openJobForm(final Optional<Job> job) {
 		JobFormController
-			.of(job)
+			.create(bundle)
+			.setJob(job.orElse(null))
 			.setObserver(this)
-			.load();
+			.show();
 	}
 	
 	private void refresh() {

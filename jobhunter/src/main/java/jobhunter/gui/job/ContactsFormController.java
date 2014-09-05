@@ -23,7 +23,6 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,7 +34,7 @@ import jobhunter.models.Contact;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ContactsFormController implements Initializable, JobFormChild<Contact> {
+public class ContactsFormController implements JobFormChild<Contact> {
 	
 	private static final Logger l = LoggerFactory.getLogger(ApplicationFormController.class);
 	private static final String PATH = "/fxml/ContactsForm.fxml";
@@ -58,6 +57,17 @@ public class ContactsFormController implements Initializable, JobFormChild<Conta
     private Set<Contact> contacts;
     
     private FormChangeListener<Contact> listener;
+    
+    private final ResourceBundle bundle;
+    
+    public static ContactsFormController create(ResourceBundle bundle){
+    	return new ContactsFormController(bundle);
+    }
+    
+    private ContactsFormController(ResourceBundle bundle) {
+		super();
+		this.bundle = bundle;
+	}
     
     @Override
 	public void initialize(URL arg0, ResourceBundle bundle) {
@@ -90,12 +100,6 @@ public class ContactsFormController implements Initializable, JobFormChild<Conta
     	
     	table.setItems(FXCollections.observableArrayList(contacts));
 	}
-    
-    public static ContactsFormController of(final Set<Contact> contacts) {
-    	ContactsFormController ctrl = new ContactsFormController();
-    	ctrl.setContacts(contacts);
-    	return ctrl;
-    }
     
 	@Override
 	public String getFXMLPath() {
@@ -151,6 +155,11 @@ public class ContactsFormController implements Initializable, JobFormChild<Conta
 	public ContactsFormController setContacts(Set<Contact> contacts) {
 		this.contacts = contacts;
 		return this;
+	}
+
+	@Override
+	public ResourceBundle getBundle() {
+		return bundle;
 	}
 
 }
