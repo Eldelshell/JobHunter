@@ -29,7 +29,11 @@ public class FileChooserFactory {
 	private static final ExtensionFilter HTM_FILTER = new ExtensionFilter("HTML", "*.html");
 	private static final ExtensionFilter PDF_FILTER = new ExtensionFilter("PDF", "*.pdf");
 	
-	public static Optional<File> open(final Window window) {
+	public static FileChooserFactory create(){
+		return new FileChooserFactory();
+	}
+	
+	public Optional<File> open(final Window window) {
 		final FileChooser fc = new FileChooser();
     	fc.setTitle("Open JobHunter File");
     	fc.setSelectedExtensionFilter(JHF_FILTER);
@@ -37,7 +41,7 @@ public class FileChooserFactory {
     	return Optional.ofNullable(fc.showOpenDialog(window));
 	}
 	
-	public static Optional<File> saveAs(final Window window) {
+	public Optional<File> saveAs(final Window window) {
 		final FileChooser fc = new FileChooser();
     	fc.setTitle("Save JobHunter File");
     	fc.setSelectedExtensionFilter(JHF_FILTER);
@@ -45,7 +49,7 @@ public class FileChooserFactory {
     	return Optional.ofNullable(fc.showSaveDialog(window));
 	}
 	
-	public static Optional<File> exportHTML(final Window window) {
+	public Optional<File> exportHTML(final Window window) {
 		final FileChooser fc = new FileChooser();
     	fc.setTitle("Export as HTML");
     	fc.setSelectedExtensionFilter(HTM_FILTER);
@@ -53,7 +57,7 @@ public class FileChooserFactory {
     	return Optional.ofNullable(fc.showSaveDialog(window));
 	}
 	
-	public static Optional<File> exportPDF(final Window window) {
+	public Optional<File> exportPDF(final Window window) {
 		final FileChooser fc = new FileChooser();
     	fc.setTitle("Export as PDF");
     	fc.setSelectedExtensionFilter(PDF_FILTER);
