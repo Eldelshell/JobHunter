@@ -11,59 +11,54 @@
     <children>
         <MenuBar styleClass="main-menu-bar">
             <menus>
-                <Menu mnemonicParsing="false" styleClass="main-menu" text="File">
+                <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.file">
                     <items>
-                        <MenuItem fx:id="newMenuItem" mnemonicParsing="false" onAction="#onActionNewMenuItemHandler" styleClass="main-menu-item" text="New">
+                        <MenuItem fx:id="newMenuItem" mnemonicParsing="false" onAction="#onActionNewMenuItemHandler" styleClass="main-menu-item" text="%menu.new">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#onActionOpenMenuItemHandler" styleClass="main-menu-item" text="Open">
+                        <MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#onActionOpenMenuItemHandler" styleClass="main-menu-item" text="%menu.open">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#onActionSaveMenuItemHandler" styleClass="main-menu-item" text="Save">
+                        <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#onActionSaveMenuItemHandler" styleClass="main-menu-item" text="%menu.save">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#onActionSaveAsMenuItemHandler" styleClass="main-menu-item" text="Save As..." />
-                        <CheckMenuItem fx:id="autoSaveMenuItem" mnemonicParsing="false" onAction="#onAutoSaveAction" text="Autosave" />
-                  <Menu mnemonicParsing="false" text="Export">
+                        <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#onActionSaveAsMenuItemHandler" styleClass="main-menu-item" text="%menu.saveas" />
+                        <CheckMenuItem fx:id="autoSaveMenuItem" mnemonicParsing="false" onAction="#onAutoSaveAction" text="%menu.autosave" />
+                  <Menu mnemonicParsing="false" text="%menu.export">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#onExportHTML" text="HTML" />
+                      <MenuItem mnemonicParsing="false" onAction="#onExportHTML" text="%menu.html" />
                     </items>
                   </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#onActionQuitMenuItemHandler" styleClass="main-menu-item" text="Quit">
+                        <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#onActionQuitMenuItemHandler" styleClass="main-menu-item" text="%menu.quit">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" styleClass="main-menu" text="View">
+                <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.view">
                     <items>
-                        <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onActionDeletedMenuItemHandler" styleClass="main-menu-item" text="Deleted Jobs" />
+                        <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onActionDeletedMenuItemHandler" styleClass="main-menu-item" text="%menu.deleted.jobs" />
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false" text="Jobs">
+            <Menu mnemonicParsing="false" text="%menu.jobs">
               <items>
-                <MenuItem fx:id="addJobButton" mnemonicParsing="false" onAction="#addJobButtonActionHandler" text="Add Job" />
-                  <Menu fx:id="importMenu" mnemonicParsing="false" text="Import From...">
-                    <!--
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#onImportFromInfoJobsAction" text="InfoJobs" />
-                    </items>
-                     -->
+                <MenuItem fx:id="addJobButton" mnemonicParsing="false" onAction="#addJobButtonActionHandler" text="%menu.addjob" />
+                  <Menu fx:id="importMenu" mnemonicParsing="false" text="%menu.import.from">
                   </Menu>
               </items>
             </Menu>
-                <Menu mnemonicParsing="false" styleClass="main-menu" text="Help">
+                <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.help">
                     <items>
-                        <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#onActionAboutMenuItemHandler" styleClass="main-menu-item" text="About" />
-                        <MenuItem fx:id="preferencesMenuItem" mnemonicParsing="false" onAction="#onActionPreferencesMenuItemHandler" styleClass="main-menu-item" text="Preferences" />
+                        <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#onActionAboutMenuItemHandler" styleClass="main-menu-item" text="%menu.about" />
+                        <MenuItem fx:id="preferencesMenuItem" mnemonicParsing="false" onAction="#onActionPreferencesMenuItemHandler" styleClass="main-menu-item" text="%menu.preferences" />
                     </items>
                 </Menu>
                 <Menu fx:id="developmentMenu" mnemonicParsing="false" styleClass="main-menu" text="Development" visible="false">
