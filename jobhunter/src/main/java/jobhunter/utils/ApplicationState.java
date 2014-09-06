@@ -16,6 +16,8 @@
 
 package jobhunter.utils;
 
+import impl.org.controlsfx.i18n.Localization;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -70,7 +72,9 @@ public enum ApplicationState {
 		if(cliLocale != null){
 			//locale should come as a en_US, en_UK, es_ES, fr_FR
 			final String [] str = cliLocale.split("_");
-			return new Locale(str[0], str[1]);
+			final Locale local = new Locale(str[0], str[1]);
+			Localization.setLocale(local);
+			return local;
 		}else{
 			return Locale.getDefault();
 		}
