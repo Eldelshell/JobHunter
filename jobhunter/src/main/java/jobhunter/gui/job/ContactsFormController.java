@@ -23,7 +23,6 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -50,9 +49,6 @@ public class ContactsFormController implements JobFormChild<Contact> {
 
     @FXML
     private TableColumn<Contact, String> emailColumn;
-    
-    @FXML
-    private ContextMenu tableMenu;
     
     private Set<Contact> contacts;
     
