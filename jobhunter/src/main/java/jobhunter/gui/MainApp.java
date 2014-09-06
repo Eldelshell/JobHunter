@@ -39,7 +39,10 @@ public class MainApp extends Application {
     	
     	PreferencesController.instanceOf().init();
     	
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"), ApplicationState.instanceOf().getBundle());
+        Parent root = FXMLLoader.load(
+    		getClass().getResource("/fxml/Scene.fxml"), 
+    		ApplicationState.instanceOf().getBundle()
+		);
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
