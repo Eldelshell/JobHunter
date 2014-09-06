@@ -56,6 +56,8 @@ public class JobFormController extends Observable implements Initializable, Loca
 	private static final int WIDTH 	= 700;
 	private static final int HEIGHT = 500;
 	
+	private Integer lastSelectedIndex = 0;
+	
 	private Job job;
 	
 	@FXML
@@ -114,23 +116,24 @@ public class JobFormController extends Observable implements Initializable, Loca
 	
 	@FXML
 	void jobFormListViewOnMouseClickedHandler(MouseEvent event) {
-		if(event.getButton().equals(MouseButton.PRIMARY)){
-			final int index = jobFormListView.getSelectionModel().getSelectedIndex();
-			
-			switch(index){
-			case 0:
-				applicationForm.show().ifPresent(this::drawForm);
-				break;
-			case 1:
-				companyForm.show().ifPresent(this::drawForm);
-				break;
-			case 2:
-				contactsForm.show().ifPresent(this::drawForm);
-				break;
-			case 3:
-				logController.show().ifPresent(this::drawForm);
-				break;
-			}
+		final int index = jobFormListView.getSelectionModel().getSelectedIndex();
+		
+		if(index == lastSelectedIndex) return; //dont redraw everything
+		
+		lastSelectedIndex = index;
+		switch(lastSelectedIndex){
+		case 0:
+			applicationForm.show().ifPresent(this::drawForm);
+			break;
+		case 1:
+			companyForm.show().ifPresent(this::drawForm);
+			break;
+		case 2:
+			contactsForm.show().ifPresent(this::drawForm);
+			break;
+		case 3:
+			logController.show().ifPresent(this::drawForm);
+			break;
 		}
 		
 	}
