@@ -16,7 +16,7 @@
             <TableColumn fx:id="emailColumn" prefWidth="218.0" sortable="false" text="%label.email" />
         </columns>
          <contextMenu>
-            <ContextMenu fx:id="tableContextMenu">
+            <ContextMenu>
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.contact" />
                 <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.contact" />

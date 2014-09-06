@@ -70,32 +70,11 @@ public class FXMLController implements Initializable, Observer, Localizable {
     private ListView<Job> jobsListView;
     
     @FXML
-    private MenuItem addJobButton;
-    
-    @FXML
-    private MenuItem saveAsMenuItem;
-
-    @FXML
-    private MenuItem openMenuItem;
-
-    @FXML
-    private MenuItem aboutMenuItem;
-
-    @FXML
-    private MenuItem saveMenuItem;
-    
-    @FXML
     private CheckMenuItem autoSaveMenuItem;
 
     @FXML
     private RadioMenuItem deletedMenuItem;
 
-    @FXML
-    private MenuItem quitMenuItem;
-    
-    @FXML
-    private MenuItem insertRandomJobMenuItem;
-    
     @FXML
     private VBox mainContainer;
     
