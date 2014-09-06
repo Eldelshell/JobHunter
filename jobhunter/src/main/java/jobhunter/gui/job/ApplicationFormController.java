@@ -17,7 +17,10 @@
 package jobhunter.gui.job;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +36,7 @@ import jobhunter.gui.FormChangeListener;
 import jobhunter.gui.dialog.EditorDialog;
 import jobhunter.models.Job;
 import jobhunter.persistence.ProfileRepository;
+import jobhunter.utils.LocalizedEnum;
 
 import org.controlsfx.control.textfield.TextFields;
 import org.slf4j.Logger;
@@ -58,7 +62,7 @@ public class ApplicationFormController implements JobFormChild<Job> {
     private ComboBox<String> portalCombo;
 
     @FXML
-    private ChoiceBox<String> statusCombo;
+    private ChoiceBox<LocalizedEnum<Job.Status>> statusCombo;
 
     @FXML
     private TextArea descriptionTextArea;
@@ -95,9 +99,13 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		ObservableList<String> portals = FXCollections.observableArrayList(
 			preferencesController.getPortalsList()
 		);
+		
+		List<LocalizedEnum<Job.Status>> vals = Arrays.stream(Job.Status.values())
+				.map(LocalizedEnum::of)
+				.collect(Collectors.toList());
 
-		ObservableList<String> jobStates = FXCollections.observableArrayList(
-			Job.Status.asList()
+		ObservableList<LocalizedEnum<Job.Status>> jobStates = FXCollections.observableArrayList(
+			vals
 		);
 
 		portalCombo.setItems(portals);
@@ -169,7 +177,7 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		
 		statusCombo.valueProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
-				this.job.setStatus(Job.Status.valueOf(neu.toUpperCase()));
+				this.job.setStatus((Job.Status)neu.getEnum());
 				changed();
 			}
 		});
@@ -193,7 +201,7 @@ public class ApplicationFormController implements JobFormChild<Job> {
 	}
 	
 	private void initializeFull() {
-		statusCombo.getSelectionModel().select(job.getStatus().capitalize());
+		statusCombo.getSelectionModel().select(LocalizedEnum.of(job.getStatus()));
 		positionTextField.setText(job.getPosition());
 		addressTextField.setText(job.getAddress());
 		salaryTextField.setText(job.getSalary());

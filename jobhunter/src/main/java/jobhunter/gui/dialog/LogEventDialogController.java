@@ -17,8 +17,11 @@
 package jobhunter.gui.dialog;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +40,7 @@ import javafx.stage.StageStyle;
 import jobhunter.gui.Localizable;
 import jobhunter.models.ActivityLog;
 import jobhunter.utils.JavaFXUtils;
+import jobhunter.utils.LocalizedEnum;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +67,7 @@ public class LogEventDialogController implements Initializable, Localizable {
     private TextField descriptionText;
 
     @FXML
-    private ChoiceBox<String> typeCombo;
+    private ChoiceBox<LocalizedEnum<ActivityLog.Type>> typeCombo;
     
     private ActivityLog log;
     
@@ -85,7 +89,7 @@ public class LogEventDialogController implements Initializable, Localizable {
     @FXML
     void onSaveButtonAction(ActionEvent event) {
     	this.log.setCreated(dateField.getValue());
-    	this.log.setType(ActivityLog.Type.valueOf(typeCombo.getValue().toUpperCase()));
+    	this.log.setType(typeCombo.getValue().getEnum());
     	this.log.setDescription(descriptionText.getText());
     	JavaFXUtils.closeWindow(event);
     }
@@ -93,9 +97,13 @@ public class LogEventDialogController implements Initializable, Localizable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle b) {
 		l.debug("Initializing {}", b);
-		ObservableList<String> types = FXCollections.observableArrayList(
-			ActivityLog.Type.asList()
-		);
+		
+		List<LocalizedEnum<ActivityLog.Type>> vals = Arrays.stream(ActivityLog.Type.values())
+				.map(LocalizedEnum::of)
+				.collect(Collectors.toList());
+		
+		ObservableList<LocalizedEnum<ActivityLog.Type>> types = 
+			FXCollections.observableArrayList(vals);
 		
 		typeCombo.setItems(types);
 	}

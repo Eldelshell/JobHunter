@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -101,6 +102,20 @@ public class ActivityLogController implements JobFormChild<ActivityLog> {
 		l.debug("Initializing");
 		dateColumn.setCellValueFactory(new PropertyValueFactory<ActivityLog, String>("date"));
 		eventColumn.setCellValueFactory(new PropertyValueFactory<ActivityLog, String>("event"));
+		eventColumn.setCellFactory(col -> {
+			return new TableCell<ActivityLog, String>(){
+
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					
+					if(!empty){
+						setText(getBundle().getString("activity.log." + item.toLowerCase()));
+					}
+				}
+				
+			};
+		});
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<ActivityLog, String>("description"));
 		table.setItems(FXCollections.observableArrayList(this.logs));
 	}
