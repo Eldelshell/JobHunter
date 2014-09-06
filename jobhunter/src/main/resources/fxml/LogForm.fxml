@@ -16,9 +16,9 @@
             <TableColumn fx:id="descriptionColumn" prefWidth="218.0" sortable="false" text="%label.description" />
         </columns>
          <contextMenu>
-            <ContextMenu fx:id="tableContextMenu">
+            <ContextMenu>
               <items>
-                <MenuItem fx:id="addRowMenuItem" mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.event" />
+                <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.event" />
                   <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.event" />
               </items>
             </ContextMenu>

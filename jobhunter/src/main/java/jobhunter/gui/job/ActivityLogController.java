@@ -23,8 +23,6 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,12 +39,6 @@ public class ActivityLogController implements JobFormChild<ActivityLog> {
 	private static final Logger l = LoggerFactory.getLogger(ActivityLogController.class);
 	private static final String PATH = "/fxml/LogForm.fxml";
 
-	@FXML
-    private ContextMenu tableContextMenu;
-
-    @FXML
-    private MenuItem addRowMenuItem;
-    
     @FXML
     private TableView<ActivityLog> table;
 
@@ -111,6 +103,8 @@ public class ActivityLogController implements JobFormChild<ActivityLog> {
 					
 					if(!empty){
 						setText(getBundle().getString("activity.log." + item.toLowerCase()));
+					}else{
+						setText("");
 					}
 				}
 				
