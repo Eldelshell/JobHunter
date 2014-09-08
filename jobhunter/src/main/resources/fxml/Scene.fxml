@@ -46,6 +46,13 @@
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.view">
                     <items>
                         <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onActionDeletedMenuItemHandler" styleClass="main-menu-item" text="%menu.deleted.jobs" />
+                  <Menu mnemonicParsing="false" text="%menu.order.by">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#orderByDateAction" text="%menu.date" />
+                      <MenuItem mnemonicParsing="false" onAction="#orderByRatingAction" text="%menu.rating" />
+                      <MenuItem mnemonicParsing="false" onAction="#orderByActivityAction" text="%menu.activity" />
+                    </items>
+                  </Menu>
                     </items>
                 </Menu>
             <Menu mnemonicParsing="false" text="%menu.jobs">

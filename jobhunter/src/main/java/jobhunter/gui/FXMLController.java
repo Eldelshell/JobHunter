@@ -216,7 +216,22 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	l.debug("onActionDeletedMenuItemHandler");
     	refresh();
     }
-
+    
+    @FXML
+    void orderByDateAction(ActionEvent event) {
+    	//TODO: implement me!
+    }
+    
+    @FXML
+    void orderByRatingAction(ActionEvent event) {
+    	//TODO: implement me!
+    }
+    
+    @FXML
+    void orderByActivityAction(ActionEvent event) {
+    	//TODO: implement me!
+    }
+    
     @FXML
     void onActionAboutMenuItemHandler(ActionEvent event) {
     	AboutDialog.create(getBundle()).show();
