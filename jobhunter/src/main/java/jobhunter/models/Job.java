@@ -19,7 +19,6 @@ package jobhunter.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -314,24 +313,6 @@ public class Job implements Comparable<Job>{
 	@Override
 	public int compareTo(Job o) {
 		return this.id.compareTo(o.id);
-	}
-	
-	public static class DateComparator implements Comparator<Job> {
-
-		@Override
-		public int compare(Job o1, Job o2) {
-			return o1.getCreated().compareTo(o2.getCreated());
-		}
-		
-	}
-	
-	public static class PositionComparator implements Comparator<Job> {
-
-		@Override
-		public int compare(Job o1, Job o2) {
-			return o1.getPosition().compareTo(o2.getPosition());
-		}
-		
 	}
 	
 }
