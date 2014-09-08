@@ -17,12 +17,15 @@
 package jobhunter.persistence;
 
 import java.io.File;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import jobhunter.models.Job;
+import jobhunter.models.Order;
 import jobhunter.models.Profile;
 import jobhunter.utils.ApplicationState;
 
@@ -68,19 +71,46 @@ public enum ProfileRepository {
 				.findFirst();
 	}
 
-	public Set<Job> getActiveJobs() {
+	public List<Job> getActiveJobs() {
 		return current.getJobs()
 				.stream()
 				.filter(j -> j.getActive())
 				.sorted()
-				.collect(Collectors.toSet());
+				.collect(Collectors.toList());
 	}
 	
-	public Set<Job> getAllJobs() {
+	public List<Job> getAllJobs() {
 		return current.getJobs()
 				.stream()
 				.sorted()
-				.collect(Collectors.toSet());
+				.collect(Collectors.toList());
+	}
+	
+	public List<Job> getJobsByDate(Boolean all) {
+		return getJobsBy(all, new Order.CreatedComparator(Order.DESCENDING));
+	}
+	
+	public List<Job> getJobsByRating(Boolean all) {
+		return getJobsBy(all, new Order.RatingComparator(Order.DESCENDING));
+	}
+	
+	public List<Job> getJobsByActivity(Boolean all) {
+		return getJobsBy(all, new Order.ActivityComparator(Order.DESCENDING));
+	}
+	
+	public List<Job> getJobsBy(Boolean all, Comparator<Job> comparator){
+		if(all){
+			return current.getJobs()
+				.stream()
+				.sorted(comparator)
+				.collect(Collectors.toList());
+		}else{
+			return current.getJobs()
+				.stream()
+				.filter(j -> j.getActive())
+				.sorted(comparator)
+				.collect(Collectors.toList());
+		}
 	}
 
 	public Profile getProfile() {
@@ -133,6 +163,10 @@ public enum ProfileRepository {
 
 	public void setListener(ProfileRepositoryListener listener) {
 		this.listener = listener;
+	}
+	
+	public void setProfile(Profile profile) {
+		this.current = profile;
 	}
 
 }
