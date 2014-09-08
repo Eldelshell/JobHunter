@@ -21,6 +21,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.security.SecureRandom;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Currency;
@@ -40,7 +41,7 @@ public class Random {
     private static final SecureRandom random = new SecureRandom();
     
     public static String String(Integer length){
-        return new BigInteger(130, random).toString(32).substring(1, length);
+        return new BigInteger(130, random).toString(24).substring(1, length);
     }
     
     public static String String(){
@@ -136,6 +137,14 @@ public class Random {
         return LocalDate.of(year, month, day);
     }
     
+    public static LocalDateTime LocalDateTime() {
+        final int month = Random.Integer(1, 12);
+        final int day = Random.Integer(1, 25);
+        final int hour = Random.Integer(1, 23);
+        final LocalDateTime rand = LocalDateTime.of(2014, month, day, hour, 0);
+        return rand.isBefore(LocalDateTime.now()) ? rand : LocalDateTime();
+    }
+    
     public static Company Company() {
     	return new Company()
 			.setName(Random.String(20))
@@ -160,6 +169,8 @@ public class Random {
     
     public static Job Job() {
     	return Job.of()
+    		.setCreated(LocalDateTime())
+    		.setActive(Boolean())
 	    	.setPosition(Random.String(15))
 			.setDescription(new LoremIpsum().getParagraphsHTML(3))
 			.setLink("http://www." + Random.String(25) + ".com/" + Random.String(25))
@@ -181,7 +192,7 @@ public class Random {
     public static Profile Profile(){
     	Profile p = new Profile();
 		p.setId(new ObjectId());
-		for(int i = 0; i < Random.Integer(1, 10); i++)
+		for(int i = 0; i < 10; i++)
 			p.addJob(Job());
 		return p;
     }
