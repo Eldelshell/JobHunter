@@ -76,7 +76,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     private RadioMenuItem deletedMenuItem;
     
     @FXML
-    private RadioMenuItem orderByDayeMenuItem;
+    private RadioMenuItem orderByDateMenuItem;
     
     @FXML
     private RadioMenuItem orderByRatingMenuItem;
@@ -221,23 +221,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
 
     @FXML
-    void onActionDeletedMenuItemHandler(ActionEvent event) {
+    void onRefreshAction(ActionEvent event) {
     	l.debug("onActionDeletedMenuItemHandler");
-    	refresh();
-    }
-    
-    @FXML
-    void orderByDateAction(ActionEvent event) {
-    	refresh();
-    }
-    
-    @FXML
-    void orderByRatingAction(ActionEvent event) {
-    	refresh();
-    }
-    
-    @FXML
-    void orderByActivityAction(ActionEvent event) {
     	refresh();
     }
     
@@ -386,7 +371,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		}else if(orderByActivityMenuItem.isSelected()){
 			return profileRepository.getJobsByActivity(deletedMenuItem.isSelected());
 		}else{
-			orderByDayeMenuItem.setSelected(true);
+			orderByDateMenuItem.setSelected(true);
 			return profileRepository.getJobsByDate(deletedMenuItem.isSelected());
 		}
 	}

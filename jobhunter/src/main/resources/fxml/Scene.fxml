@@ -45,16 +45,16 @@
                 </Menu>
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.view">
                     <items>
-                        <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onActionDeletedMenuItemHandler" styleClass="main-menu-item" text="%menu.deleted.jobs" />
+                        <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" styleClass="main-menu-item" text="%menu.deleted.jobs" />
                   <Menu mnemonicParsing="false" text="%menu.order.by">
                     <items>
-                      <RadioMenuItem fx:id="orderByDayeMenuItem" mnemonicParsing="false" onAction="#orderByDateAction" text="%menu.date">
+                      <RadioMenuItem fx:id="orderByDateMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.date">
                         <toggleGroup>
                             <ToggleGroup fx:id="orderBy" />
                         </toggleGroup>
                       </RadioMenuItem>
-                      <RadioMenuItem fx:id="orderByRatingMenuItem" mnemonicParsing="false" onAction="#orderByRatingAction" toggleGroup="$orderBy" text="%menu.rating" />
-                      <RadioMenuItem fx:id="orderByActivityMenuItem" mnemonicParsing="false" onAction="#orderByActivityAction" toggleGroup="$orderBy" text="%menu.activity" />
+                      <RadioMenuItem fx:id="orderByRatingMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.rating" />
+                      <RadioMenuItem fx:id="orderByActivityMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.activity" />
                     </items>
                   </Menu>
                     </items>
