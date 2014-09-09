@@ -26,6 +26,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
@@ -72,6 +73,9 @@ public class ApplicationFormController implements JobFormChild<Job> {
 
     @FXML
     private TextField linkTextField;
+    
+    @FXML
+    private Button editorButton;
     
     private Job job;
     private final PreferencesController preferencesController = PreferencesController.instanceOf();
@@ -215,6 +219,7 @@ public class ApplicationFormController implements JobFormChild<Job> {
 	}
 	
 	private void initializeInactive() {
+		statusCombo.setDisable(true);
 		positionTextField.setDisable(true);
 		addressTextField.setDisable(true);
 		salaryTextField.setDisable(true);
@@ -222,6 +227,7 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		linkTextField.setDisable(true);
 		descriptionTextArea.setDisable(true);
 		ratingSlider.setDisable(true);
+		editorButton.setDisable(true);
 	}
 	
 	public Job getJob() {
