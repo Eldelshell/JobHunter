@@ -108,14 +108,14 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     private ObservableList<Job> jobs;
     
-    private final ProfileRepository profileController;
+    private final ProfileRepository profileRepository;
     private final PreferencesController preferencesController;
     private final ApplicationState state;
     
     public FXMLController() {
-    	this.profileController = ProfileRepository.instanceOf();
+    	this.profileRepository = ProfileRepository.instanceOf();
     	
-    	profileController.setListener(() -> {
+    	profileRepository.setListener(() -> {
     		refresh();
     	});
     	
@@ -141,7 +141,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	}
     	
     	preferencesController.setLastFilePath("");
-    	profileController.clear();
+    	profileRepository.clear();
     	refresh();
     }
 
@@ -159,7 +159,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     			.showConfirm();
     		
     		if (response == Dialog.Actions.YES) {
-    			profileController.load(fopen.get());
+    			profileRepository.load(fopen.get());
     			preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     			refresh();
     		}
@@ -170,7 +170,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     void onActionSaveMenuItemHandler(ActionEvent event) {
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
-    		profileController.save(fout);
+    		profileRepository.save(fout);
     		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}else{
     		onActionSaveAsMenuItemHandler(event);
@@ -184,7 +184,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     			.saveAs(JavaFXUtils.getWindow(mainWebView));
     	
     	if(fopen.isPresent()){
-    		profileController.save(fopen.get());
+    		profileRepository.save(fopen.get());
     		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}
@@ -203,7 +203,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     			.create(bundle)
     			.exportHTML(JavaFXUtils.getWindow(mainWebView));
     	
-    	if(fopen.isPresent() && HTMLRenderer.of().export(fopen.get(), profileController.getProfile())){
+    	if(fopen.isPresent() && HTMLRenderer.of().export(fopen.get(), profileRepository.getProfile())){
     		JavaFXUtils.toast(statusLabel, getTranslation("message.exported.html"));
     	}else{
     		Dialogs
@@ -306,7 +306,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void onInsertRandomJob(ActionEvent e) {
-    	profileController.getProfile().addJob(Random.Job());
+    	profileRepository.getProfile().addJob(Random.Job());
     	refresh();
     }
     
@@ -323,9 +323,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
-    		profileController.load(fout);
+    		profileRepository.load(fout);
     	}else{
-    		profileController.getProfile();
+    		profileRepository.getProfile();
     	}
     	
     	autoSaveMenuItem.setSelected(preferencesController.isAutosave());
@@ -382,12 +382,12 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	
 	private List<Job> getJobs() {
 		if(orderByRatingMenuItem.isSelected()){
-			return profileController.getJobsByRating(deletedMenuItem.isSelected());
+			return profileRepository.getJobsByRating(deletedMenuItem.isSelected());
 		}else if(orderByActivityMenuItem.isSelected()){
-			return profileController.getJobsByActivity(deletedMenuItem.isSelected());
+			return profileRepository.getJobsByActivity(deletedMenuItem.isSelected());
 		}else{
 			orderByDayeMenuItem.setSelected(true);
-			return profileController.getJobsByDate(deletedMenuItem.isSelected());
+			return profileRepository.getJobsByDate(deletedMenuItem.isSelected());
 		}
 	}
 	
