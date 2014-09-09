@@ -69,6 +69,7 @@ public class JobCell extends ListCell<Job> {
 		}else{
 			this.setText(null);
 			this.setGraphic(null);
+			label1.getStyleClass().remove("deleted-label");
 		}
 		
 	}
