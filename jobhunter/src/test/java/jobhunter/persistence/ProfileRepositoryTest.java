@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import jobhunter.models.Job;
+import jobhunter.models.Order;
 import jobhunter.models.Profile;
 import jobhunter.utils.Random;
 
@@ -74,6 +75,19 @@ public class ProfileRepositoryTest {
 		Job last = j1.get(j1.size() - 1);
 		
 		assertTrue(first.getCreated().isAfter(last.getCreated()));
+	}
+	
+	@Test
+	public void getActiveJobsAscending() {
+		Profile prof = Random.Profile();
+		ProfileRepository.instanceOf().setProfile(prof);
+		
+		List<Job> j1 = ProfileRepository.instanceOf().getJobsBy(false, new Order.CreatedComparator(Order.ASCENDING));
+		
+		Job first = j1.get(0);
+		Job last = j1.get(j1.size() - 1);
+		
+		assertTrue(first.getCreated().isBefore(last.getCreated()));
 	}
 	
 	@Test

@@ -74,6 +74,15 @@ public class FXMLController implements Initializable, Observer, Localizable {
 
     @FXML
     private RadioMenuItem deletedMenuItem;
+    
+    @FXML
+    private RadioMenuItem orderByDayeMenuItem;
+    
+    @FXML
+    private RadioMenuItem orderByRatingMenuItem;
+    
+    @FXML
+    private RadioMenuItem orderByActivityMenuItem;
 
     @FXML
     private VBox mainContainer;
@@ -219,17 +228,17 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void orderByDateAction(ActionEvent event) {
-    	//TODO: implement me!
+    	refresh();
     }
     
     @FXML
     void orderByRatingAction(ActionEvent event) {
-    	//TODO: implement me!
+    	refresh();
     }
     
     @FXML
     void orderByActivityAction(ActionEvent event) {
-    	//TODO: implement me!
+    	refresh();
     }
     
     @FXML
@@ -321,9 +330,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	
     	autoSaveMenuItem.setSelected(preferencesController.isAutosave());
     	
-    	jobs = FXCollections.observableArrayList(profileController.getActiveJobs());
     	jobsListView.setCellFactory(new JobCell.JobCellCallback());
-    	jobsListView.setItems(jobs);
     	
     	mainWebViewFadeTransition = new FadeTransition();
 		mainWebViewFadeTransition.setDuration(Duration.millis(300));
@@ -335,6 +342,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		
 		// Load Plugins
     	onLoadPlugIns(null);
+    	
+    	refresh();
     }
     
 	@Override
@@ -354,12 +363,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	
 	private void refresh() {
 		mainWebView.getEngine().loadContent("");
-		if(deletedMenuItem.isSelected()){
-			jobs = FXCollections.observableArrayList(profileController.getAllJobs());
-    	}else{
-    		jobs = FXCollections.observableArrayList(profileController.getActiveJobs());
-    	}
 		jobsListView.getSelectionModel().clearSelection();
+		jobs = FXCollections.observableArrayList(getJobs());
     	jobsListView.setItems(jobs);
 	}
 	
@@ -373,6 +378,17 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	@Override
 	public ResourceBundle getBundle() {
 		return this.bundle;
+	}
+	
+	private List<Job> getJobs() {
+		if(orderByRatingMenuItem.isSelected()){
+			return profileController.getJobsByRating(deletedMenuItem.isSelected());
+		}else if(orderByActivityMenuItem.isSelected()){
+			return profileController.getJobsByActivity(deletedMenuItem.isSelected());
+		}else{
+			orderByDayeMenuItem.setSelected(true);
+			return profileController.getJobsByDate(deletedMenuItem.isSelected());
+		}
 	}
 	
 }
