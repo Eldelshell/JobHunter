@@ -64,11 +64,14 @@ public class JobFormController extends Observable implements Initializable, Loca
 	
     @FXML
     private Button deleteButton;
+    
+    @FXML
+    private Button saveButton;
 
     @FXML
     private ListView<String> jobFormListView;
     
-	private final ProfileRepository profileController = ProfileRepository.instanceOf();
+	private final ProfileRepository profileRepository = ProfileRepository.instanceOf();
 	private final ResourceBundle bundle;
 	
 	private ApplicationFormController applicationForm;
@@ -94,7 +97,7 @@ public class JobFormController extends Observable implements Initializable, Loca
 	@FXML
 	void saveButtonHandler(ActionEvent event) {
 		l.debug("Save: {}", job.toString());
-		profileController.saveJob(job);
+		profileRepository.saveJob(job);
 		close(event, true);
 	}
 	
@@ -108,7 +111,7 @@ public class JobFormController extends Observable implements Initializable, Loca
 		        .showConfirm();
 
 		if (response == Dialog.Actions.YES) {
-			profileController.deleteJob(this.job);
+			profileRepository.deleteJob(this.job);
 			close(event, true);
 		}
 	}
@@ -166,6 +169,11 @@ public class JobFormController extends Observable implements Initializable, Loca
 		if(this.job == null){
 			this.job = Job.of();
 			this.deleteButton.setVisible(false);
+		}
+		
+		if(!this.job.getActive()){
+			this.deleteButton.setVisible(false);
+			this.saveButton.setVisible(false);
 		}
 		
 		applicationForm = ApplicationFormController.create(bundle).setJob(job);
