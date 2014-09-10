@@ -24,6 +24,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -50,6 +52,7 @@ public class HTMLRenderer {
 		}else{
 			vals.put("styles_path", "templates/styles.html");
 		}
+		vals.put("generated", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 		return vals;
 	}
 	

@@ -13,10 +13,12 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
+        <h1>Your Job Applications</h1>
+        <p>Generated on @{generated}</p>
         <div class="btn-group-vertical well" style="width: 100%;">
           @foreach{job : jobs}
             @if{job.active}
-              <a class="btn btn-default" href="#@{job.id}">@{job.position}<br>@{job.company.name != empty ? job.company.name : ''}</a>
+              <a class="btn btn-default" href="#@{job.id}"><strong>@{job.position}</strong><br><i>@{job.company.name != empty ? job.company.name : ''}</i></a>
             @end{}
           @end{}
         </div>
