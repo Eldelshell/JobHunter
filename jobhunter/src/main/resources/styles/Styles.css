@@ -43,7 +43,7 @@
 
 .job-form-list-view {
     -fx-background-insets: 0;
-    -fx-fixed-cell-size: 50;
+    -fx-fixed-cell-size: 40;
     -fx-border-color: #ececec;
 }
 
@@ -65,4 +65,8 @@
 
 .dialog-toolbar {
     -fx-background-color: white;
+}
+
+.job-form-list-view .virtual-flow .clipped-container .sheet .list-cell {
+    -fx-padding: 0;
 }
