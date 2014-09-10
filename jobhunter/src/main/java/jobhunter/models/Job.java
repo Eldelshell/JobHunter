@@ -45,11 +45,6 @@ public class Job implements Comparable<Job>{
 		APPLIED,
 		
 		/**
-		 * The poster rejected our application.
-		 */
-		REJECTED,
-		
-		/**
 		 * We've been called for an interview.
 		 */
 		INTERVIEWING,
@@ -63,6 +58,11 @@ public class Job implements Comparable<Job>{
 		 * We don't care about this any more. (delete?)
 		 */
 		UNINTERESTED,
+		
+		/**
+		 * The poster rejected our application.
+		 */
+		REJECTED,
 		
 		/**
 		 * The poster has closed the position.
