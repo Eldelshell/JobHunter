@@ -67,4 +67,17 @@ public enum Order {
 		}
 		
 	}
+	
+	public static class StatusComparator extends AbstractComparator implements Comparator<Job>{
+		
+		public StatusComparator(Order order) {
+			super(order);
+		}
+
+		@Override
+		public int compare(Job o1, Job o2) {
+			return Integer.compare(o1.getStatus().ordinal(), o2.getStatus().ordinal()) * (order.equals(ASCENDING) ? 1 : -1);
+		}
+		
+	}
 }

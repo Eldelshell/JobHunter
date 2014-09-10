@@ -98,6 +98,10 @@ public enum ProfileRepository {
 		return getJobsBy(all, new Order.ActivityComparator(Order.DESCENDING));
 	}
 	
+	public List<Job> getJobsByStatus(Boolean all) {
+		return getJobsBy(all, new Order.StatusComparator(Order.DESCENDING));
+	}
+	
 	public List<Job> getJobsBy(Boolean all, Comparator<Job> comparator){
 		if(all){
 			return current.getJobs()

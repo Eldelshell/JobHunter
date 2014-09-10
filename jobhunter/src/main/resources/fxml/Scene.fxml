@@ -55,6 +55,7 @@
                       </RadioMenuItem>
                       <RadioMenuItem fx:id="orderByRatingMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.rating" />
                       <RadioMenuItem fx:id="orderByActivityMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.activity" />
+                      <RadioMenuItem fx:id="orderByStatusMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.status" />
                     </items>
                   </Menu>
                     </items>

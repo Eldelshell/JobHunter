@@ -83,6 +83,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     private RadioMenuItem orderByActivityMenuItem;
+    
+    @FXML
+    private RadioMenuItem orderByStatusMenuItem;
 
     @FXML
     private VBox mainContainer;
@@ -370,6 +373,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
 			return profileRepository.getJobsByRating(deletedMenuItem.isSelected());
 		}else if(orderByActivityMenuItem.isSelected()){
 			return profileRepository.getJobsByActivity(deletedMenuItem.isSelected());
+		}else if(orderByStatusMenuItem.isSelected()){
+			return profileRepository.getJobsByStatus(deletedMenuItem.isSelected());
 		}else{
 			orderByDateMenuItem.setSelected(true);
 			return profileRepository.getJobsByDate(deletedMenuItem.isSelected());
