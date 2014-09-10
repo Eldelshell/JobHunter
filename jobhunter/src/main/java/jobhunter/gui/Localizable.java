@@ -8,7 +8,11 @@ public interface Localizable {
 	public ResourceBundle getBundle();
 	
 	default String getTranslation(String str) {
-		return getBundle().getString(str);
+		try {
+			return getBundle().getString(str);
+		} catch (Exception e) {
+			return str;
+		}
 	}
 	
 	default String getTranslation(String str, Object...objects) {
