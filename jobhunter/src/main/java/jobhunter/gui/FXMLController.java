@@ -43,6 +43,7 @@ import javafx.scene.web.WebView;
 import javafx.util.Duration;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.gui.dialog.AboutDialog;
+import jobhunter.gui.dialog.BugReportDialog;
 import jobhunter.gui.dialog.DebugDialog;
 import jobhunter.gui.dialog.PreferencesDialog;
 import jobhunter.gui.job.JobFormController;
@@ -283,6 +284,11 @@ public class FXMLController implements Initializable, Observer, Localizable {
     @FXML
     void onActionPreferencesMenuItemHandler(ActionEvent e) {
     	PreferencesDialog.create(getBundle()).show();
+    }
+    
+    @FXML
+    void onActionReportBugMenuItemHandler(ActionEvent event) {
+    	BugReportDialog.create().setBundle(bundle).show();
     }
     
     @FXML

@@ -71,6 +71,7 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#onActionAboutMenuItemHandler" styleClass="main-menu-item" text="%menu.about" />
                         <MenuItem mnemonicParsing="false" onAction="#onActionPreferencesMenuItemHandler" styleClass="main-menu-item" text="%menu.preferences" />
+                        <MenuItem mnemonicParsing="false" onAction="#onActionReportBugMenuItemHandler" styleClass="main-menu-item" text="%menu.bug" />
                     </items>
                 </Menu>
                 <Menu fx:id="developmentMenu" mnemonicParsing="false" styleClass="main-menu" text="Development" visible="false">
