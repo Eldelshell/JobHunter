@@ -46,8 +46,10 @@ import jobhunter.gui.dialog.AboutDialog;
 import jobhunter.gui.dialog.BugReportDialog;
 import jobhunter.gui.dialog.DebugDialog;
 import jobhunter.gui.dialog.PreferencesDialog;
+import jobhunter.gui.dialog.SubscriptionForm;
 import jobhunter.gui.job.JobFormController;
 import jobhunter.models.Job;
+import jobhunter.models.Subscription;
 import jobhunter.persistence.ProfileRepository;
 import jobhunter.plugins.PlugIn;
 import jobhunter.plugins.PlugInLoader;
@@ -252,6 +254,11 @@ public class FXMLController implements Initializable, Observer, Localizable {
     @FXML
     void addJobButtonActionHandler(ActionEvent e){
     	openJobForm(Optional.empty());
+    }
+    
+    @FXML
+    void addFeedHandler(ActionEvent e){
+    	SubscriptionForm.create().setBundle(bundle).setSubscription(Subscription.create()).show();
     }
     
 	@FXML

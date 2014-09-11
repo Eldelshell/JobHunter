@@ -7,7 +7,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jobhunter.gui.FXMLController">
+<VBox fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="jobhunter.gui.FXMLController">
     <children>
         <MenuBar styleClass="main-menu-bar">
             <menus>
@@ -30,11 +31,11 @@
                         </MenuItem>
                         <MenuItem mnemonicParsing="false" onAction="#onActionSaveAsMenuItemHandler" styleClass="main-menu-item" text="%menu.saveas" />
                         <CheckMenuItem fx:id="autoSaveMenuItem" mnemonicParsing="false" onAction="#onAutoSaveAction" text="%menu.autosave" />
-                  <Menu mnemonicParsing="false" text="%menu.export">
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#onExportHTML" text="%menu.html" />
-                    </items>
-                  </Menu>
+                        <Menu mnemonicParsing="false" text="%menu.export">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#onExportHTML" text="%menu.html" />
+                            </items>
+                        </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#onActionQuitMenuItemHandler" styleClass="main-menu-item" text="%menu.quit">
                             <accelerator>
@@ -46,27 +47,32 @@
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.view">
                     <items>
                         <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" styleClass="main-menu-item" text="%menu.deleted.jobs" />
-                  <Menu mnemonicParsing="false" text="%menu.order.by">
-                    <items>
-                      <RadioMenuItem fx:id="orderByDateMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.date">
-                        <toggleGroup>
-                            <ToggleGroup fx:id="orderBy" />
-                        </toggleGroup>
-                      </RadioMenuItem>
-                      <RadioMenuItem fx:id="orderByRatingMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.rating" />
-                      <RadioMenuItem fx:id="orderByActivityMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.activity" />
-                      <RadioMenuItem fx:id="orderByStatusMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.status" />
-                    </items>
-                  </Menu>
+                        <Menu mnemonicParsing="false" text="%menu.order.by">
+                            <items>
+                                <RadioMenuItem fx:id="orderByDateMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.date">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="orderBy" />
+                                    </toggleGroup>
+                                </RadioMenuItem>
+                                <RadioMenuItem fx:id="orderByRatingMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.rating" />
+                                <RadioMenuItem fx:id="orderByActivityMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.activity" />
+                                <RadioMenuItem fx:id="orderByStatusMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.status" />
+                            </items>
+                        </Menu>
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false" text="%menu.jobs">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#addJobButtonActionHandler" text="%menu.addjob" />
-                  <Menu fx:id="importMenu" mnemonicParsing="false" text="%menu.import.from">
-                  </Menu>
-              </items>
-            </Menu>
+                <Menu mnemonicParsing="false" text="%menu.jobs">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#addJobButtonActionHandler" text="%menu.addjob" />
+                        <Menu fx:id="importMenu" mnemonicParsing="false" text="%menu.import.from">
+                        </Menu>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%menu.feeds">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#addFeedHandler" text="%menu.add.feed" />
+                    </items>
+                </Menu>
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.help">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#onActionAboutMenuItemHandler" styleClass="main-menu-item" text="%menu.about" />
@@ -84,12 +90,13 @@
                 </Menu>
             </menus>
         </MenuBar>
-      <SplitPane dividerPositions="0.3" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-         <items>
-              <ListView id="jobs-list-view" fx:id="jobsListView" fixedCellSize="40.0" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0" styleClass="job-form-list-view" />
-            <WebView fx:id="mainWebView" opacity="0.0" prefHeight="200.0" prefWidth="200.0" />
-         </items>
-      </SplitPane>
-      <Label fx:id="statusLabel" contentDisplay="TEXT_ONLY" opacity="0.0" prefHeight="24.0" styleClass="status-label" text="buooooooooo" />
+        <SplitPane dividerPositions="0.3" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <items>
+                <ListView id="jobs-list-view" fx:id="jobsListView" fixedCellSize="40.0" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0"
+                    styleClass="job-form-list-view" />
+                <WebView fx:id="mainWebView" opacity="0.0" prefHeight="200.0" prefWidth="200.0" />
+            </items>
+        </SplitPane>
+        <Label fx:id="statusLabel" contentDisplay="TEXT_ONLY" opacity="0.0" prefHeight="24.0" styleClass="status-label" text="buooooooooo" />
     </children>
 </VBox>
