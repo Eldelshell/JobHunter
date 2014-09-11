@@ -1,7 +1,5 @@
 package jobhunter.infoempleo;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 
