@@ -40,6 +40,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
@@ -292,6 +294,12 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	    	webViewRenderer.render(item);
 	    	item.setActive(false);
     	}
+    }
+    
+    @FXML
+    void subscriptionTableOnKeyPress(KeyEvent e){
+    	if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN)
+    		subscriptionTableOnClick(null);
     }
     
     @FXML
