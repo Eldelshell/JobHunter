@@ -135,7 +135,7 @@ public class Subscription implements Comparable<Subscription> {
 				.setCreated(item.getPubDate())
 				.setDescription(item.getDescription())
 				.setLink(item.getLink())
-				.setPortal("")
+				.setPortal(getPortal())
 				.setPosition(item.getTitle())
 				.setExtId(item.getGuid())
 		);
