@@ -32,6 +32,7 @@ import java.util.Optional;
 
 import jobhunter.models.Job;
 import jobhunter.models.Profile;
+import jobhunter.models.SubscriptionItem;
 
 import org.mvel2.templates.TemplateRuntime;
 import org.slf4j.Logger;
@@ -85,6 +86,21 @@ public class HTMLRenderer {
 		
 		try(InputStream io = new FileInputStream(new File(path))){
 			return Optional.of(TemplateRuntime.eval(io, job, getValues()));
+		} catch (IOException e) {
+			l.error("Failed to generate HTML", e);
+		}
+		
+		return Optional.empty();
+	}
+	
+	public Optional<Object> render(final SubscriptionItem item) {
+		String path = "templates/subscription.html";
+		
+		if(ApplicationState.instanceOf().isDevelopment())
+			path = "src/main/resources/templates/subscription.html";
+		
+		try(InputStream io = new FileInputStream(new File(path))){
+			return Optional.of(TemplateRuntime.eval(io, item, getValues()));
 		} catch (IOException e) {
 			l.error("Failed to generate HTML", e);
 		}
