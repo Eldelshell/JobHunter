@@ -24,6 +24,8 @@ public enum SubscriptionRepository {
 	private List<Subscription> subscriptions;
 
 	public List<Subscription> getSubscriptions() {
+		if(this.subscriptions == null)
+			this.subscriptions = new ArrayList<>();
 		return subscriptions;
 	}
 
@@ -31,21 +33,18 @@ public enum SubscriptionRepository {
 		this.subscriptions = subscriptions;
 	}
 	
-	public Boolean add(final Subscription subs){
+	public void add(final Subscription subs){
 		l.debug("Adding subscription");
+		this.getSubscriptions().add(subs);
 		fireEvent();
 		ApplicationState.instanceOf().changesPending(true);
-		
-		if(this.subscriptions == null)
-			this.subscriptions = new ArrayList<>();
-		
-		return this.subscriptions.add(subs);
 	}
 	
-	public Boolean delete(final Subscription subs){
+	public void delete(final Subscription subs){
+		l.debug("Removing subscription");
+		this.getSubscriptions().remove(subs);
 		fireEvent();
 		ApplicationState.instanceOf().changesPending(true);
-		return this.subscriptions.remove(subs);
 	}
 	
 	public void save() {
