@@ -120,7 +120,7 @@
                     <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                             <children>
-                                <TableView fx:id="subscriptionTable" prefHeight="115.0" prefWidth="415.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <TableView fx:id="subscriptionTable" onMouseClicked="#subscriptionTableOnClick" prefHeight="115.0" prefWidth="415.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <columns>
                                         <TableColumn fx:id="dateColumn" editable="false" prefWidth="25.0" sortable="false" text="%label.date" />
                                         <TableColumn fx:id="positionColumn" prefWidth="75.0" text="%label.position" />
