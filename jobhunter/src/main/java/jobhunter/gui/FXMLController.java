@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import javafx.animation.FadeTransition;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,7 +44,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
-import javafx.util.Duration;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.gui.dialog.AboutDialog;
 import jobhunter.gui.dialog.BugReportDialog;
@@ -52,7 +51,6 @@ import jobhunter.gui.dialog.DebugDialog;
 import jobhunter.gui.dialog.PreferencesDialog;
 import jobhunter.gui.dialog.SubscriptionForm;
 import jobhunter.gui.job.JobFormController;
-import jobhunter.models.ActivityLog;
 import jobhunter.models.Job;
 import jobhunter.models.Subscription;
 import jobhunter.models.SubscriptionItem;
@@ -60,11 +58,13 @@ import jobhunter.persistence.ProfileRepository;
 import jobhunter.persistence.SubscriptionRepository;
 import jobhunter.plugins.PlugIn;
 import jobhunter.plugins.PlugInLoader;
+import jobhunter.rss.FeedService;
 import jobhunter.utils.ApplicationState;
 import jobhunter.utils.HTMLRenderer;
 import jobhunter.utils.JavaFXUtils;
 import jobhunter.utils.Random;
 import jobhunter.utils.WebViewRenderer;
+
 
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
@@ -127,7 +127,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     @FXML
     private TableColumn<SubscriptionItem, String> positionColumn;
     
-    private FadeTransition mainWebViewFadeTransition;
+    private WebViewRenderer webViewRenderer;
     
     private ResourceBundle bundle;
     
@@ -267,8 +267,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	    	if(JavaFXUtils.isDoubleClick(e)){
     			openJobForm(Optional.of(selectedJob));
 	    	}else{
-	    		WebViewRenderer.render(mainWebView, selectedJob);
-	    		mainWebViewFadeTransition.playFromStart();
+	    		webViewRenderer.render(selectedJob);
 	    	}
     	}
     }
@@ -277,9 +276,6 @@ public class FXMLController implements Initializable, Observer, Localizable {
     void feedListViewOnMouseClickedHandler(MouseEvent e){
     	String selected = feedListView.getSelectionModel().getSelectedItem();
     	if(selected != null){
-	    	if(JavaFXUtils.isDoubleClick(e)){
-	    	}else{
-	    	}
 	    	subscriptionRepository.findByTitle(selected).ifPresent(sub -> {
 	    		subscriptionTable.setItems(
     				FXCollections.observableArrayList(
@@ -287,7 +283,14 @@ public class FXMLController implements Initializable, Observer, Localizable {
     				)
 				);
 	    	});
-	    	
+    	}
+    }
+    
+    @FXML
+    void subscriptionTableOnClick(MouseEvent e){
+    	SubscriptionItem item = subscriptionTable.getSelectionModel().getSelectedItem();
+    	if(item != null){
+	    	webViewRenderer.render(item);
     	}
     }
     
@@ -298,14 +301,31 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void addFeedHandler(ActionEvent e){
-    	SubscriptionForm.create()
-    		.setBundle(bundle)
-    		.setSubscription(Subscription.create())
-    		.show()
-    		.ifPresent(sub -> {
-    			l.debug("Adding subscription {}", sub);
-    			SubscriptionRepository.instanceOf().add(sub);
-    		});
+    	SubscriptionForm dialog = SubscriptionForm
+			.create(getBundle())
+			.setSubscription(Subscription.create());
+    	
+		dialog.show().ifPresent(action -> {
+			if(action != Dialog.Actions.CANCEL) {
+				l.debug("Adding subscription {}", dialog.getSubscription());
+				Subscription sub = dialog.getSubscription();
+				
+				FeedService fs = FeedService.create(sub);
+				
+				fs.setOnSucceeded(wse -> {
+					SubscriptionRepository.instanceOf().add(dialog.getSubscription());
+				});
+				
+				Dialogs.create()
+					.lightweight()
+					.title("Updating feed")
+					.message("Updating Feed")
+					.showWorkerProgress(fs);
+				
+				fs.start();
+	    	}
+		});
+    	
     }
     
 	@FXML
@@ -387,12 +407,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	dateColumn.setCellValueFactory(new PropertyValueFactory<SubscriptionItem, String>("created"));
 		positionColumn.setCellValueFactory(new PropertyValueFactory<SubscriptionItem, String>("position"));
     	
-    	mainWebViewFadeTransition = new FadeTransition();
-		mainWebViewFadeTransition.setDuration(Duration.millis(300));
-		mainWebViewFadeTransition.setFromValue(0);
-		mainWebViewFadeTransition.setToValue(1);
-		mainWebViewFadeTransition.setNode(mainWebView);
-		
+		this.webViewRenderer = new WebViewRenderer(mainWebView);
 		WebViewOnClickListener.set(mainWebView);
 		
 		// Load Plugins
