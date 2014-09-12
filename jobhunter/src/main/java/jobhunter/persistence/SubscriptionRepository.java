@@ -2,6 +2,7 @@ package jobhunter.persistence;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jobhunter.models.Subscription;
 import jobhunter.utils.ApplicationState;
@@ -45,6 +46,13 @@ public enum SubscriptionRepository {
 		this.getSubscriptions().remove(subs);
 		fireEvent();
 		ApplicationState.instanceOf().changesPending(true);
+	}
+	
+	public Optional<Subscription> findByTitle(final String title) {
+		return getSubscriptions()
+				.stream()
+				.filter(sub -> sub.getTitle().equals(title))
+				.findFirst();
 	}
 	
 	public void save() {
