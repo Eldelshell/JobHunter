@@ -70,6 +70,7 @@
                 <Menu mnemonicParsing="false" text="%menu.feeds">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#addFeedHandler" text="%menu.add.feed" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteFeedHandler" text="%menu.delete.feed" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.help">

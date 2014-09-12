@@ -67,9 +67,9 @@ public enum SubscriptionRepository {
 	
 	public Optional<Subscription> findByTitle(final String title) {
 		return getSubscriptions()
-				.stream()
-				.filter(sub -> sub.getTitle().equals(title))
-				.findFirst();
+			.stream()
+			.filter(sub -> sub.getTitle().equals(title))
+			.findFirst();
 	}
 	
 	public void load(final File file) {

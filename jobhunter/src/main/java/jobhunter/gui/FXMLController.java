@@ -337,6 +337,25 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	
     }
     
+    @FXML
+    void deleteFeedHandler(ActionEvent e){
+    	Dialogs.create()
+			.lightweight()
+			.title(getTranslation("menu.delete.feed"))
+			.message(getTranslation("message.select.feed.delete"))
+			.showChoices(
+				subscriptionRepository.getSubscriptions()
+					.stream()
+					.map(sub -> sub.getTitle())
+					.collect(Collectors.toList())
+			).ifPresent(response -> {
+				l.debug("Delete {}", response);
+				subscriptionRepository
+					.findByTitle(response)
+					.ifPresent(subscriptionRepository::delete);
+			});
+    }
+    
 	@FXML
 	@SuppressWarnings("unchecked")
     void onLoadPlugIns(ActionEvent e) {
