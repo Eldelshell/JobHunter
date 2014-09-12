@@ -45,7 +45,7 @@ public enum ApplicationState {
 		return changesPending;
 	}
 	
-	public void changesPending(Boolean val){
+	public synchronized void changesPending(Boolean val){
 		l.debug("Changes pending: {}", val);
 		this.changesPending = val;
 	}
