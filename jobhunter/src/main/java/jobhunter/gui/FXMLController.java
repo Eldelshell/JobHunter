@@ -53,6 +53,7 @@ import jobhunter.gui.job.JobFormController;
 import jobhunter.models.Job;
 import jobhunter.models.Subscription;
 import jobhunter.models.SubscriptionItem;
+import jobhunter.persistence.Persistence;
 import jobhunter.persistence.ProfileRepository;
 import jobhunter.persistence.SubscriptionRepository;
 import jobhunter.plugins.PlugIn;
@@ -197,8 +198,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     void onActionSaveMenuItemHandler(ActionEvent event) {
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
-    		profileRepository.save(fout);
-    		subscriptionRepository.save(fout);
+    		Persistence.save(fout);
     		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}else{
     		onActionSaveAsMenuItemHandler(event);
@@ -212,7 +212,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     			.saveAs(JavaFXUtils.getWindow(mainWebView));
     	
     	if(fopen.isPresent()){
-    		profileRepository.save(fopen.get());
+    		Persistence.save(fopen.get());
     		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}

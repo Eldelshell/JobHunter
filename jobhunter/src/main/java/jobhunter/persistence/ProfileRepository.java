@@ -146,11 +146,6 @@ public enum ProfileRepository {
 		fireEvent();
 	}
 
-	public void save(final File file) {
-		Persistence.save(file);
-		ApplicationState.instanceOf().changesPending(false);
-	}
-	
 	private void fireEvent() {
 		if(this.listener != null)
 			this.listener.changed();

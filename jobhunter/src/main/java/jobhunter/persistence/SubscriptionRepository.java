@@ -72,11 +72,6 @@ public enum SubscriptionRepository {
 				.findFirst();
 	}
 	
-	public void save(final File file) {
-		Persistence.save(file);
-		ApplicationState.instanceOf().changesPending(false);
-	}
-	
 	public void load(final File file) {
 		Optional<List<Subscription>> profile = Persistence.readSubscriptions(file);
 		this.subscriptions = profile.orElse(new ArrayList<>());

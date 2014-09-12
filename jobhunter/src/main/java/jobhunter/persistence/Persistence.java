@@ -27,6 +27,7 @@ import java.util.zip.ZipOutputStream;
 
 import jobhunter.models.Profile;
 import jobhunter.models.Subscription;
+import jobhunter.utils.ApplicationState;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,7 @@ public final class Persistence {
 	}
 	
 	public static void save(final File file) {
+		ApplicationState.instanceOf().changesPending(false);
 		zip(file);
 	}
 	
