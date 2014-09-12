@@ -1,97 +1,96 @@
 package jobhunter.gui.dialog;
 
-import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.gui.Localizable;
 import jobhunter.models.Subscription;
-import jobhunter.utils.JavaFXUtils;
 
+import org.controlsfx.control.action.AbstractAction;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SubscriptionForm implements Initializable, Localizable {
+public class SubscriptionForm implements Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(SubscriptionForm.class);
-	private static final String PATH = "/fxml/SubscriptionForm.fxml";
-	private static final int WIDTH 	= 420;
-	private static final int HEIGHT = 170;
 	
-	private ResourceBundle bundle;
-	private Subscription subscription;
-	
-	@FXML
-    private TextField urlField;
+	private final ResourceBundle bundle;
+    private final TextField urlField = new TextField();
+    private final TextField titleField = new TextField();
+    private final ComboBox<String> portalField = new ComboBox<>();
+    private final Action save;
+    
+    private Subscription subscription;
+    
+    public SubscriptionForm(ResourceBundle bundle) {
+		this.bundle = bundle;
+		this.save = new SaveAction(getTranslation("label.save"));
+		
+		urlField.textProperty().addListener((observable, old, neu) -> {
+			subscription.setURI(neu);
+	    });
+		
+		titleField.textProperty().addListener((observable, old, neu) -> {
+			subscription.setTitle(neu);
+	    });
+		
+		portalField.valueProperty().addListener((observable, old, neu) -> {
+			subscription.setPortal(neu);
+	    });
+	}
 
-    @FXML
-    private TextField titleField;
-
-    @FXML
-    private ComboBox<String> portalField;
-
-    @FXML
-    private Button saveButton;
-
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    void onCancelButtonAction(ActionEvent event) {
-    	JavaFXUtils.closeWindow(event);
-    }
-
-    @FXML
-    void onSaveButtonAction(ActionEvent event) {
-    	this.subscription.setTitle(titleField.getText());
-		this.subscription.setPortal(portalField.getValue());
-		this.subscription.setURI(urlField.getText());
-    	JavaFXUtils.closeWindow(event);
+    public static SubscriptionForm create(ResourceBundle bundle){
+    	return new SubscriptionForm(bundle);
     }
     
-    public static SubscriptionForm create(){
-    	return new SubscriptionForm();
-    }
-    
-	@Override
-	public void initialize(URL arg0, ResourceBundle b) {
-		ObservableList<String> portals = FXCollections.observableArrayList(
+    public Optional<Action> show() {
+        Dialog dlg = new Dialog(null, getTranslation("message.add.subscription"));
+        
+        final GridPane content = new GridPane();
+        content.setHgap(10);
+        content.setVgap(10);
+        
+        content.add(new Label(getTranslation("label.title")), 0, 0);
+        content.add(titleField, 1, 0);
+        GridPane.setHgrow(titleField, Priority.ALWAYS);
+        
+        ObservableList<String> portals = FXCollections.observableArrayList(
 			PreferencesController.instanceOf().getPortalsList()
 		);
 		
-		this.portalField.setItems(portals);
-	}
-	
-	public Optional<Subscription> show() {
-		Optional<Parent> root = JavaFXUtils.loadFXML(this, PATH, bundle);
+		portalField.setItems(portals);
+        portalField.setPrefWidth(400.0);
+        portalField.setEditable(true);
 		
-		if(!root.isPresent()) return Optional.empty();
-		
-		Stage stage = new Stage();
-		stage.setTitle(getTranslation("message.add.subscription"));
-		
-		Scene scene = new Scene(root.get(), WIDTH, HEIGHT);
-		stage.setScene(scene);
-        stage.initStyle(StageStyle.UTILITY);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.showAndWait();
-        l.debug("Returning model");
-		return Optional.ofNullable(this.subscription);
-	}
+        content.add(new Label(getTranslation("label.portal")), 0, 1);
+        content.add(portalField, 1, 1);
+        
+        content.add(new Label(getTranslation("label.feed.url")), 0, 2);
+        content.add(urlField, 1, 2);
+        GridPane.setHgrow(urlField, Priority.ALWAYS);
+        
+        dlg.setResizable(false);
+        dlg.setIconifiable(false);
+        dlg.setContent(content);
+        dlg.getActions().addAll(save, Dialog.Actions.CANCEL);
+          
+        Platform.runLater(() -> titleField.requestFocus());
+        
+        l.debug("Showing dialog");
+        return Optional.of(dlg.show());
+    }
 
 	public Subscription getSubscription() {
 		return subscription;
@@ -106,10 +105,17 @@ public class SubscriptionForm implements Initializable, Localizable {
 	public ResourceBundle getBundle() {
 		return this.bundle;
 	}
-
-	public SubscriptionForm setBundle(ResourceBundle bundle) {
-		this.bundle = bundle;
-		return this;
-	}
 	
+	public class SaveAction extends AbstractAction {
+		public SaveAction(String text) {
+			super(text);
+		}
+
+		@Override
+		public void handle(ActionEvent event) {
+			Dialog d = (Dialog) event.getSource();
+	        d.hide();
+		}
+	}
+
 }
