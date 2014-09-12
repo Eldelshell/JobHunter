@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jobhunter.gui.Localizable;
 import jobhunter.persistence.Persistence;
-import jobhunter.persistence.ProfileRepository;
 
 public class DebugDialog implements Localizable {
 	
@@ -43,7 +42,7 @@ private final ResourceBundle bundle;
 
 	public void show() {
 		TextArea text = new TextArea();
-		text.setText(Persistence.debugProfile(ProfileRepository.instanceOf().getProfile()));
+		text.setText(Persistence.debugProfile());
 		text.setEditable(false);
 		text.setPrefSize(600, 500);
 		

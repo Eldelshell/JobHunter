@@ -16,6 +16,7 @@
 
 package jobhunter.persistence;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -71,12 +72,15 @@ public enum SubscriptionRepository {
 				.findFirst();
 	}
 	
-	public void save() {
-		
+	public void save(final File file) {
+		Persistence.save(file);
+		ApplicationState.instanceOf().changesPending(false);
 	}
 	
-	public void clear() {
-		
+	public void load(final File file) {
+		Optional<List<Subscription>> profile = Persistence.readSubscriptions(file);
+		this.subscriptions = profile.orElse(new ArrayList<>());
+		fireEvent();
 	}
 	
 	private void fireEvent() {

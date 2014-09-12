@@ -141,18 +141,13 @@ public enum ProfileRepository {
 	}
 
 	public void load(final File file) {
-		Optional<Profile> profile = Persistence.read(file);
-
-		if (profile.isPresent()){
-			this.current = profile.get();
-		}else{
-			current = Profile.instanceOf();
-		}
+		Optional<Profile> profile = Persistence.readProfile(file);
+		this.current = profile.orElse(Profile.instanceOf());
 		fireEvent();
 	}
 
 	public void save(final File file) {
-		Persistence.save(current, file);
+		Persistence.save(file);
 		ApplicationState.instanceOf().changesPending(false);
 	}
 	

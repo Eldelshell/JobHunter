@@ -198,6 +198,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
     		profileRepository.save(fout);
+    		subscriptionRepository.save(fout);
     		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}else{
     		onActionSaveAsMenuItemHandler(event);
@@ -396,6 +397,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
     		profileRepository.load(fout);
+    		subscriptionRepository.load(fout);
     	}else{
     		profileRepository.getProfile();
     	}
