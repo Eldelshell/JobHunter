@@ -32,6 +32,8 @@ import jobhunter.models.Contact;
 import jobhunter.models.Job;
 import jobhunter.models.Profile;
 import jobhunter.models.Salary;
+import jobhunter.models.Subscription;
+import jobhunter.models.SubscriptionItem;
 import jobhunter.persistence.ObjectId;
 
 public class Random {
@@ -202,5 +204,25 @@ public class Random {
 			.setCreated(LocalDate.now())
 			.setType(Enum(ActivityLog.Type.class))
 			.setDescription(String());
+    }
+    
+    public static Subscription Subscription(){
+    	return Subscription.create()
+			.setURI(String())
+			.setTitle(String())
+			.addItem(SubscriptionItem())
+			.addItem(SubscriptionItem())
+			.addItem(SubscriptionItem())
+			.addItem(SubscriptionItem());
+    }
+    
+    public static SubscriptionItem SubscriptionItem(){
+    	return SubscriptionItem.create()
+			.setCreated(LocalDateTime())
+			.setLink(String())
+			.setPortal(element(Arrays.asList(new String[]{
+				"Xing", "LinkedIn", "Monster", "Direct Contact"
+			})))
+			.setDescription(new LoremIpsum().getParagraphsHTML());
     }
 }
