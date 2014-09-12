@@ -16,14 +16,42 @@
 
 package jobhunter.utils;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.web.WebView;
+import javafx.util.Duration;
 import jobhunter.models.Job;
+import jobhunter.models.SubscriptionItem;
 
 public class WebViewRenderer {
+	
+	private final WebView view;
+	private final FadeTransition anim;
+	
+	public WebViewRenderer(WebView view) {
+		super();
+		this.view = view;
+		anim = new FadeTransition();
+		anim.setDuration(Duration.millis(300));
+		anim.setFromValue(0);
+		anim.setToValue(1);
+		anim.setNode(this.view);
+	}
+	
+	public static WebViewRenderer create(WebView view) {
+		return new WebViewRenderer(view);
+	}
 
-	public static void render(final WebView view, Job job) {
+	public void render(Job job) {
 		HTMLRenderer.of().render(job).ifPresent(obj -> {
 			view.getEngine().loadContent((String) obj);
+			anim.playFromStart();
+		});
+	}
+	
+	public void render(SubscriptionItem item) {
+		HTMLRenderer.of().render(item).ifPresent(obj -> {
+			view.getEngine().loadContent((String) obj);
+			anim.playFromStart();
 		});
 	}
 	
