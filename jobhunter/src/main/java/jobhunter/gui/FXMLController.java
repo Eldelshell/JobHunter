@@ -23,6 +23,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -37,6 +38,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
@@ -48,8 +52,10 @@ import jobhunter.gui.dialog.DebugDialog;
 import jobhunter.gui.dialog.PreferencesDialog;
 import jobhunter.gui.dialog.SubscriptionForm;
 import jobhunter.gui.job.JobFormController;
+import jobhunter.models.ActivityLog;
 import jobhunter.models.Job;
 import jobhunter.models.Subscription;
+import jobhunter.models.SubscriptionItem;
 import jobhunter.persistence.ProfileRepository;
 import jobhunter.persistence.SubscriptionRepository;
 import jobhunter.plugins.PlugIn;
@@ -72,6 +78,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	
     @FXML
     private ListView<Job> jobsListView;
+    
+    @FXML
+    private ListView<String> feedListView;
     
     @FXML
     private CheckMenuItem autoSaveMenuItem;
@@ -109,20 +118,33 @@ public class FXMLController implements Initializable, Observer, Localizable {
     @FXML
     private Label statusLabel;
     
+    @FXML
+    private TableView<SubscriptionItem> subscriptionTable;
+	
+	@FXML
+    private TableColumn<SubscriptionItem, String> dateColumn;
+
+    @FXML
+    private TableColumn<SubscriptionItem, String> positionColumn;
+    
     private FadeTransition mainWebViewFadeTransition;
     
     private ResourceBundle bundle;
     
-    private ObservableList<Job> jobs;
-    
     private final ProfileRepository profileRepository;
+    private final SubscriptionRepository subscriptionRepository;
     private final PreferencesController preferencesController;
     private final ApplicationState state;
     
     public FXMLController() {
     	this.profileRepository = ProfileRepository.instanceOf();
+    	this.subscriptionRepository = SubscriptionRepository.instanceOf();
     	
     	profileRepository.setListener(() -> {
+    		refresh();
+    	});
+    	
+    	subscriptionRepository.setListener(() -> {
     		refresh();
     	});
     	
@@ -240,8 +262,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 
     @FXML
     void jobListViewOnMouseClickedHandler(MouseEvent e){
-    	ListView<?> parent = (ListView<?>) e.getSource();
-    	Job selectedJob = (Job) parent.getSelectionModel().getSelectedItem();
+    	Job selectedJob = jobsListView.getSelectionModel().getSelectedItem();
     	if(selectedJob != null){
 	    	if(JavaFXUtils.isDoubleClick(e)){
     			openJobForm(Optional.of(selectedJob));
@@ -249,6 +270,24 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	    		WebViewRenderer.render(mainWebView, selectedJob);
 	    		mainWebViewFadeTransition.playFromStart();
 	    	}
+    	}
+    }
+    
+    @FXML
+    void feedListViewOnMouseClickedHandler(MouseEvent e){
+    	String selected = feedListView.getSelectionModel().getSelectedItem();
+    	if(selected != null){
+	    	if(JavaFXUtils.isDoubleClick(e)){
+	    	}else{
+	    	}
+	    	subscriptionRepository.findByTitle(selected).ifPresent(sub -> {
+	    		subscriptionTable.setItems(
+    				FXCollections.observableArrayList(
+						sub.getItems()
+    				)
+				);
+	    	});
+	    	
     	}
     }
     
@@ -316,7 +355,11 @@ public class FXMLController implements Initializable, Observer, Localizable {
     @FXML
     void onInsertRandomJob(ActionEvent e) {
     	profileRepository.getProfile().addJob(Random.Job());
-    	refresh();
+    }
+    
+    @FXML
+    void onInsertRandomSubscription(ActionEvent e) {
+    	subscriptionRepository.add(Random.Subscription());
     }
     
     @FXML
@@ -340,6 +383,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	autoSaveMenuItem.setSelected(preferencesController.isAutosave());
     	
     	jobsListView.setCellFactory(new JobCell.JobCellCallback());
+    	
+    	dateColumn.setCellValueFactory(new PropertyValueFactory<SubscriptionItem, String>("created"));
+		positionColumn.setCellValueFactory(new PropertyValueFactory<SubscriptionItem, String>("position"));
     	
     	mainWebViewFadeTransition = new FadeTransition();
 		mainWebViewFadeTransition.setDuration(Duration.millis(300));
@@ -373,8 +419,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	private void refresh() {
 		mainWebView.getEngine().loadContent("");
 		jobsListView.getSelectionModel().clearSelection();
-		jobs = FXCollections.observableArrayList(getJobs());
-    	jobsListView.setItems(jobs);
+    	jobsListView.setItems(FXCollections.observableArrayList(getJobs()));
+    	feedListView.setItems(getSubscriptions());
 	}
 	
 	private void autosave() {
@@ -400,6 +446,15 @@ public class FXMLController implements Initializable, Observer, Localizable {
 			orderByDateMenuItem.setSelected(true);
 			return profileRepository.getJobsByDate(deletedMenuItem.isSelected());
 		}
+	}
+	
+	private ObservableList<String> getSubscriptions() {
+		return FXCollections.observableArrayList(
+			subscriptionRepository.getSubscriptions()
+			.stream()
+			.map(sub -> sub.getTitle())
+			.collect(Collectors.toList())
+		);
 	}
 	
 }
