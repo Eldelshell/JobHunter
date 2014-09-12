@@ -51,6 +51,7 @@ import jobhunter.gui.job.JobFormController;
 import jobhunter.models.Job;
 import jobhunter.models.Subscription;
 import jobhunter.persistence.ProfileRepository;
+import jobhunter.persistence.SubscriptionRepository;
 import jobhunter.plugins.PlugIn;
 import jobhunter.plugins.PlugInLoader;
 import jobhunter.utils.ApplicationState;
@@ -258,7 +259,14 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void addFeedHandler(ActionEvent e){
-    	SubscriptionForm.create().setBundle(bundle).setSubscription(Subscription.create()).show();
+    	SubscriptionForm.create()
+    		.setBundle(bundle)
+    		.setSubscription(Subscription.create())
+    		.show()
+    		.ifPresent(sub -> {
+    			l.debug("Adding subscription {}", sub);
+    			SubscriptionRepository.instanceOf().add(sub);
+    		});
     }
     
 	@FXML

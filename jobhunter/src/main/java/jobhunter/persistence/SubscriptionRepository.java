@@ -1,6 +1,7 @@
 package jobhunter.persistence;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import jobhunter.models.Subscription;
 import jobhunter.utils.ApplicationState;
@@ -20,20 +21,24 @@ public enum SubscriptionRepository {
 		return _INSTANCE;
 	}
 	
-	private Set<Subscription> subscriptions;
+	private List<Subscription> subscriptions;
 
-	public Set<Subscription> getSubscriptions() {
+	public List<Subscription> getSubscriptions() {
 		return subscriptions;
 	}
 
-	public void setSubscriptions(Set<Subscription> subscriptions) {
+	public void setSubscriptions(List<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
 	}
 	
 	public Boolean add(final Subscription subs){
-		l.debug("Saving subscription: ");
+		l.debug("Adding subscription");
 		fireEvent();
 		ApplicationState.instanceOf().changesPending(true);
+		
+		if(this.subscriptions == null)
+			this.subscriptions = new ArrayList<>();
+		
 		return this.subscriptions.add(subs);
 	}
 	
