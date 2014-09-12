@@ -323,7 +323,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 			FeedService fs = FeedService.create(sub).setBundle(getBundle());
 			
 			fs.setOnSucceeded(wse -> {
-				SubscriptionRepository.instanceOf().add(dialog.getSubscription());
+				SubscriptionRepository.instanceOf().add(sub);
 			});
 			
 			Dialogs.create()
