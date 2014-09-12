@@ -21,6 +21,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.StringUtils;
+
 import jobhunter.persistence.ObjectId;
 import jobhunter.rss.Item;
 
@@ -131,12 +133,17 @@ public class Subscription implements Comparable<Subscription> {
 	}
 	
 	public Subscription addItem(Item item) {
+		String link = item.getLink();
+		if(StringUtils.startsWith(link, "/")){
+			link = getLink() + StringUtils.removeStart(link, "/");
+		}
+		
 		addItem(
 			SubscriptionItem
 				.create()
 				.setCreated(item.getPubDate())
 				.setDescription(item.getDescription())
-				.setLink(item.getLink())
+				.setLink(link)
 				.setPortal(getPortal())
 				.setPosition(item.getTitle())
 				.setExtId(item.getGuid())
