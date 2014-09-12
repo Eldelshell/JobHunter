@@ -58,6 +58,19 @@ public enum Order {
 		
 	}
 	
+	public static class SubscriptionItemCreatedComparator extends AbstractComparator implements Comparator<SubscriptionItem>{
+		
+		public SubscriptionItemCreatedComparator(Order order) {
+			super(order);
+		}
+
+		@Override
+		public int compare(SubscriptionItem o1, SubscriptionItem o2) {
+			return o1.getCreated().compareTo(o2.getCreated()) * (order.equals(ASCENDING) ? 1 : -1);
+		}
+		
+	}
+	
 	public static class PositionComparator extends AbstractComparator implements Comparator<Job>{
 		
 		public PositionComparator(Order order) {

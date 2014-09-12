@@ -17,7 +17,6 @@
 package jobhunter.models;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 
 import jobhunter.persistence.ObjectId;
 
@@ -147,12 +146,4 @@ public class SubscriptionItem implements Comparable<SubscriptionItem>{
 		return this.link.compareTo(o.link);
 	}
 	
-	public static class DateTimeComparator implements Comparator<SubscriptionItem>{
-
-		@Override
-		public int compare(SubscriptionItem o1, SubscriptionItem o2) {
-			return o1.getCreated().compareTo(o2.getCreated());
-		}
-
-	}
 }
