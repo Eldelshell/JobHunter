@@ -18,13 +18,13 @@ package jobhunter.gui;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,7 +40,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
@@ -64,7 +63,6 @@ import jobhunter.utils.HTMLRenderer;
 import jobhunter.utils.JavaFXUtils;
 import jobhunter.utils.Random;
 import jobhunter.utils.WebViewRenderer;
-
 
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
@@ -120,10 +118,10 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     private TableView<SubscriptionItem> subscriptionTable;
-	
-	@FXML
-    private TableColumn<SubscriptionItem, String> dateColumn;
-
+    
+    @FXML
+    private TableColumn<SubscriptionItem, LocalDateTime> dateColumn;
+    
     @FXML
     private TableColumn<SubscriptionItem, String> positionColumn;
     
@@ -291,6 +289,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	SubscriptionItem item = subscriptionTable.getSelectionModel().getSelectedItem();
     	if(item != null){
 	    	webViewRenderer.render(item);
+	    	item.setActive(false);
     	}
     }
     
@@ -301,30 +300,31 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void addFeedHandler(ActionEvent e){
-    	SubscriptionForm dialog = SubscriptionForm
-			.create(getBundle())
+    	l.debug("Opening SubscriptionForm");
+    	SubscriptionForm dialog = SubscriptionForm.create(getBundle())
 			.setSubscription(Subscription.create());
     	
-		dialog.show().ifPresent(action -> {
-			if(action != Dialog.Actions.CANCEL) {
-				l.debug("Adding subscription {}", dialog.getSubscription());
-				Subscription sub = dialog.getSubscription();
-				
-				FeedService fs = FeedService.create(sub);
-				
-				fs.setOnSucceeded(wse -> {
-					SubscriptionRepository.instanceOf().add(dialog.getSubscription());
-				});
-				
-				Dialogs.create()
-					.lightweight()
-					.title("Updating feed")
-					.message("Updating Feed")
-					.showWorkerProgress(fs);
-				
-				fs.start();
-	    	}
-		});
+    	Optional<Action> action = dialog.show();
+    	
+    	if(action.isPresent() && action.get() != Dialog.Actions.CANCEL) {
+    		l.debug("Got response from dialog");
+    		Subscription sub = dialog.getSubscription();
+			
+    		l.debug("Updating the new feed");
+			FeedService fs = FeedService.create(sub);
+			
+			fs.setOnSucceeded(wse -> {
+				SubscriptionRepository.instanceOf().add(dialog.getSubscription());
+			});
+			
+			Dialogs.create()
+				.lightweight()
+				.title(getTranslation("message.updating.feed"))
+				.message(getTranslation("message.updating.feed"))
+				.showWorkerProgress(fs);
+			
+			fs.start();
+    	}
     	
     }
     
@@ -404,8 +404,11 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	
     	jobsListView.setCellFactory(new JobCell.JobCellCallback());
     	
-    	dateColumn.setCellValueFactory(new PropertyValueFactory<SubscriptionItem, String>("created"));
-		positionColumn.setCellValueFactory(new PropertyValueFactory<SubscriptionItem, String>("position"));
+    	// Initialize the table
+    	dateColumn.setCellValueFactory(SubscriptionRow.DATE_VALUE);
+    	dateColumn.setCellFactory(SubscriptionRow::getCellFactory);
+    	positionColumn.setCellValueFactory(SubscriptionRow.POSITION_VALUE);
+    	subscriptionTable.setRowFactory(SubscriptionRow::create);
     	
 		this.webViewRenderer = new WebViewRenderer(mainWebView);
 		WebViewOnClickListener.set(mainWebView);

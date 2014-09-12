@@ -14,7 +14,7 @@ public class SubscriptionItem implements Comparable<SubscriptionItem>{
 	private LocalDateTime created;
 
 	private Boolean active = Boolean.TRUE;
-
+	
 	private String extId;
 
 	private String portal;

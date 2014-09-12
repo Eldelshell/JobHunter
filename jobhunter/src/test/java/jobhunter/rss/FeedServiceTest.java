@@ -1,10 +1,6 @@
 package jobhunter.rss;
 
 import static org.junit.Assert.assertNotNull;
-
-import java.util.concurrent.ExecutionException;
-
-import javafx.concurrent.Worker.State;
 import jobhunter.gui.JavaFXThreadingRule;
 import jobhunter.models.Subscription;
 import jobhunter.rss.FeedService.FeedTask;
@@ -24,7 +20,7 @@ public class FeedServiceTest {
 			.setTitle("Test")
 			.setURI("http://www.tecnoempleo.com/alertas-empleo-rss.php?te=Madrid&cp=,29,&co=,1,&du=,1,6,&free=,0,");
 		
-		FeedTask task = new FeedTask(s);
+		FeedTask task = new FeedTask(s, null);
 		
 //		task.setOnSucceeded(e -> {
 //			System.out.println("Done!");
@@ -48,7 +44,7 @@ public class FeedServiceTest {
 		Thread.sleep(5000);
 		System.out.println("Starting again");
 		
-		task = new FeedTask(s1);
+		task = new FeedTask(s1, null);
 		
 		task.run();
 		

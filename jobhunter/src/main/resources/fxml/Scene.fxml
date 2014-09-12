@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="jobhunter.gui.FXMLController">
+<VBox fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jobhunter.gui.FXMLController">
     <children>
         <MenuBar styleClass="main-menu-bar">
             <menus>
@@ -54,9 +53,9 @@
                                         <ToggleGroup fx:id="orderBy" />
                                     </toggleGroup>
                                 </RadioMenuItem>
-                                <RadioMenuItem fx:id="orderByRatingMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.rating" />
-                                <RadioMenuItem fx:id="orderByActivityMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.activity" />
-                                <RadioMenuItem fx:id="orderByStatusMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" toggleGroup="$orderBy" text="%menu.status" />
+                                <RadioMenuItem fx:id="orderByRatingMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.rating" toggleGroup="$orderBy" />
+                                <RadioMenuItem fx:id="orderByActivityMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.activity" toggleGroup="$orderBy" />
+                                <RadioMenuItem fx:id="orderByStatusMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.status" toggleGroup="$orderBy" />
                             </items>
                         </Menu>
                     </items>
@@ -111,7 +110,7 @@
                         </TitledPane>
                         <TitledPane animated="false" text="%label.feeds">
                             <content>
-                                <ListView fx:id="feedListView" maxWidth="400.0" minWidth="50.0" onMouseClicked="#feedListViewOnMouseClickedHandler" prefWidth="220.0"/>
+                                <ListView fx:id="feedListView" maxWidth="400.0" minWidth="50.0" onMouseClicked="#feedListViewOnMouseClickedHandler" prefWidth="220.0" />
                             </content>
                         </TitledPane>
                     </panes>
@@ -122,8 +121,8 @@
                             <children>
                                 <TableView fx:id="subscriptionTable" onMouseClicked="#subscriptionTableOnClick" prefHeight="115.0" prefWidth="415.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <columns>
-                                        <TableColumn fx:id="dateColumn" editable="false" prefWidth="25.0" sortable="false" text="%label.date" />
-                                        <TableColumn fx:id="positionColumn" prefWidth="75.0" text="%label.position" />
+                                        <TableColumn fx:id="dateColumn" editable="false" prefWidth="117.0" resizable="false" sortable="false" text="%label.date" />
+                                        <TableColumn fx:id="positionColumn" editable="false" prefWidth="436.0" resizable="false" sortable="false" text="%label.position" />
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
