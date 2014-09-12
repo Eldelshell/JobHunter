@@ -32,6 +32,8 @@ public class Subscription implements Comparable<Subscription> {
 
 	private String portal;
 	
+	private String link;
+	
 	private String uri;
 	
 	private LocalDateTime lastUpdate;
@@ -160,6 +162,15 @@ public class Subscription implements Comparable<Subscription> {
 		this.uri = uri;
 		return this;
 	}
+	
+	public String getLink() {
+		return link;
+	}
+
+	public Subscription setLink(String link) {
+		this.link = link;
+		return this;
+	}
 
 	@Override
 	public int hashCode() {
@@ -207,5 +218,5 @@ public class Subscription implements Comparable<Subscription> {
 				.append("]");
 		return builder.toString();
 	}
-	
+
 }
