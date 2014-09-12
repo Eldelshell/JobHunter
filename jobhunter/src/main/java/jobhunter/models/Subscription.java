@@ -18,8 +18,10 @@ package jobhunter.models;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import jobhunter.persistence.ObjectId;
 import jobhunter.rss.Item;
@@ -111,6 +113,12 @@ public class Subscription implements Comparable<Subscription> {
 	
 	public Set<SubscriptionItem> getItems() {
 		return items;
+	}
+	
+	public List<SubscriptionItem> getSortedItems() {
+		return getItems().stream()
+			.sorted(new Order.SubscriptionItemCreatedComparator(Order.DESCENDING))
+			.collect(Collectors.toList());
 	}
 
 	public Subscription setItems(Set<SubscriptionItem> items) {

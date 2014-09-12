@@ -280,7 +280,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	    	subscriptionRepository.findByTitle(selected).ifPresent(sub -> {
 	    		subscriptionTable.setItems(
     				FXCollections.observableArrayList(
-						sub.getItems()
+						sub.getSortedItems()
     				)
 				);
 	    	});
