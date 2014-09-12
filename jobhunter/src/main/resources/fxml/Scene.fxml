@@ -84,6 +84,7 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#onActionClearDataMenuItemHandler" styleClass="main-menu-item" text="Clear Data" />
                         <MenuItem mnemonicParsing="false" onAction="#onInsertRandomJob" styleClass="main-menu-item" text="Insert Random Job" />
+                        <MenuItem mnemonicParsing="false" onAction="#onInsertRandomSubscription" styleClass="main-menu-item" text="Insert Random Subscription" />
                         <MenuItem mnemonicParsing="false" onAction="#onLoadPlugIns" styleClass="main-menu-item" text="Load Plugins" />
                         <MenuItem mnemonicParsing="false" onAction="#onShowJobs" styleClass="main-menu-item" text="Show Jobs" />
                     </items>
@@ -91,11 +92,52 @@
             </menus>
         </MenuBar>
         <SplitPane dividerPositions="0.3" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <!--
             <items>
                 <ListView id="jobs-list-view" fx:id="jobsListView" fixedCellSize="40.0" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0"
                     styleClass="job-form-list-view" />
                 <WebView fx:id="mainWebView" opacity="0.0" prefHeight="200.0" prefWidth="200.0" />
             </items>
+            -->
+
+
+            <items>
+                <Accordion>
+                    <panes>
+                        <TitledPane animated="false" text="%label.jobs">
+                            <content>
+                                <ListView id="jobs-list-view" fx:id="jobsListView" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0" styleClass="job-form-list-view" />
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="%label.feeds">
+                            <content>
+                                <ListView fx:id="feedListView" maxWidth="400.0" minWidth="50.0" onMouseClicked="#feedListViewOnMouseClickedHandler" prefWidth="220.0"/>
+                            </content>
+                        </TitledPane>
+                    </panes>
+                </Accordion>
+                <SplitPane dividerPositions="0.3" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                            <children>
+                                <TableView fx:id="subscriptionTable" prefHeight="115.0" prefWidth="415.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <columns>
+                                        <TableColumn fx:id="dateColumn" editable="false" prefWidth="25.0" sortable="false" text="%label.date" />
+                                        <TableColumn fx:id="positionColumn" prefWidth="75.0" text="%label.position" />
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                        <WebView fx:id="mainWebView" opacity="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </items>
+                </SplitPane>
+            </items>
+            
+            
+            
         </SplitPane>
         <Label fx:id="statusLabel" contentDisplay="TEXT_ONLY" opacity="0.0" prefHeight="24.0" styleClass="status-label" text="buooooooooo" />
     </children>
