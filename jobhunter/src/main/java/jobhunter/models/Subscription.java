@@ -180,5 +180,15 @@ public class Subscription implements Comparable<Subscription> {
 		if(o == null) throw new IllegalArgumentException("Can't be null");
 		return this.id.compareTo(o.id);
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Subscription [title=").append(title)
+				.append(", portal=").append(portal).append(", uri=")
+				.append(uri).append(", lastUpdate=").append(lastUpdate)
+				.append("]");
+		return builder.toString();
+	}
 	
 }
