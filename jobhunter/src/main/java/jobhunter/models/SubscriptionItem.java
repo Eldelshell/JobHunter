@@ -8,6 +8,8 @@ import jobhunter.persistence.ObjectId;
 public class SubscriptionItem implements Comparable<SubscriptionItem>{
 
 	private ObjectId id;
+	
+	private String position;
 
 	private LocalDateTime created;
 
@@ -88,6 +90,15 @@ public class SubscriptionItem implements Comparable<SubscriptionItem>{
 		return this;
 	}
 	
+	public String getPosition() {
+		return position;
+	}
+
+	public SubscriptionItem setPosition(String position) {
+		this.position = position;
+		return this;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

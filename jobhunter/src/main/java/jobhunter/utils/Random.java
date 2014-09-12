@@ -218,6 +218,7 @@ public class Random {
     
     public static SubscriptionItem SubscriptionItem(){
     	return SubscriptionItem.create()
+    		.setPosition(String())
 			.setCreated(LocalDateTime())
 			.setLink(String())
 			.setPortal(element(Arrays.asList(new String[]{

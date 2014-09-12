@@ -120,6 +120,7 @@ public class Subscription implements Comparable<Subscription> {
 				.setDescription(item.getDescription())
 				.setLink(item.getLink())
 				.setPortal("")
+				.setPosition(item.getTitle())
 				.setExtId(item.getGuid())
 		);
 		
