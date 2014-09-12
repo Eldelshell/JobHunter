@@ -86,10 +86,11 @@ public class FeedService extends Service<Subscription> implements Localizable {
 			
 			if(!rss.isPresent()) return null; //Or something!
 			
+			final Channel channel = rss.get().getChannel();
+			
 			update(getTranslation("message.parsing.response"), 2L);
 			subscription.setLastUpdate(LocalDateTime.now());
-			
-			Channel channel = rss.get().getChannel();
+			subscription.setLink(channel.getLink());
 			
 			l.debug("Adding to collection");
 			for(Item i : channel.getItems()){
