@@ -40,7 +40,7 @@ public class Subscription implements Comparable<Subscription> {
 	
 	private LocalDateTime lastUpdate;
 	
-	private Long ttl = 1L; //hours
+	private Long ttl = 60L; //minutes
 	
 	private Integer history = 50;
 	
@@ -53,7 +53,7 @@ public class Subscription implements Comparable<Subscription> {
 	}
 	
 	public Boolean isUpdatable(){
-		Long diff = ChronoUnit.HOURS.between(lastUpdate, LocalDateTime.now());
+		Long diff = ChronoUnit.MINUTES.between(lastUpdate, LocalDateTime.now());
 		return diff >= ttl;
 	}
 	
