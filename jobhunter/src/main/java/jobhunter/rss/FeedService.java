@@ -84,9 +84,9 @@ public class FeedService extends Service<Subscription> implements Localizable {
 			update(getTranslation("message.connecting"), 1L);
 			Optional<Root> rss = Client.create(subscription.getURI()).execute();
 			
-			if(!rss.isPresent()) return null; //Or something!
+			if(!rss.isPresent()) failed();
 			
-			final Channel channel = rss.get().getChannel();
+			Channel channel = rss.get().getChannel();
 			
 			update(getTranslation("message.parsing.response"), 2L);
 			subscription.setLastUpdate(LocalDateTime.now());
@@ -94,9 +94,10 @@ public class FeedService extends Service<Subscription> implements Localizable {
 			
 			l.debug("Adding to collection");
 			for(Item i : channel.getItems()){
-				l.debug("Adding item {}", i.getGuid());
+				l.debug("Adding item {}", i.getLink());
 				subscription.addItem(i);
 			}
+			
 			update(getTranslation("message.done"), 3L);
 			l.debug("Return subscription with new elements");
 			return subscription;
