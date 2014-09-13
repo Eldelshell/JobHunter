@@ -53,6 +53,11 @@ public enum SubscriptionRepository {
 	
 	public void add(final Subscription subs){
 		l.debug("Adding subscription");
+		
+		if(getSubscriptions().contains(subs)){
+			this.getSubscriptions().remove(subs);
+		}
+		
 		this.getSubscriptions().add(subs);
 		fireEvent();
 		ApplicationState.instanceOf().changesPending(true);
