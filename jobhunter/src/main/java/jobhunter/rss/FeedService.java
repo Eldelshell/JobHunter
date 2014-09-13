@@ -63,7 +63,7 @@ public class FeedService extends Service<Subscription> implements Localizable {
 		return this;
 	}
 	
-	static class FeedTask extends Task<Subscription> implements Localizable {
+	public static class FeedTask extends Task<Subscription> implements Localizable {
 		
 		private final Subscription subscription;
 		private final ResourceBundle bundle;
