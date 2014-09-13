@@ -356,6 +356,32 @@ public class FXMLController implements Initializable, Observer, Localizable {
 			});
     }
     
+    @FXML
+    void updateFeedHandler(ActionEvent e){
+    	JavaFXUtils.toast(statusLabel, getTranslation("message.updating.feed"));
+    	
+    	for(Subscription sub : subscriptionRepository.getSubscriptions()){
+    		
+    		if(sub.isUpdatable()){
+    			FeedService fs = FeedService.create(sub).setBundle(getBundle());
+    			
+    			fs.setOnSucceeded(wse -> {
+    				SubscriptionRepository.instanceOf().add(sub);
+    			});
+    			fs.setOnFailed(wse -> {
+    				l.error("Failed to update feed {}", sub.getTitle());
+    				Dialogs.create()
+    					.title("Failed to update feed")
+    					.message("Failed to update feed " + sub.getTitle())
+    					.showError();
+    			});
+    			
+    			fs.start();
+    		}
+    	}
+    	
+    }
+    
 	@FXML
 	@SuppressWarnings("unchecked")
     void onLoadPlugIns(ActionEvent e) {
