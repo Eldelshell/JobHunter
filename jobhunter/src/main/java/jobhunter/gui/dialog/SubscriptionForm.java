@@ -56,6 +56,7 @@ public class SubscriptionForm implements Localizable {
 		
 		urlField.textProperty().addListener((observable, old, neu) -> {
 			subscription.setURI(neu);
+			subscription.setLink(neu);
 	    });
 		
 		titleField.textProperty().addListener((observable, old, neu) -> {
