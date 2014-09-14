@@ -49,7 +49,7 @@ public class Subscription implements Comparable<Subscription> {
 	private Set<SubscriptionItem> items;
 	
 	@XStreamOmitField 
-	private transient Throwable latestError;
+	private transient Boolean failed = false;
 	
 	public static Subscription create() {
 		Subscription s = new Subscription();
@@ -187,12 +187,13 @@ public class Subscription implements Comparable<Subscription> {
 		return this;
 	}
 	
-	public Throwable getLatestError() {
-		return latestError;
+	
+	public Boolean getFailed() {
+		return failed;
 	}
 
-	public Subscription setLatestError(Throwable latestError) {
-		this.latestError = latestError;
+	public Subscription setFailed(Boolean failed) {
+		this.failed = failed;
 		return this;
 	}
 

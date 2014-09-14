@@ -89,13 +89,16 @@ public class ScheduledFeedService extends ScheduledService<Integer> implements L
 					
 					if(!rss.isPresent()){
 						l.error("Failed to update {}", subscription.getTitle());
+						subscription.setFailed(true);
+						neu.add(subscription);
 						continue;
 					}
 					
 					Channel channel = rss.get().getChannel();
 					
-					subscription.setLastUpdate(LocalDateTime.now());
-					subscription.setLink(channel.getLink());
+					subscription.setLastUpdate(LocalDateTime.now())
+						.setLink(channel.getLink())
+						.setFailed(false);
 					
 					l.debug("Adding to collection");
 					for(Item i : channel.getItems()){
