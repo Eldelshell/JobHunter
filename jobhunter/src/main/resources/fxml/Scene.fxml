@@ -43,8 +43,12 @@
                         </MenuItem>
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.view">
+                <Menu mnemonicParsing="false" text="%menu.jobs">
                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#addJobButtonActionHandler" text="%menu.add.job" />
+                        <Menu fx:id="importMenu" mnemonicParsing="false" text="%menu.import.from">
+                        </Menu>
+                        <SeparatorMenuItem mnemonicParsing="false" />
                         <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" styleClass="main-menu-item" text="%menu.deleted.jobs" />
                         <Menu mnemonicParsing="false" text="%menu.order.by">
                             <items>
@@ -58,13 +62,7 @@
                                 <RadioMenuItem fx:id="orderByStatusMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.status" toggleGroup="$orderBy" />
                             </items>
                         </Menu>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="%menu.jobs">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addJobButtonActionHandler" text="%menu.addjob" />
-                        <Menu fx:id="importMenu" mnemonicParsing="false" text="%menu.import.from">
-                        </Menu>
+                        
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu.feeds">
