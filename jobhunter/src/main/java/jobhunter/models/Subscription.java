@@ -53,6 +53,8 @@ public class Subscription implements Comparable<Subscription> {
 	}
 	
 	public Boolean isUpdatable(){
+		if(lastUpdate == null) return true;
+		
 		Long diff = ChronoUnit.MINUTES.between(lastUpdate, LocalDateTime.now());
 		return diff >= ttl;
 	}
