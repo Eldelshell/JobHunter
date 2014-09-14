@@ -161,6 +161,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	
     	preferencesController.setLastFilePath("");
     	profileRepository.clear();
+    	subscriptionRepository.clear();
     	refresh();
     }
 

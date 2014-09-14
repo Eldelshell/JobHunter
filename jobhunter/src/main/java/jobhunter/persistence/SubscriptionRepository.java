@@ -82,6 +82,11 @@ public enum SubscriptionRepository {
 		fireEvent();
 	}
 	
+	public void clear() {
+		this.subscriptions = new ArrayList<>();
+		fireEvent();
+	}
+	
 	private void fireEvent() {
 		if(this.listener != null)
 			this.listener.changed();
