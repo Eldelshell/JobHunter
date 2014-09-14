@@ -63,6 +63,7 @@ import jobhunter.utils.JavaFXUtils;
 import jobhunter.utils.Random;
 import jobhunter.utils.WebViewRenderer;
 
+import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
@@ -350,11 +351,13 @@ public class FXMLController implements Initializable, Observer, Localizable {
     @FXML
     void onInsertRandomJob(ActionEvent e) {
     	profileRepository.getProfile().addJob(Random.Job());
+    	refresh();
     }
     
     @FXML
     void onInsertRandomSubscription(ActionEvent e) {
     	subscriptionRepository.add(Random.Subscription());
+    	refresh();
     }
     
     @FXML
@@ -435,6 +438,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	private void autosave() {
 		if(!autoSaveMenuItem.isSelected()) return;
 		if(!state.changesPending()) return;
+		if(StringUtils.isEmpty(preferencesController.getLastFilePath())) return;
 		l.debug("Autosaving");
 		onActionSaveMenuItemHandler(null);
 	}
