@@ -102,8 +102,10 @@ public class ScheduledFeedService extends ScheduledService<Integer> implements L
 					
 					l.debug("Adding to collection");
 					for(Item i : channel.getItems()){
-						l.debug("Adding item {}", i.getLink());
-						subscription.addItem(i);
+						if(i.isValid()) {
+							l.debug("Adding item {}", i.getLink());
+							subscription.addItem(i);
+						}
 					}
 					neu.add(subscription);
 				}else{

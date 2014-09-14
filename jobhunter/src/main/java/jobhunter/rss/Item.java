@@ -74,6 +74,10 @@ public class Item {
 	public void setGuid(String guid) {
 		this.guid = guid;
 	}
+	
+	public Boolean isValid() {
+		return this.pubDate != null;
+	}
 
 	@Override
 	public int hashCode() {
