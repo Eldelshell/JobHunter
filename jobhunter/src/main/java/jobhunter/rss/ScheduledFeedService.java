@@ -1,11 +1,26 @@
+/*
+ * Copyright (C) 2014 Alejandro Ayuso
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package jobhunter.rss;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
@@ -14,28 +29,28 @@ import jobhunter.gui.Localizable;
 import jobhunter.models.Subscription;
 import jobhunter.persistence.SubscriptionRepository;
 
-public class ScheduledFeedService extends ScheduledService<Void> implements Localizable {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class ScheduledFeedService extends ScheduledService<Integer> implements Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(ScheduledFeedService.class);
 	
-	private ResourceBundle bundle;
+	private final ResourceBundle bundle;
 	
 	private final Duration delay = Duration.minutes(1);
-	private final Duration period = Duration.minutes(5);
+	private final Duration period = Duration.minutes(30);
 	
-	private ScheduledFeedService() {
+	public ScheduledFeedService(ResourceBundle bundle) {
 		super();
+		this.bundle = bundle;
 		this.setDelay(delay);
 		this.setRestartOnFailure(true);
 		this.setPeriod(period);
 	}
 	
-	public static ScheduledFeedService create(){
-		return new ScheduledFeedService();
-	}
-
 	@Override
-	protected Task<Void> createTask() {
+	protected Task<Integer> createTask() {
 		return new FeedTask(this.bundle);
 	}
 
@@ -44,12 +59,7 @@ public class ScheduledFeedService extends ScheduledService<Void> implements Loca
 		return bundle;
 	}
 
-	public ScheduledFeedService setBundle(ResourceBundle bundle) {
-		this.bundle = bundle;
-		return this;
-	}
-	
-	public static class FeedTask extends Task<Void> implements Localizable {
+	public static class FeedTask extends Task<Integer> implements Localizable {
 		
 		private final ResourceBundle bundle;
 		
@@ -58,17 +68,23 @@ public class ScheduledFeedService extends ScheduledService<Void> implements Loca
 			this.bundle = bundle;
 		}
 
-		private void update(String message, Long position) {
+		private void update(String message, int position) {
 			updateMessage(message);
-			updateProgress(position, 3);
+			updateProgress(position, SubscriptionRepository.instanceOf().getSubscriptions().size());
 		}
 
 		@Override
-		protected Void call() throws Exception {
+		protected Integer call() throws Exception {
 			l.info("Updating feeds");
+			int counter = 0;
+			
+			final List<Subscription> neu = new ArrayList<>();
+			
 			for(Subscription subscription : SubscriptionRepository.instanceOf().getSubscriptions()){
+				l.debug("Updating subscription {}", subscription.getTitle());
 				if(subscription.isUpdatable()){
-					update(getTranslation("message.connecting"), 1L);
+					update("", ++counter);
+					
 					Optional<Root> rss = Client.create(subscription.getURI()).execute();
 					
 					if(!rss.isPresent()){
@@ -78,7 +94,6 @@ public class ScheduledFeedService extends ScheduledService<Void> implements Loca
 					
 					Channel channel = rss.get().getChannel();
 					
-					update(getTranslation("message.parsing.response"), 2L);
 					subscription.setLastUpdate(LocalDateTime.now());
 					subscription.setLink(channel.getLink());
 					
@@ -87,15 +102,18 @@ public class ScheduledFeedService extends ScheduledService<Void> implements Loca
 						l.debug("Adding item {}", i.getLink());
 						subscription.addItem(i);
 					}
-					
-					SubscriptionRepository.instanceOf().add(subscription);
-					
-					update(getTranslation("message.done"), 3L);
-					l.debug("Return subscription with new elements");
+					neu.add(subscription);
+				}else{
+					l.debug("No need to update feed {}", subscription.getTitle());
+					l.debug("Last update was on {}", subscription.getLastUpdate());
 				}
 			}
 			
-			return null;
+			neu.forEach(s -> {
+				SubscriptionRepository.instanceOf().add(s);
+			});
+			
+			return counter;
 		}
 
 		@Override
