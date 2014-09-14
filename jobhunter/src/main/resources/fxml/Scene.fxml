@@ -119,9 +119,9 @@
                 </Accordion>
                 <SplitPane dividerPositions="0.3" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                     <items>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                        <VBox fx:id="feedsTableViewContainer" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="160.0">
                             <children>
-                                <TableView fx:id="subscriptionTable" onKeyReleased="#subscriptionTableOnKeyPress" onMouseClicked="#subscriptionTableOnClick" prefHeight="115.0" prefWidth="415.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <TableView fx:id="subscriptionTable" onKeyReleased="#subscriptionTableOnKeyPress" onMouseClicked="#subscriptionTableOnClick" prefHeight="115.0" prefWidth="415.0" VBox.vgrow="ALWAYS">
                                     <columns>
                                         <TableColumn fx:id="dateColumn" editable="false" prefWidth="117.0" resizable="false" sortable="false" text="%label.date" />
                                         <TableColumn fx:id="positionColumn" editable="false" prefWidth="436.0" resizable="false" sortable="false" text="%label.position" />
@@ -131,7 +131,7 @@
                                     </columnResizePolicy>
                                 </TableView>
                             </children>
-                        </AnchorPane>
+                        </VBox>
                         <WebView fx:id="mainWebView" opacity="0.0" prefHeight="200.0" prefWidth="200.0" />
                     </items>
                 </SplitPane>
