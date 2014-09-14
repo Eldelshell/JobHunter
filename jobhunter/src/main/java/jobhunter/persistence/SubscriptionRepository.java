@@ -51,7 +51,7 @@ public enum SubscriptionRepository {
 		this.subscriptions = subscriptions;
 	}
 	
-	public void add(final Subscription subs){
+	public synchronized void add(final Subscription subs){
 		l.debug("Adding subscription");
 		
 		if(getSubscriptions().contains(subs)){
@@ -59,7 +59,6 @@ public enum SubscriptionRepository {
 		}
 		
 		this.getSubscriptions().add(subs);
-		fireEvent();
 		ApplicationState.instanceOf().changesPending(true);
 	}
 	
