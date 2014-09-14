@@ -49,7 +49,7 @@ public class Subscription implements Comparable<Subscription> {
 	private Set<SubscriptionItem> items;
 	
 	@XStreamOmitField 
-	private transient Boolean failed = false;
+	private transient Boolean failed;
 	
 	public static Subscription create() {
 		Subscription s = new Subscription();
@@ -189,6 +189,8 @@ public class Subscription implements Comparable<Subscription> {
 	
 	
 	public Boolean getFailed() {
+		if(failed == null)
+			failed = false;
 		return failed;
 	}
 
