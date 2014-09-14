@@ -332,6 +332,13 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	subscriptionController.updateFeeds();
     }
     
+    @FXML
+    void readAllFeedHandler(ActionEvent e){
+    	subscriptionController.readAll();
+    	autosave();
+    	refresh();
+    }
+    
 	@FXML
     void onLoadPlugIns(ActionEvent e) {
     	l.debug("Loading plugins");

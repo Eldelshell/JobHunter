@@ -72,6 +72,8 @@
                         <MenuItem mnemonicParsing="false" onAction="#addFeedHandler" text="%menu.add.feed" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteFeedHandler" text="%menu.delete.feed" />
                         <MenuItem mnemonicParsing="false" onAction="#updateFeedHandler" text="%menu.update.feeds" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#readAllFeedHandler" text="%menu.read.all.feeds" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.help">
@@ -93,15 +95,6 @@
             </menus>
         </MenuBar>
         <SplitPane dividerPositions="0.3" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-            <!--
-            <items>
-                <ListView id="jobs-list-view" fx:id="jobsListView" fixedCellSize="40.0" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0"
-                    styleClass="job-form-list-view" />
-                <WebView fx:id="mainWebView" opacity="0.0" prefHeight="200.0" prefWidth="200.0" />
-            </items>
-            -->
-
-
             <items>
                 <Accordion>
                     <panes>

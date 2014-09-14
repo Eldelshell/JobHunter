@@ -9,9 +9,11 @@ import javafx.event.EventHandler;
 import jobhunter.gui.Localizable;
 import jobhunter.gui.dialog.SubscriptionForm;
 import jobhunter.models.Subscription;
+import jobhunter.models.SubscriptionItem;
 import jobhunter.persistence.SubscriptionRepository;
 import jobhunter.rss.FeedService;
 import jobhunter.rss.ScheduledFeedService;
+import jobhunter.utils.ApplicationState;
 
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
@@ -92,6 +94,18 @@ public class SubscriptionController implements Localizable {
 					.ifPresent(repo::delete);
 			});
     }
+	
+	public void readAll() {
+		l.debug("Marking all feeds as read");
+		SubscriptionRepository repo = SubscriptionRepository.instanceOf();
+		for(Subscription s : repo.getSubscriptions()) {
+			for(SubscriptionItem item : s.getItems()) {
+				if(item.getActive())
+					item.setActive(Boolean.FALSE);
+			}
+		}
+		ApplicationState.instanceOf().changesPending(true);
+	}
 
 	@Override
 	public ResourceBundle getBundle() {
