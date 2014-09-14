@@ -61,6 +61,7 @@ import jobhunter.persistence.SubscriptionRepository;
 import jobhunter.plugins.PlugIn;
 import jobhunter.plugins.PlugInLoader;
 import jobhunter.rss.FeedService;
+import jobhunter.rss.ScheduledFeedService;
 import jobhunter.utils.ApplicationState;
 import jobhunter.utils.HTMLRenderer;
 import jobhunter.utils.JavaFXUtils;
@@ -136,19 +137,12 @@ public class FXMLController implements Initializable, Observer, Localizable {
     private final SubscriptionRepository subscriptionRepository;
     private final PreferencesController preferencesController;
     private final ApplicationState state;
+    private final ScheduledFeedService feedService;
     
     public FXMLController() {
     	this.profileRepository = ProfileRepository.instanceOf();
     	this.subscriptionRepository = SubscriptionRepository.instanceOf();
-    	
-    	profileRepository.setListener(() -> {
-    		refresh();
-    	});
-    	
-    	subscriptionRepository.setListener(() -> {
-    		refresh();
-    	});
-    	
+    	this.feedService = new ScheduledFeedService(this.state.getBundle());
     	this.preferencesController = PreferencesController.instanceOf();
     	this.state = ApplicationState.instanceOf();
     }
@@ -318,21 +312,11 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	if(action.isPresent() && action.get() != Dialog.Actions.CANCEL) {
     		l.debug("Got response from dialog");
     		Subscription sub = dialog.getSubscription();
+    		SubscriptionRepository.instanceOf().add(sub);
+    		refresh();
 			
     		l.debug("Updating the new feed");
-			FeedService fs = FeedService.create(sub).setBundle(getBundle());
-			
-			fs.setOnSucceeded(wse -> {
-				SubscriptionRepository.instanceOf().add(sub);
-			});
-			
-			Dialogs.create()
-				.lightweight()
-				.title(getTranslation("message.updating.feed"))
-				.message(getTranslation("message.updating.feed"))
-				.showWorkerProgress(fs);
-			
-			fs.start();
+    		updateFeedHandler(null);
     	}
     	
     }
@@ -358,27 +342,24 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void updateFeedHandler(ActionEvent e){
-    	JavaFXUtils.toast(statusLabel, getTranslation("message.updating.feed"));
+    	FeedService fs = new FeedService(getBundle());
     	
-    	for(Subscription sub : subscriptionRepository.getSubscriptions()){
-    		
-    		if(sub.isUpdatable()){
-    			FeedService fs = FeedService.create(sub).setBundle(getBundle());
-    			
-    			fs.setOnSucceeded(wse -> {
-    				SubscriptionRepository.instanceOf().add(sub);
-    			});
-    			fs.setOnFailed(wse -> {
-    				l.error("Failed to update feed {}", sub.getTitle());
-    				Dialogs.create()
-    					.title("Failed to update feed")
-    					.message("Failed to update feed " + sub.getTitle())
-    					.showError();
-    			});
-    			
-    			fs.start();
-    		}
-    	}
+    	fs.setOnFailed(err -> {
+    		Dialogs
+    			.create()
+    			.message(getTranslation("message.updating.feed.failed"))
+    			.showError();
+    	});
+    	
+    	fs.setOnSucceeded(ev -> {
+    		autosave();
+    	});
+    	
+    	Dialogs.create()
+    		.message(getTranslation("message.updating.feed"))
+    		.showWorkerProgress(fs);
+    	
+    	fs.start();
     	
     }
     
@@ -454,6 +435,21 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	}else{
     		profileRepository.getProfile();
     	}
+    	
+    	profileRepository.setListener(() -> {
+    		refresh();
+    	});
+    	
+    	subscriptionRepository.setListener(() -> {
+    		refresh();
+    	});
+    	
+    	feedService.setOnSucceeded(e -> {
+    		JavaFXUtils.toast(statusLabel, getTranslation("message.all.feeds.updated"));
+    		autosave();
+		});
+    	
+    	feedService.start();
     	
     	autoSaveMenuItem.setSelected(preferencesController.isAutosave());
     	
