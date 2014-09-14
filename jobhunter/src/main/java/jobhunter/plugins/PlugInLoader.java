@@ -22,30 +22,48 @@ import java.util.Set;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PlugInLoader extends Service<List<PlugIn>> {
+public class PlugInLoader extends Service<Void> {
 	
+	private static final Logger l = LoggerFactory.getLogger(PlugInLoader.class);
+	
+	private final List<PlugIn> plugins = new ArrayList<>();
+	
+	public void start(Menu menu) {
+		setOnFailed(event -> {
+    		l.error("Failed to load plugins", event.getSource().getException());
+    	});
+    	
+    	setOnSucceeded(event -> {
+    		plugins.forEach(plugin -> {
+    			l.debug("Adding Plugin {} to menu", plugin.getPortal());
+    			MenuItem item = plugin.getMenuItem();
+    			menu.getItems().add(item);
+    		});
+    	});
+		
+		super.start();
+	}
+
 	@Override
-	protected Task<List<PlugIn>> createTask() {
+	protected Task<Void> createTask() {
 		return new PluginLoaderTask();
 	}
 	
-	static class PluginLoaderTask extends Task<List<PlugIn>> {
+	class PluginLoaderTask extends Task<Void> {
 		
-		private static final Logger l = LoggerFactory.getLogger(PlugInLoader.class);
-
 		@Override
-		protected List<PlugIn> call() throws Exception {
+		protected Void call() throws Exception {
 			
 			Reflections reflections = new Reflections("jobhunter.plugin");
 			
 			Set<Class<? extends PlugIn>> subTypes = reflections.getSubTypesOf(PlugIn.class);
-			
-			List<PlugIn> plugins = new ArrayList<>();
 			
 			subTypes.forEach(t -> {
 				l.info("Loading PlugIn {}", t.getCanonicalName());
@@ -58,10 +76,8 @@ public class PlugInLoader extends Service<List<PlugIn>> {
 			
 			l.debug("Registered {} plugins", plugins.size());
 			
-			return plugins;
+			return null;
 		}
 	}
-
-	
 
 }
