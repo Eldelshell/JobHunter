@@ -32,6 +32,7 @@ import jobhunter.controllers.PreferencesController;
 import jobhunter.gui.Localizable;
 import jobhunter.models.Subscription;
 
+import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.action.AbstractAction;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
@@ -53,18 +54,22 @@ public class SubscriptionForm implements Localizable {
     public SubscriptionForm(ResourceBundle bundle) {
 		this.bundle = bundle;
 		this.save = new SaveAction(getTranslation("label.save"));
+		save.disabledProperty().set(true);
 		
 		urlField.textProperty().addListener((observable, old, neu) -> {
 			subscription.setURI(neu);
 			subscription.setLink(neu);
+			save.disabledProperty().set(!isValid());
 	    });
 		
 		titleField.textProperty().addListener((observable, old, neu) -> {
 			subscription.setTitle(neu);
+			save.disabledProperty().set(!isValid());
 	    });
 		
 		portalField.valueProperty().addListener((observable, old, neu) -> {
 			subscription.setPortal(neu);
+			save.disabledProperty().set(!isValid());
 	    });
 	}
 
@@ -123,6 +128,13 @@ public class SubscriptionForm implements Localizable {
 		return this.bundle;
 	}
 	
+	private Boolean isValid() {
+		if(StringUtils.isEmpty(this.subscription.getTitle())) return false;
+		if(StringUtils.isEmpty(this.subscription.getPortal())) return false;
+		if(StringUtils.isEmpty(this.subscription.getLink())) return false;
+		return true;
+	}
+	
 	public class SaveAction extends AbstractAction {
 		public SaveAction(String text) {
 			super(text);
@@ -134,5 +146,5 @@ public class SubscriptionForm implements Localizable {
 	        d.hide();
 		}
 	}
-
+	
 }
