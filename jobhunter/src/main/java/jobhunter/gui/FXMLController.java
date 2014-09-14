@@ -180,6 +180,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     		
     		if (response == Dialog.Actions.YES) {
     			profileRepository.load(fopen.get());
+    			subscriptionRepository.load(fopen.get());
     			preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     			refresh();
     		}
@@ -274,6 +275,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
     				)
 				);
 	    	});
+    	}else{
+    		subscriptionTable.setItems(null);
     	}
     }
     
@@ -426,6 +429,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		jobsListView.getSelectionModel().clearSelection();
     	jobsListView.setItems(FXCollections.observableArrayList(getJobs()));
     	feedListView.setItems(getSubscriptions());
+    	feedListViewOnMouseClickedHandler(null);
 	}
 	
 	private void autosave() {
