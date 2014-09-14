@@ -70,3 +70,9 @@
 .job-form-list-view .virtual-flow .clipped-container .sheet .list-cell {
     -fx-padding: 0;
 }
+
+.error-label {
+    -fx-background-color: yellow;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 1000px;
+}

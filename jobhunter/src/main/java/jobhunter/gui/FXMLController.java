@@ -81,6 +81,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
     private ListView<String> feedListView;
     
     @FXML
+    private VBox feedsTableViewContainer;
+    
+    @FXML
     private CheckMenuItem autoSaveMenuItem;
 
     @FXML
@@ -126,6 +129,12 @@ public class FXMLController implements Initializable, Observer, Localizable {
     private TableColumn<SubscriptionItem, String> positionColumn;
     
     private WebViewRenderer webViewRenderer;
+    
+    /**
+     * This label is used to display an error when a Subscription is
+     * in failed state. Check initilize for more info
+     */
+    private Label feedErrorLabel = new Label();
     
     private ResourceBundle bundle;
     
@@ -270,6 +279,11 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	String selected = feedListView.getSelectionModel().getSelectedItem();
     	if(selected != null){
 	    	subscriptionRepository.findByTitle(selected).ifPresent(sub -> {
+	    		if(sub.getFailed()){
+	    			feedsTableViewContainer.getChildren().add(feedErrorLabel);
+	    		}else{
+	    			feedsTableViewContainer.getChildren().remove(feedErrorLabel);
+	    		}
 	    		subscriptionTable.setItems(
     				FXCollections.observableArrayList(
 						sub.getSortedItems()
@@ -369,7 +383,10 @@ public class FXMLController implements Initializable, Observer, Localizable {
     public void initialize(URL url, ResourceBundle rb) {
     	this.bundle = rb;
     	
-		developmentMenu.setVisible(state.isDebug());
+    	feedErrorLabel.setText(getTranslation("message.feed.failed"));
+    	feedErrorLabel.getStyleClass().add("error-label");
+		
+    	developmentMenu.setVisible(state.isDebug());
     	
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
