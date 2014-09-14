@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.mapper.CannotResolveClassException;
 
 public class Client {
 
@@ -59,8 +60,9 @@ public class Client {
 		throw new RSSClientException();
 	}
 	
-	public Optional<Root> execute(){
+	public Optional<Root> execute() {
 		l.debug("Connecting");
+		
 		final HttpGet httpGet = new HttpGet(url);
 		try(CloseableHttpClient client = HttpClients.createDefault()){
 			try(CloseableHttpResponse response = client.execute(httpGet)){
@@ -74,8 +76,11 @@ public class Client {
 			}
 			
 		} catch (IOException e) {
-			l.error("Failed to open connection", e);
+			l.error("Failed to open connection {}", e);
+		} catch (CannotResolveClassException e) {
+			l.error("Failed to parse response {}", e);
 		}
+		
 		return Optional.empty();
 	}
 	
