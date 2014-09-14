@@ -60,7 +60,7 @@ public class SubscriptionController implements Localizable {
     	fs.setOnFailed(err -> {
     		Dialogs.create()
 				.message(getTranslation("message.updating.feed.failed"))
-				.showError();
+				.showException(err.getSource().getException());
     	});
     	
     	fs.setOnSucceeded(ev -> {
