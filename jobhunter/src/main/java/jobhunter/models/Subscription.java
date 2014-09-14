@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
 import jobhunter.persistence.ObjectId;
 import jobhunter.rss.Item;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 public class Subscription implements Comparable<Subscription> {
 	
 	private ObjectId id;
@@ -45,6 +47,9 @@ public class Subscription implements Comparable<Subscription> {
 	private Integer history = 50;
 	
 	private Set<SubscriptionItem> items;
+	
+	@XStreamOmitField 
+	private transient String latestError;
 	
 	public static Subscription create() {
 		Subscription s = new Subscription();
@@ -179,6 +184,15 @@ public class Subscription implements Comparable<Subscription> {
 
 	public Subscription setLink(String link) {
 		this.link = link;
+		return this;
+	}
+	
+	public String getLatestError() {
+		return latestError;
+	}
+
+	public Subscription setLatestError(String latestError) {
+		this.latestError = latestError;
 		return this;
 	}
 
