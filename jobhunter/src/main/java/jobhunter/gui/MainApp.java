@@ -23,7 +23,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jobhunter.controllers.PreferencesController;
-import jobhunter.rss.ScheduledFeedService;
 import jobhunter.utils.ApplicationState;
 import jobhunter.utils.JavaFXUtils;
 
@@ -44,12 +43,6 @@ public class MainApp extends Application {
     		getClass().getResource("/fxml/Scene.fxml"), 
     		ApplicationState.instanceOf().getBundle()
 		);
-        
-        l.debug("Starting feed update service");
-        ScheduledFeedService feedService = ScheduledFeedService.create()
-    		.setBundle(ApplicationState.instanceOf().getBundle());
-        
-        feedService.start();
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
