@@ -29,8 +29,8 @@ public enum ApplicationState {
 	_INSTANCE;
 	
 	private Boolean changesPending = Boolean.FALSE;
-	private final Boolean debug = (System.getProperty("debug") != null);
-	private final Boolean development = (System.getProperty("development") != null);
+	private static final Boolean debug = (System.getProperty("debug") != null);
+	private static final Boolean development = (System.getProperty("development") != null);
 	private final Locale locale = getLocaleOption();
 	private final ResourceBundle bundle = loadBundle();
 	
