@@ -152,6 +152,7 @@ public class Subscription implements Comparable<Subscription> {
 				.setCreated(item.getPubDate())
 				.setDescription(item.getDescription())
 				.setLink(item.getLink())
+				.setHost(this.link)
 				.setPortal(getPortal())
 				.setPosition(item.getTitle())
 				.setExtId(item.getGuid())
@@ -202,7 +203,7 @@ public class Subscription implements Comparable<Subscription> {
 	public Long unreadItems() {
 		return this.getItems().stream().filter(item -> item.getActive()).count();
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

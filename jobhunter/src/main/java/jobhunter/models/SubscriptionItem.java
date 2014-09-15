@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 
 import jobhunter.persistence.ObjectId;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class SubscriptionItem implements Comparable<SubscriptionItem>{
 
 	private ObjectId id;
@@ -37,6 +39,8 @@ public class SubscriptionItem implements Comparable<SubscriptionItem>{
 	private String link;
 
 	private String description;
+	
+	private String host;
 	
 	public static SubscriptionItem create() {
 		return new SubscriptionItem().setId(new ObjectId());
@@ -111,6 +115,29 @@ public class SubscriptionItem implements Comparable<SubscriptionItem>{
 
 	public SubscriptionItem setPosition(String position) {
 		this.position = position;
+		return this;
+	}
+	
+	public String getWorkingLink() {
+		if(StringUtils.startsWith(this.link, "http"))
+			return this.link;
+		
+		if(StringUtils.startsWith(this.link, "//"))
+			return this.host + StringUtils.removeStart(this.link, "//");
+		
+		if(StringUtils.startsWith(this.link, "/"))
+			return this.host + StringUtils.removeStart(this.link, "/");
+		
+		return this.link;
+		
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public SubscriptionItem setHost(String host) {
+		this.host = host;
 		return this;
 	}
 

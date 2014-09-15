@@ -15,7 +15,7 @@
             <h2 style="color: black;">@{portal != empty ? portal : ''}</h2>
             <h3>
                 @if{link != empty}
-                    <a href="@{link}">@{position != empty ? position : ''}</a>
+                    <a href="@{getWorkingLink()}">@{position != empty ? position : ''}</a>
                 @else{}
                     @{position != empty ? position : ''}
                 @end{}
