@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import jobhunter.gui.Localizable;
@@ -110,6 +111,29 @@ public class SubscriptionController implements Localizable {
 					.ifPresent(repo::delete);
 			});
     }
+	
+	public void deleteItems(ObservableList<SubscriptionItem> items) {
+		if(items.isEmpty()) return;
+		
+		Action deleteAction = Dialogs.create()
+			.lightweight()
+			.title(getTranslation("message.delete.item.confirmation"))
+			.message(getTranslation("message.confirmation"))
+			.showConfirm();
+		
+		if(!deleteAction.equals(Dialog.Actions.YES)) return;
+		
+		SubscriptionRepository repo = SubscriptionRepository.instanceOf();
+		repo.findByItem(items.get(0)).ifPresent(sub -> {
+			for(SubscriptionItem item : items){
+				l.debug("Removing item {}", item.getPosition());
+				sub.getItems().remove(item);
+			}
+		});
+		
+		ApplicationState.instanceOf().changesPending(true);
+		
+	}
 	
 	public void readAll() {
 		l.debug("Marking all feeds as read");

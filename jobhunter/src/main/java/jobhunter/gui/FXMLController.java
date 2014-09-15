@@ -36,6 +36,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
@@ -307,6 +308,14 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
     
     @FXML
+    void deleteItems(ActionEvent e){
+    	subscriptionController.deleteItems(
+			subscriptionTable.getSelectionModel().getSelectedItems()
+		);
+    	refresh();
+    }
+    
+    @FXML
     void subscriptionTableOnKeyPress(KeyEvent e){
     	if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN)
     		subscriptionTableOnClick(null);
@@ -429,6 +438,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	dateColumn.setCellFactory(SubscriptionRow::getCellFactory);
     	positionColumn.setCellValueFactory(SubscriptionRow.POSITION_VALUE);
     	subscriptionTable.setRowFactory(SubscriptionRow::create);
+    	subscriptionTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	
 		this.webViewRenderer = new WebViewRenderer(mainWebView);
 		WebViewOnClickListener.set(mainWebView);

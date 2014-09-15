@@ -120,6 +120,13 @@
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
+                                    <contextMenu>
+                                      <ContextMenu>
+                                        <items>
+                                          <MenuItem mnemonicParsing="false" onAction="#deleteItems" text="%menu.delete.feed" />
+                                        </items>
+                                      </ContextMenu>
+                                   </contextMenu>
                                 </TableView>
                             </children>
                         </VBox>

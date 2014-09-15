@@ -21,8 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 import jobhunter.models.Subscription;
+import jobhunter.models.SubscriptionItem;
 import jobhunter.utils.ApplicationState;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +84,13 @@ public enum SubscriptionRepository {
 			.stream()
 			.filter(sub -> sub.getId().equals(id))
 			.findFirst();
+	}
+	
+	public Optional<Subscription> findByItem(final SubscriptionItem item) {
+		return getSubscriptions()
+				.stream()
+				.filter(sub -> sub.getItems().contains(item))
+				.findFirst();
 	}
 	
 	public void load(final File file) {
