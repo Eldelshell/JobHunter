@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+import jobhunter.utils.ApplicationState;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +43,14 @@ public enum PreferencesController {
 		return _INSTANCE;
 	}
 	
-	private final Preferences current = Preferences.userRoot().node("jobhunter");
+	private final Preferences current;
 	
+	private PreferencesController() {
+		this.current = ApplicationState.instanceOf().isDevelopment() 
+			? Preferences.userRoot().node("jobhunter-dev") 
+			: Preferences.userRoot().node("jobhunter");
+	}
+
 	public void init() {
 		
 		Boolean isFirstTime = Boolean.TRUE;
