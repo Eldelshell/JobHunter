@@ -334,6 +334,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void deleteFeedHandler(ActionEvent e){
+    	l.debug("Deleting selected items");
     	subscriptionController.deleteFeed();
     	refresh();
     }
