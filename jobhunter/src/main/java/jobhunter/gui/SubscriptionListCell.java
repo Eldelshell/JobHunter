@@ -43,7 +43,7 @@ public class SubscriptionListCell extends ListCell<Subscription> {
 		this.label.setLayoutY(7);
 		this.label.getStyleClass().add("feed-list-view-label");
 		
-		this.image.setLayoutX(5);
+		this.image.setLayoutX(0);
 		this.image.setLayoutY(7);
 		this.image.getStyleClass().add("feed-list-view-icon");
 		
@@ -61,7 +61,14 @@ public class SubscriptionListCell extends ListCell<Subscription> {
 		
 		if(!empty) {
 			image.setImage(getIcon(subscription));
-			label.setText(subscription.getTitle() + " (" + subscription.unreadItems() + ")");
+			label.setText(subscription.getTitle());
+			
+			if(subscription.unreadItems() > 0){
+				label.getStyleClass().add("feed-list-view-label-highlight");
+			}else{
+				label.getStyleClass().remove("feed-list-view-label-highlight");
+			}
+			
 			this.setGraphic(container);
 		}else{
 			this.setText(null);
