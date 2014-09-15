@@ -51,11 +51,11 @@ public enum ApplicationState {
 	}
 	
 	public Boolean isDebug() {
-		return this.debug;
+		return debug;
 	}
 	
 	public Boolean isDevelopment() {
-		return this.development;
+		return development;
 	}
 	
 	public Locale getLocale() {
