@@ -15,10 +15,10 @@
         </fileSet>
         
         <fileSet>
-            <directory>${settings.localRepository}/jobhunter/infoempleo-plugin/0.2/</directory>
+            <directory>${settings.localRepository}/jobhunter/infoempleo-plugin/0.3/</directory>
             <outputDirectory>/lib</outputDirectory>
             <includes>
-                <include>infoempleo-plugin-0.2.jar</include>
+                <include>infoempleo-plugin-0.3.jar</include>
             </includes>
         </fileSet>
         
@@ -27,6 +27,22 @@
             <outputDirectory>/lib</outputDirectory>
             <includes>
                 <include>monster-plugin-0.2.jar</include>
+            </includes>
+        </fileSet>
+        
+        <fileSet>
+            <directory>${settings.localRepository}/jobhunter/cb-plugin/0.1/</directory>
+            <outputDirectory>/lib</outputDirectory>
+            <includes>
+                <include>cb-plugin-0.1.jar</include>
+            </includes>
+        </fileSet>
+        
+        <fileSet>
+            <directory>${settings.localRepository}/jobhunter/dice-plugin/0.1/</directory>
+            <outputDirectory>/lib</outputDirectory>
+            <includes>
+                <include>dice-plugin-0.1.jar</include>
             </includes>
         </fileSet>
         
