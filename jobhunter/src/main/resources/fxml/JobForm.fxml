@@ -30,9 +30,6 @@
    </center>
    <left>
       <ListView fx:id="jobFormListView" onMouseClicked="#jobFormListViewOnMouseClickedHandler" prefWidth="150.0" styleClass="job-form-list-view" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets right="10.0" />
-         </BorderPane.margin>
       </ListView>
    </left>
 </BorderPane>

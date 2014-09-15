@@ -98,7 +98,7 @@
                     <panes>
                         <TitledPane animated="false" text="%label.jobs">
                             <content>
-                                <ListView id="jobs-list-view" fx:id="jobsListView" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0" styleClass="job-form-list-view" />
+                                <ListView id="jobs-list-view" fx:id="jobsListView" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0" styleClass="job-list-view" />
                             </content>
                         </TitledPane>
                         <TitledPane animated="false" text="%label.feeds">

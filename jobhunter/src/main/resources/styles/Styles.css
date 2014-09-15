@@ -41,12 +41,6 @@
     -fx-alignment: left;
 }
 
-.job-form-list-view {
-    -fx-background-insets: 0;
-    -fx-fixed-cell-size: 40;
-    -fx-border-color: #ececec;
-}
-
 .form-container {
     -fx-background-color: white;
     -fx-border-color: #ececec;
@@ -67,7 +61,23 @@
     -fx-background-color: white;
 }
 
+.job-form-list-view {
+    -fx-background-insets: 0;
+    -fx-fixed-cell-size: 40px;
+    -fx-border-color: #ececec;
+}
+
 .job-form-list-view .virtual-flow .clipped-container .sheet .list-cell {
+    -fx-padding: 5;
+}
+
+.job-list-view {
+    -fx-background-insets: 0;
+    -fx-fixed-cell-size: 40px;
+    -fx-border-color: #ececec;
+}
+
+.job-list-view .virtual-flow .clipped-container .sheet .list-cell {
     -fx-padding: 0;
 }
 
@@ -75,4 +85,16 @@
     -fx-background-color: yellow;
     -fx-pref-height: 30px;
     -fx-pref-width: 1000px;
+}
+
+.feed-list-view-icon {
+    
+}
+
+.feed-list-view-label {
+    -fx-pref-height: 16px;
+}
+
+.feed-list-view-label-highlight {
+    -fx-font-weight: bold;
 }
