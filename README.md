@@ -20,6 +20,9 @@ The things you can keep track of are:
 * Contacts related to the position (HeadHunter, HR representative, etc.)
 * Events like when you have/had an interview.
 
+JobHunter also works as a RSS feed reader which you can use to consume the feeds provided
+by different job portals to stay always up-to-date with new jobs.
+
 ## Installation
 
 You'll need Java Version 8_20 or later.
@@ -30,8 +33,18 @@ To run the application in debug mode execute `./jobhunter debug`
 
 ### Plugins
 
+Plugins are used to import a job posting from different portals.
+
 Plugins can be added by placing them in the `lib` folder.
 
+Currently you have plugins for:
+
+* Monster
+* Dice.com
+* CareerBuilder
+* InfoEmpleo (Spain)
+* TecnoEmpleo (Spain)
+* InfoJobs (Spain)
 
 ## JHF Files
 
