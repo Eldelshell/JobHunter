@@ -198,6 +198,10 @@ public class Subscription implements Comparable<Subscription> {
 		this.failed = failed;
 		return this;
 	}
+	
+	public Long unreadItems() {
+		return this.getItems().stream().filter(item -> item.getActive()).count();
+	}
 
 	@Override
 	public int hashCode() {
