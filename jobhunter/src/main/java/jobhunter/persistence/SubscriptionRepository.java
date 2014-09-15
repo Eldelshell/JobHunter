@@ -76,6 +76,13 @@ public enum SubscriptionRepository {
 			.findFirst();
 	}
 	
+	public Optional<Subscription> findById(final ObjectId id) {
+		return getSubscriptions()
+			.stream()
+			.filter(sub -> sub.getId().equals(id))
+			.findFirst();
+	}
+	
 	public void load(final File file) {
 		Optional<List<Subscription>> profile = Persistence.readSubscriptions(file);
 		this.subscriptions = profile.orElse(new ArrayList<>());
