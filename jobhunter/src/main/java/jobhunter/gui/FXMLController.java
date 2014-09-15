@@ -24,7 +24,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,6 +51,7 @@ import jobhunter.gui.dialog.DebugDialog;
 import jobhunter.gui.dialog.PreferencesDialog;
 import jobhunter.gui.job.JobFormController;
 import jobhunter.models.Job;
+import jobhunter.models.Subscription;
 import jobhunter.models.SubscriptionItem;
 import jobhunter.persistence.Persistence;
 import jobhunter.persistence.ProfileRepository;
@@ -78,7 +78,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     private ListView<Job> jobsListView;
     
     @FXML
-    private ListView<String> feedListView;
+    private ListView<Subscription> feedListView;
     
     @FXML
     private VBox feedsTableViewContainer;
@@ -276,20 +276,21 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void feedListViewOnMouseClickedHandler(MouseEvent e){
-    	String selected = feedListView.getSelectionModel().getSelectedItem();
+    	Subscription selected = feedListView.getSelectionModel().getSelectedItem();
     	if(selected != null){
-	    	subscriptionRepository.findByTitle(selected).ifPresent(sub -> {
-	    		if(sub.getFailed()){
-	    			feedsTableViewContainer.getChildren().add(feedErrorLabel);
-	    		}else{
-	    			feedsTableViewContainer.getChildren().remove(feedErrorLabel);
-	    		}
-	    		subscriptionTable.setItems(
-    				FXCollections.observableArrayList(
-						sub.getSortedItems()
-    				)
-				);
-	    	});
+	    	subscriptionRepository.findById(selected.getId())
+		    	.ifPresent(sub -> {
+		    		if(sub.getFailed()){
+		    			feedsTableViewContainer.getChildren().add(feedErrorLabel);
+		    		}else{
+		    			feedsTableViewContainer.getChildren().remove(feedErrorLabel);
+		    		}
+		    		subscriptionTable.setItems(
+	    				FXCollections.observableArrayList(
+							sub.getSortedItems()
+	    				)
+					);
+		    	});
     	}else{
     		subscriptionTable.setItems(null);
     	}
@@ -420,6 +421,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	autoSaveMenuItem.setSelected(preferencesController.isAutosave());
     	
     	jobsListView.setCellFactory(new JobCell.JobCellCallback());
+    	feedListView.setCellFactory(new SubscriptionListCell.CellCallback());
     	
     	// Initialize the table
     	dateColumn.setCellValueFactory(SubscriptionRow.DATE_VALUE);
@@ -485,12 +487,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		}
 	}
 	
-	private ObservableList<String> getSubscriptions() {
+	private ObservableList<Subscription> getSubscriptions() {
 		return FXCollections.observableArrayList(
 			subscriptionRepository.getSubscriptions()
-			.stream()
-			.map(sub -> sub.getTitle())
-			.collect(Collectors.toList())
 		);
 	}
 	
