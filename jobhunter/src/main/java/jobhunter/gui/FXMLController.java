@@ -280,7 +280,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	if(selected != null){
 	    	subscriptionRepository.findById(selected.getId())
 		    	.ifPresent(sub -> {
-		    		if(sub.getFailed()){
+		    		if(sub.getFailed() && !feedsTableViewContainer.getChildren().contains(feedErrorLabel)){
 		    			feedsTableViewContainer.getChildren().add(feedErrorLabel);
 		    		}else{
 		    			feedsTableViewContainer.getChildren().remove(feedErrorLabel);
