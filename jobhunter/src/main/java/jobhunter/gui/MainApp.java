@@ -33,6 +33,10 @@ public class MainApp extends Application {
 	
 	private static final Logger l = LoggerFactory.getLogger(MainApp.class);
 	
+	private static final String _FXML = "/fxml/Scene.fxml";
+	private static final String _CSS = "/styles/Styles.css";
+	private static final String _LOGO = "/images/logo.png";
+	
     @Override
     public void start(Stage stage) throws Exception {
     	l.debug("Running in debug {}", System.getProperty("debug"));
@@ -40,15 +44,15 @@ public class MainApp extends Application {
     	PreferencesController.instanceOf().init();
     	
         Parent root = FXMLLoader.load(
-    		getClass().getResource("/fxml/Scene.fxml"), 
+    		getClass().getResource(_FXML), 
     		ApplicationState.instanceOf().getBundle()
 		);
         
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
+        scene.getStylesheets().add(_CSS);
         
         stage.setTitle(ApplicationState.APP_STRING);
-        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/logo.png")));
+        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream(_LOGO)));
         stage.setScene(scene);
         stage.show();
         
