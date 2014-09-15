@@ -220,7 +220,8 @@ public class Random {
     	return SubscriptionItem.create()
     		.setPosition(String())
 			.setCreated(LocalDateTime())
-			.setLink(String())
+			.setHost("http://acme.test/")
+			.setLink("//" + String())
 			.setPortal(element(Arrays.asList(new String[]{
 				"Xing", "LinkedIn", "Monster", "Direct Contact"
 			})))
