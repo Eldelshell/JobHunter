@@ -19,12 +19,10 @@ package jobhunter.models;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import javafx.scene.image.Image;
 import jobhunter.persistence.ObjectId;
 import jobhunter.rss.Item;
 import jobhunter.utils.HTMLRenderer;
@@ -39,8 +37,14 @@ public class Subscription implements Comparable<Subscription> {
 
 	private String portal;
 	
+	/**
+	 * Field to store the link property from RSS channel
+	 */
 	private String link;
 	
+	/**
+	 * URI provided by the user;
+	 */
 	private String uri;
 	
 	private LocalDateTime lastUpdate;
@@ -53,8 +57,6 @@ public class Subscription implements Comparable<Subscription> {
 	
 	@XStreamOmitField 
 	private transient Boolean failed;
-	
-	private transient Image icon;
 	
 	public static Subscription create() {
 		Subscription s = new Subscription();
@@ -209,15 +211,6 @@ public class Subscription implements Comparable<Subscription> {
 		return this.getItems().stream().filter(item -> item.getActive()).count();
 	}
 	
-	public Optional<Image> getIcon() {
-		return Optional.ofNullable(icon);
-	}
-
-	public Subscription setIcon(Image icon) {
-		this.icon = icon;
-		return this;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
