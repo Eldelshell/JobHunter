@@ -16,6 +16,8 @@
 
 package jobhunter.rss;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -61,7 +63,7 @@ public class Client {
 	}
 	
 	public Optional<Root> execute() {
-		l.debug("Connecting");
+		l.debug("Retrieving RSS");
 		
 		final HttpGet httpGet = new HttpGet(url);
 		try(CloseableHttpClient client = HttpClients.createDefault()){
@@ -84,10 +86,38 @@ public class Client {
 		return Optional.empty();
 	}
 	
+	public Optional<File> getIcon() {
+		final HttpGet httpGet = new HttpGet(url);
+		try(CloseableHttpClient client = HttpClients.createDefault()){
+			try(CloseableHttpResponse response = client.execute(httpGet)){
+				if(response.getStatusLine().getStatusCode() == 200){
+					l.debug("Got Favicon");
+					return Optional.of(saveIcon(response));
+				} else {
+					l.error("Failed to connect with error {}", response.getStatusLine().getStatusCode());
+				}
+			}
+			
+		} catch (IOException e) {
+			l.error("Failed to open connection {}", e);
+		} catch (CannotResolveClassException e) {
+			l.error("Failed to parse response {}", e);
+		}
+		return Optional.empty();
+	}
+	
 	public static class RSSClientException extends RuntimeException {
 
 		private static final long serialVersionUID = -2752620679365445228L;
 		
+	}
+	
+	private File saveIcon(final CloseableHttpResponse response) throws IOException{
+		final File tmpIcon = File.createTempFile("icon_", ".ico");
+		try(FileOutputStream fout = new FileOutputStream(tmpIcon)){
+			response.getEntity().writeTo(fout);
+		}
+		return tmpIcon;
 	}
 	
 }
