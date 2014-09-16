@@ -58,7 +58,6 @@ public class SubscriptionForm implements Localizable {
 		
 		urlField.textProperty().addListener((observable, old, neu) -> {
 			subscription.setURI(neu);
-			subscription.setLink(neu);
 			save.disabledProperty().set(!isValid());
 	    });
 		
@@ -131,7 +130,7 @@ public class SubscriptionForm implements Localizable {
 	private Boolean isValid() {
 		if(StringUtils.isEmpty(this.subscription.getTitle())) return false;
 		if(StringUtils.isEmpty(this.subscription.getPortal())) return false;
-		if(StringUtils.isEmpty(this.subscription.getLink())) return false;
+		if(StringUtils.isEmpty(this.subscription.getURI())) return false;
 		return true;
 	}
 	
