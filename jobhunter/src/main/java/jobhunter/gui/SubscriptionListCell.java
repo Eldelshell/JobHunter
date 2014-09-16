@@ -40,14 +40,14 @@ public class SubscriptionListCell extends ListCell<Subscription> {
 		this.image = new ImageView();
 		
 		this.label.setLayoutX(25);
-		this.label.setLayoutY(7);
+		this.label.setLayoutY(1);
 		this.label.getStyleClass().add("feed-list-view-label");
 		
 		this.image.setLayoutX(0);
-		this.image.setLayoutY(7);
+		this.image.setLayoutY(1);
 		this.image.getStyleClass().add("feed-list-view-icon");
 		
-		this.container.setPrefSize(200, 30);
+		this.container.setPrefSize(200, 20);
 		this.container.setLayoutX(0);
 		this.container.setLayoutY(0);
 		this.container.getChildren().add(label);
