@@ -44,8 +44,9 @@ public class JavaFXUtils {
 	private static final Logger l = LoggerFactory.getLogger(JavaFXUtils.class);
 	
 	public static Boolean isDoubleClick(MouseEvent event) {
-		return event.getButton().equals(MouseButton.PRIMARY)
-				&& event.getClickCount() == 2;
+		return event != null 
+			&& event.getButton().equals(MouseButton.PRIMARY)
+			&& event.getClickCount() == 2;
 	}
 
 	public static void closeWindow(Event event) {
