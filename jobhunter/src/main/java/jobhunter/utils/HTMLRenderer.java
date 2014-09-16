@@ -34,6 +34,7 @@ import jobhunter.models.Job;
 import jobhunter.models.Profile;
 import jobhunter.models.SubscriptionItem;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mvel2.templates.TemplateRuntime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,6 +123,16 @@ public class HTMLRenderer {
 		}
 		
 		return Optional.empty();
+	}
+	
+	public static String sanitizeURL(String url) {
+		if(!StringUtils.startsWith(url, "http"))
+			url = "http://" + url;
+		
+		if(!StringUtils.endsWith(url, "/"))
+			url = url + "/";
+		
+		return url;
 	}
 	
 }
