@@ -322,6 +322,18 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
     
     @FXML
+    void feedListViewOnKeyPress(KeyEvent e){
+    	if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN)
+    		feedListViewOnMouseClickedHandler(null);
+    }
+    
+    @FXML
+    void jobsListViewOnKeyPress(KeyEvent e){
+    	if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN)
+    		jobListViewOnMouseClickedHandler(null);
+    }
+    
+    @FXML
     void addJobButtonActionHandler(ActionEvent e){
     	openJobForm(Optional.empty());
     }
@@ -466,6 +478,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	}
 	
 	private void refresh() {
+		l.debug("Refreshing View");
 		mainWebView.getEngine().loadContent("");
 		jobsListView.getSelectionModel().clearSelection();
     	jobsListView.setItems(FXCollections.observableArrayList(getJobs()));

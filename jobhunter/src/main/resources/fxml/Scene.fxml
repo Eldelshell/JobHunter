@@ -98,12 +98,12 @@
                     <panes>
                         <TitledPane animated="false" text="%label.jobs">
                             <content>
-                                <ListView id="jobs-list-view" fx:id="jobsListView" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0" styleClass="job-list-view" />
+                                <ListView id="jobs-list-view" fx:id="jobsListView" onKeyReleased="#jobsListViewOnKeyPress" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0" styleClass="job-list-view" />
                             </content>
                         </TitledPane>
                         <TitledPane animated="false" text="%label.feeds">
                             <content>
-                                <ListView fx:id="feedListView" maxWidth="400.0" minWidth="50.0" onMouseClicked="#feedListViewOnMouseClickedHandler" prefWidth="220.0" />
+                                <ListView fx:id="feedListView" onKeyReleased="#feedListViewOnKeyPress" maxWidth="400.0" minWidth="50.0" onMouseClicked="#feedListViewOnMouseClickedHandler" prefWidth="220.0" />
                             </content>
                         </TitledPane>
                     </panes>
@@ -134,9 +134,6 @@
                     </items>
                 </SplitPane>
             </items>
-            
-            
-            
         </SplitPane>
         <Label fx:id="statusLabel" contentDisplay="TEXT_ONLY" opacity="0.0" prefHeight="24.0" styleClass="status-label" text="buooooooooo" />
     </children>
