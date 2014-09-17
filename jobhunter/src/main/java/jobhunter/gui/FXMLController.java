@@ -513,6 +513,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	}
 	
 	private ObservableList<Subscription> getSubscriptions() {
+		l.debug("Getting subscriptions");
 		return FXCollections.observableArrayList(
 			subscriptionRepository.getSubscriptions()
 		);
