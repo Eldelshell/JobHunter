@@ -38,6 +38,7 @@ public enum ProfileRepository {
 
 	private static final Logger l = LoggerFactory.getLogger(ProfileRepository.class);
 
+	@Deprecated
 	public static ProfileRepository instanceOf() {
 		return _INSTANCE;
 	}
@@ -46,7 +47,7 @@ public enum ProfileRepository {
 	
 	private ProfileRepositoryListener listener;
 
-	public void saveJob(final Job job) {
+	private void saveJob(final Job job) {
 		l.debug("Saving Job: ");
 		l.debug(job.toString());
 		current.addJob(job);
@@ -54,7 +55,7 @@ public enum ProfileRepository {
 		ApplicationState.instanceOf().changesPending(true);
 	}
 
-	public void deleteJob(final Job job) {
+	private void deleteJob(final Job job) {
 		current.getJobs()
 			.stream()
 			.filter(j -> j.equals(job))
@@ -63,46 +64,8 @@ public enum ProfileRepository {
 		ApplicationState.instanceOf().changesPending(true);
 		
 	}
-
-	public Optional<Job> getJob(final ObjectId id) {
-		return current.getJobs()
-				.stream()
-				.filter(j -> j.getId().equals(id))
-				.findFirst();
-	}
-
-	public List<Job> getActiveJobs() {
-		return current.getJobs()
-				.stream()
-				.filter(j -> j.getActive())
-				.sorted()
-				.collect(Collectors.toList());
-	}
 	
-	public List<Job> getAllJobs() {
-		return current.getJobs()
-				.stream()
-				.sorted()
-				.collect(Collectors.toList());
-	}
-	
-	public List<Job> getJobsByDate(Boolean all) {
-		return getJobsBy(all, new Order.CreatedComparator(Order.DESCENDING));
-	}
-	
-	public List<Job> getJobsByRating(Boolean all) {
-		return getJobsBy(all, new Order.RatingComparator(Order.DESCENDING));
-	}
-	
-	public List<Job> getJobsByActivity(Boolean all) {
-		return getJobsBy(all, new Order.ActivityComparator(Order.DESCENDING));
-	}
-	
-	public List<Job> getJobsByStatus(Boolean all) {
-		return getJobsBy(all, new Order.StatusComparator(Order.DESCENDING));
-	}
-	
-	public List<Job> getJobsBy(Boolean all, Comparator<Job> comparator){
+	private List<Job> getJobsBy(Boolean all, Comparator<Job> comparator){
 		if(all){
 			return current.getJobs()
 				.stream()
@@ -116,51 +79,111 @@ public enum ProfileRepository {
 				.collect(Collectors.toList());
 		}
 	}
-
-	public Profile getProfile() {
+	
+	private Profile _getProfile() {
 		if (current == null)
 			current = Profile.instanceOf();
 		return current;
 	}
-
-	public void clear() {
+	
+	private void _load(final File file) {
+		Optional<Profile> profile = Persistence.readProfile(file);
+		this.current = profile.orElse(Profile.instanceOf());
+		fireEvent();
+	}
+	
+	private void _clear() {
 		current = Profile.instanceOf();
 		fireEvent();
 	}
+	
+	private void fireEvent() {
+		if(this.listener != null)
+			this.listener.changed();
+	}
+	
+	// Static methods
+	
+	public static void save(final Job job){
+		_INSTANCE.saveJob(job);
+	}
+	
+	public static void delete(final Job job){
+		_INSTANCE.deleteJob(job);
+	}
 
-	public Set<String> getAutocompletePositions() {
+	public static Optional<Job> getJob(final ObjectId id) {
+		return _INSTANCE.current.getJobs()
+				.stream()
+				.filter(j -> j.getId().equals(id))
+				.findFirst();
+	}
+
+	public static List<Job> getActiveJobs() {
+		return _INSTANCE.current.getJobs()
+				.stream()
+				.filter(j -> j.getActive())
+				.sorted()
+				.collect(Collectors.toList());
+	}
+	
+	public static List<Job> getAllJobs() {
+		return _INSTANCE.current.getJobs()
+				.stream()
+				.sorted()
+				.collect(Collectors.toList());
+	}
+	
+	public static List<Job> getJobsByDate(Boolean all) {
+		return _INSTANCE.getJobsBy(all, new Order.CreatedComparator(Order.DESCENDING));
+	}
+	
+	public static List<Job> getJobsByRating(Boolean all) {
+		return _INSTANCE.getJobsBy(all, new Order.RatingComparator(Order.DESCENDING));
+	}
+	
+	public static List<Job> getJobsByActivity(Boolean all) {
+		return _INSTANCE.getJobsBy(all, new Order.ActivityComparator(Order.DESCENDING));
+	}
+	
+	public static List<Job> getJobsByStatus(Boolean all) {
+		return _INSTANCE.getJobsBy(all, new Order.StatusComparator(Order.DESCENDING));
+	}
+	
+	public static Profile getProfile() {
+		return _INSTANCE._getProfile();
+	}
+
+	public static void clear() {
+		_INSTANCE._clear();
+	}
+
+	public static Set<String> getAutocompletePositions() {
 		Set<String> positions = new HashSet<>();
 		getProfile().getJobs().forEach(job -> positions.add(job.getPosition()));
 		return positions;
 	}
 
-	public Set<String> getAutocompleteCompanies() {
+	public static Set<String> getAutocompleteCompanies() {
 		Set<String> companies = new HashSet<>();
 		getProfile().getJobs().forEach(j -> companies.add(j.getCompany().getName()));
 		return companies;
 	}
 
-	public void load(final File file) {
-		Optional<Profile> profile = Persistence.readProfile(file);
-		this.current = profile.orElse(Profile.instanceOf());
-		fireEvent();
+	public static void load(final File file) {
+		_INSTANCE._load(file);
 	}
 
-	private void fireEvent() {
-		if(this.listener != null)
-			this.listener.changed();
+	public static ProfileRepositoryListener getListener() {
+		return _INSTANCE.listener;
 	}
 
-	public ProfileRepositoryListener getListener() {
-		return listener;
-	}
-
-	public void setListener(ProfileRepositoryListener listener) {
-		this.listener = listener;
+	public static void setListener(ProfileRepositoryListener listener) {
+		_INSTANCE.listener = listener;
 	}
 	
-	public void setProfile(Profile profile) {
-		this.current = profile;
+	public static void setProfile(Profile profile) {
+		_INSTANCE.current = profile;
 	}
 
 }

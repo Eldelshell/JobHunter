@@ -125,7 +125,7 @@ public enum Persistence {
 			
 			l.debug("Inserting profile XML");
 			zout.putNextEntry(new ZipEntry("profile.xml"));
-			xstream.toXML(ProfileRepository.instanceOf().getProfile(), zout);
+			xstream.toXML(ProfileRepository.getProfile(), zout);
 			
 			l.debug("Inserting subscriptions XML");
 			zout.putNextEntry(new ZipEntry("subscriptions.xml"));
@@ -190,7 +190,7 @@ public enum Persistence {
 	}
 	
 	public static String debugProfile() {
-		return _INSTANCE.xstream.toXML(ProfileRepository.instanceOf().getProfile());
+		return _INSTANCE.xstream.toXML(ProfileRepository.getProfile());
 	}
 	
 	public static String debugSubscriptions() {

@@ -147,14 +147,12 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     private ResourceBundle bundle;
     
-    private final ProfileRepository profileRepository;
     private final SubscriptionRepository subscriptionRepository;
     private final SubscriptionController subscriptionController;
     private final PreferencesController preferencesController;
     private final ApplicationState state;
     
     public FXMLController() {
-    	this.profileRepository = ProfileRepository.instanceOf();
     	this.subscriptionRepository = SubscriptionRepository.instanceOf();
     	this.preferencesController = PreferencesController.instanceOf();
     	this.state = ApplicationState.instanceOf();
@@ -179,7 +177,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	}
     	
     	preferencesController.setLastFilePath("");
-    	profileRepository.clear();
+    	ProfileRepository.clear();
     	subscriptionRepository.clear();
     	refresh();
     }
@@ -198,7 +196,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     			.showConfirm();
     		
     		if (response == Dialog.Actions.YES) {
-    			profileRepository.load(fopen.get());
+    			ProfileRepository.load(fopen.get());
     			subscriptionRepository.load(fopen.get());
     			preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     			refresh();
@@ -248,7 +246,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     			.create(bundle)
     			.exportHTML(JavaFXUtils.getWindow(mainWebView));
     	
-    	if(fopen.isPresent() && HTMLRenderer.of().export(fopen.get(), profileRepository.getProfile())){
+    	if(fopen.isPresent() && HTMLRenderer.of().export(fopen.get(), ProfileRepository.getProfile())){
     		JavaFXUtils.toast(statusLabel, getTranslation("message.exported.html"));
     	}else{
     		Dialogs
@@ -419,7 +417,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void onInsertRandomJob(ActionEvent e) {
-    	profileRepository.getProfile().addJob(Random.Job());
+    	ProfileRepository.getProfile().addJob(Random.Job());
     	refresh();
     }
     
@@ -445,13 +443,13 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
-    		profileRepository.load(fout);
+    		ProfileRepository.load(fout);
     		subscriptionRepository.load(fout);
     	}else{
-    		profileRepository.getProfile();
+    		ProfileRepository.getProfile();
     	}
     	
-    	profileRepository.setListener(() -> {
+    	ProfileRepository.setListener(() -> {
     		refresh();
     	});
     	
@@ -526,14 +524,14 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	
 	private List<Job> getJobs() {
 		if(orderByRatingMenuItem.isSelected()){
-			return profileRepository.getJobsByRating(deletedMenuItem.isSelected());
+			return ProfileRepository.getJobsByRating(deletedMenuItem.isSelected());
 		}else if(orderByActivityMenuItem.isSelected()){
-			return profileRepository.getJobsByActivity(deletedMenuItem.isSelected());
+			return ProfileRepository.getJobsByActivity(deletedMenuItem.isSelected());
 		}else if(orderByStatusMenuItem.isSelected()){
-			return profileRepository.getJobsByStatus(deletedMenuItem.isSelected());
+			return ProfileRepository.getJobsByStatus(deletedMenuItem.isSelected());
 		}else{
 			orderByDateMenuItem.setSelected(true);
-			return profileRepository.getJobsByDate(deletedMenuItem.isSelected());
+			return ProfileRepository.getJobsByDate(deletedMenuItem.isSelected());
 		}
 	}
 	
@@ -558,9 +556,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
 			JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
 			break;
 		case RELOAD:
-			profileRepository.clear();
+			ProfileRepository.clear();
 	    	subscriptionRepository.clear();
-	    	profileRepository.load(file);
+	    	ProfileRepository.load(file);
     		subscriptionRepository.load(file);
     		break;
 		default: break;

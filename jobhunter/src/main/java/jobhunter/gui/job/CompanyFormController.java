@@ -48,7 +48,6 @@ public class CompanyFormController implements JobFormChild<Company> {
     private TextArea descriptionTextArea;
     
     private Company company;
-    private final ProfileRepository profileController = ProfileRepository.instanceOf();
     
     private FormChangeListener<Company> listener;
     
@@ -81,7 +80,10 @@ public class CompanyFormController implements JobFormChild<Company> {
 	}
 	
 	private void initializeEmpty() {
-		TextFields.bindAutoCompletion(companyTextField, profileController.getAutocompleteCompanies());
+		TextFields.bindAutoCompletion(
+			companyTextField, 
+			ProfileRepository.getAutocompleteCompanies()
+		);
 	}
 	
 	private void initializeFull() {

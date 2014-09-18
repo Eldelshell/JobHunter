@@ -79,7 +79,6 @@ public class ApplicationFormController implements JobFormChild<Job> {
     
     private Job job;
     private final PreferencesController preferencesController = PreferencesController.instanceOf();
-    private final ProfileRepository profileController = ProfileRepository.instanceOf();
     private FormChangeListener<Job> listener;
     
     public static ApplicationFormController create(ResourceBundle bundle) {
@@ -198,7 +197,7 @@ public class ApplicationFormController implements JobFormChild<Job> {
 	private void initializeEmpty() {
 		TextFields.bindAutoCompletion(
 			positionTextField, 
-			profileController.getAutocompletePositions()
+			ProfileRepository.getAutocompletePositions()
 		);
 		
 		statusCombo.getSelectionModel().selectFirst();
