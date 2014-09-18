@@ -70,6 +70,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#addFeedHandler" text="%menu.add.feed" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteFeedHandler" text="%menu.delete.feed" />
                         <MenuItem mnemonicParsing="false" onAction="#updateFeedHandler" text="%menu.update.feeds" />
+                        <CheckMenuItem mnemonicParsing="false" fx:id="autoupdateMenuItem" onAction="#autoupdateFeedHandler" text="%menu.update.automatically" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#readAllFeedHandler" text="%menu.read.all.feeds" />
                     </items>
