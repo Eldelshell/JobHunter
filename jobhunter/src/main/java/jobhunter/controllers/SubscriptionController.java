@@ -52,7 +52,9 @@ public class SubscriptionController implements Localizable {
 		super();
 		this.bundle = bundle;
 		feedService = new ScheduledFeedService(bundle);
-		feedService.start();
+		
+		if(PreferencesController.instanceOf().isAutosave())
+			feedService.start();
 	}
 
 	public void addFeed() {
@@ -145,6 +147,15 @@ public class SubscriptionController implements Localizable {
 			}
 		}
 		ApplicationState.instanceOf().changesPending(true);
+	}
+	
+	public void isAutoupdate(final Boolean enabled){
+		PreferencesController.instanceOf().setAutosave(enabled);
+		
+		if(enabled && !this.feedService.isRunning())
+			this.feedService.restart();
+		else
+			this.feedService.cancel();
 	}
 
 	@Override
