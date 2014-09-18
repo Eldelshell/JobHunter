@@ -27,6 +27,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Controller to handle java.util.prefs.Preferences operations
+ */
 public enum PreferencesController {
 
 	_INSTANCE;
@@ -38,6 +41,7 @@ public enum PreferencesController {
 	public static final String PORTALS_PROPERTY = "portals";
 	public static final String LAST_FILE_PATH_PROPERTY = "last-file-path";
 	public static final String AUTOSAVE_PROPERTY = "autosave";
+	public static final String AUTOUPDATE_PROPERTY = "autoupdate";
 	
 	public static PreferencesController instanceOf() {
 		return _INSTANCE;
@@ -100,6 +104,14 @@ public enum PreferencesController {
 	
 	public void setAutosave(final Boolean bool){
 		current.putBoolean(AUTOSAVE_PROPERTY, bool);
+	}
+	
+	public Boolean isAutoupdate() {
+		return current.getBoolean(AUTOUPDATE_PROPERTY, true);
+	}
+	
+	public void setAutoupdate(final Boolean bool){
+		current.putBoolean(AUTOUPDATE_PROPERTY, bool);
 	}
 	
 	public List<String> getPortalsList() {
