@@ -3,11 +3,9 @@ JobHunter
 
 Open Source Jobs tracking tool. 
 
-![Imgur](http://i.imgur.com/2TeWY5h.gif)
+![Imgur](http://i.imgur.com/xjHQPYp.png)
 
-# ![Imgur](http://i.imgur.com/XUUXoJm.png)
-
-# ![Imgur](http://i.imgur.com/7L3oXZW.png)
+![Imgur](http://i.imgur.com/Jnwhjug.png)
 
 The idea is to ease the burden of managing/accessing data about your job applications in different portals.
 
@@ -48,7 +46,7 @@ Currently you have plugins for:
 
 ## JHF Files
 
-JobHunter stores data in JHF files, which are a ZIP file with some XML files inside. This files can be added to cloud drives (Box, Dropbox, Drive) so you can share them between devices (Android App coming soon)
+JobHunter stores data in JHF files, which are a ZIP file with some XML files inside. This files can be added to cloud drives (Box, Dropbox, Drive) so you can share them between devices.
 
 ## Development
 
