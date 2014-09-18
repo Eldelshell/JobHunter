@@ -76,6 +76,7 @@ public enum PreferencesController {
 		current.put(LAST_FILE_PATH_PROPERTY, "");
 		current.put(PORTALS_PROPERTY, DEFAULT_PORTALS);
 		current.putBoolean(AUTOSAVE_PROPERTY, false);
+		current.putBoolean(AUTOUPDATE_PROPERTY, true);
 	}
 	
 	public void setLastFilePath(final String value) {

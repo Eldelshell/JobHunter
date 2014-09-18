@@ -150,7 +150,7 @@ public class SubscriptionController implements Localizable {
 	}
 	
 	public void isAutoupdate(final Boolean enabled){
-		PreferencesController.instanceOf().setAutosave(enabled);
+		PreferencesController.instanceOf().setAutoupdate(enabled);
 		
 		if(enabled && !this.feedService.isRunning())
 			this.feedService.restart();
