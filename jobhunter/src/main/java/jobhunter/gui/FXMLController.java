@@ -131,6 +131,12 @@ public class FXMLController implements Initializable, Observer, Localizable {
     @FXML
     private TableColumn<SubscriptionItem, String> positionColumn;
     
+    @FXML
+    private CheckMenuItem autoupdateMenuItem;
+    
+    /**
+     * Renders the HTML for the mainWebView
+     */
     private WebViewRenderer webViewRenderer;
     
     /**
@@ -370,6 +376,11 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
     
     @FXML
+    void autoupdateFeedHandler(ActionEvent e){
+    	subscriptionController.isAutoupdate(autoupdateMenuItem.isSelected());
+    }
+    
+    @FXML
     void readAllFeedHandler(ActionEvent e){
     	subscriptionController.readAll();
     	autosave();
@@ -455,6 +466,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	});
     	
     	autoSaveMenuItem.setSelected(preferencesController.isAutosave());
+    	autoupdateMenuItem.setSelected(preferencesController.isAutoupdate());
     	
     	jobsListView.setCellFactory(new JobCell.JobCellCallback());
     	feedListView.setCellFactory(new SubscriptionListCell.CellCallback());
