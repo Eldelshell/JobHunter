@@ -19,6 +19,7 @@ package jobhunter.gui;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -48,6 +49,7 @@ import jobhunter.controllers.PreferencesController;
 import jobhunter.controllers.SubscriptionController;
 import jobhunter.gui.dialog.AboutDialog;
 import jobhunter.gui.dialog.BugReportDialog;
+import jobhunter.gui.dialog.ConcurrentFileModificationDialog;
 import jobhunter.gui.dialog.DebugDialog;
 import jobhunter.gui.dialog.PreferencesDialog;
 import jobhunter.gui.job.JobFormController;
@@ -202,8 +204,13 @@ public class FXMLController implements Initializable, Observer, Localizable {
     void onActionSaveMenuItemHandler(ActionEvent event) {
     	if(preferencesController.isLastFilePathSet()){
     		final File fout = new File(preferencesController.getLastFilePath());
-    		Persistence.save(fout);
-    		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
+    		try {
+				Persistence.save(fout);
+				JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
+			} catch (ConcurrentModificationException e) {
+				handleConcurrentFileModification(fout);
+			}
+    		
     	}else{
     		onActionSaveAsMenuItemHandler(event);
     	}
@@ -216,7 +223,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     			.saveAs(JavaFXUtils.getWindow(mainWebView));
     	
     	if(fopen.isPresent()){
-    		Persistence.save(fopen.get());
+    		Persistence.rewrite(fopen.get());
     		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}
@@ -517,6 +524,30 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		return FXCollections.observableArrayList(
 			subscriptionRepository.getSubscriptions()
 		);
+	}
+	
+	private void handleConcurrentFileModification(final File file) {
+		ConcurrentFileModificationDialog.Actions act = ConcurrentFileModificationDialog.create()
+			.setBundle(getBundle())
+			.show(file);
+		
+		switch(act){
+		case SAVE:
+			onActionSaveAsMenuItemHandler(null);
+			break;
+		case OVERWRITE:
+			Persistence.rewrite(file);
+			JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
+			break;
+		case RELOAD:
+			profileRepository.clear();
+	    	subscriptionRepository.clear();
+	    	profileRepository.load(file);
+    		subscriptionRepository.load(file);
+    		break;
+		default: break;
+		}
+		
 	}
 	
 }
