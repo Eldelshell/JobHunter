@@ -26,7 +26,9 @@ import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 import org.controlsfx.dialog.Dialogs.CommandLink;
 
-
+/**
+ * Dialog to show an user different options to report a bug
+ */
 public class BugReportDialog implements Localizable{
 	
 	public static final String GITHUB_URI = "https://github.com/Eldelshell/JobHunter/issues";
