@@ -3,13 +3,14 @@ JobHunter
 
 Open Source Jobs tracking tool. 
 
-![Imgur](http://i.imgur.com/xjHQPYp.png)
+### Main view with some jobs
+![http://i.imgur.com/xjHQPYp](http://i.imgur.com/xjHQPYp.png)
 
-![Imgur](http://i.imgur.com/BNd3iDIs.jpg)
+### Dialog to add/edit job positions
+![http://imgur.com/BNd3iDI](http://i.imgur.com/BNd3iDI.png)
 
-![Imgur](http://i.imgur.com/Jnwhjug.png)
-
-
+### Main view with some RSS feeds
+![http://i.imgur.com/Jnwhjug.png](http://i.imgur.com/Jnwhjug.png)
 
 The idea is to ease the burden of managing/accessing data about your job applications in different portals.
 
