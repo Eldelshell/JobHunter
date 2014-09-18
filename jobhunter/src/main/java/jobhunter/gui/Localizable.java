@@ -32,8 +32,12 @@ public interface Localizable {
 	}
 	
 	default String getTranslation(String str, Object...objects) {
-		final String i18n = getBundle().getString(str);
-		return MessageFormat.format(i18n, objects);
+		try {
+			final String i18n = getBundle().getString(str);
+			return MessageFormat.format(i18n, objects);
+		} catch (Exception e) {
+			return str;
+		}
 	}
 	
 	default String[] getTranslationArray(String str) {
