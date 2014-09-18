@@ -88,7 +88,7 @@ public class SubscriptionForm implements Localizable {
         GridPane.setHgrow(titleField, Priority.ALWAYS);
         
         ObservableList<String> portals = FXCollections.observableArrayList(
-			PreferencesController.instanceOf().getPortalsList()
+			PreferencesController.getPortalsList()
 		);
 		
 		portalField.setItems(portals);

@@ -43,10 +43,6 @@ public enum PreferencesController {
 	public static final String AUTOSAVE_PROPERTY = "autosave";
 	public static final String AUTOUPDATE_PROPERTY = "autoupdate";
 	
-	public static PreferencesController instanceOf() {
-		return _INSTANCE;
-	}
-	
 	private final Preferences current;
 	
 	private PreferencesController() {
@@ -55,12 +51,12 @@ public enum PreferencesController {
 			: Preferences.userRoot().node("jobhunter");
 	}
 
-	public void init() {
+	public static void init() {
 		
 		Boolean isFirstTime = Boolean.TRUE;
 		
 		try {
-			isFirstTime = current.keys().length == 0;
+			isFirstTime = getCurrent().keys().length == 0;
 		} catch (BackingStoreException e) {
 			l.error("Error loading preferences file", e);
 		}
@@ -72,66 +68,70 @@ public enum PreferencesController {
 		
 	}
 	
-	private void generate() {
-		current.put(LAST_FILE_PATH_PROPERTY, "");
-		current.put(PORTALS_PROPERTY, DEFAULT_PORTALS);
-		current.putBoolean(AUTOSAVE_PROPERTY, false);
-		current.putBoolean(AUTOUPDATE_PROPERTY, true);
+	private static void generate() {
+		getCurrent().put(LAST_FILE_PATH_PROPERTY, "");
+		getCurrent().put(PORTALS_PROPERTY, DEFAULT_PORTALS);
+		getCurrent().putBoolean(AUTOSAVE_PROPERTY, false);
+		getCurrent().putBoolean(AUTOUPDATE_PROPERTY, true);
 	}
 	
-	public void setLastFilePath(final String value) {
-		current.put(LAST_FILE_PATH_PROPERTY, value);
+	public static void setLastFilePath(final String value) {
+		getCurrent().put(LAST_FILE_PATH_PROPERTY, value);
 	}
 	
-	public Boolean isLastFilePathSet() {
-		return !current.get(LAST_FILE_PATH_PROPERTY, "").isEmpty();
+	public static Boolean isLastFilePathSet() {
+		return !getCurrent().get(LAST_FILE_PATH_PROPERTY, "").isEmpty();
 	}
 	
-	public String getLastFilePath() {
-		return current.get(LAST_FILE_PATH_PROPERTY, null);
+	public static String getLastFilePath() {
+		return getCurrent().get(LAST_FILE_PATH_PROPERTY, null);
 	}
 	
-	public void setPortals(final String value) {
-		current.put(PORTALS_PROPERTY, value);
+	public static void setPortals(final String value) {
+		getCurrent().put(PORTALS_PROPERTY, value);
 	}
 	
-	public String getPortals() {
-		return current.get(PORTALS_PROPERTY, DEFAULT_PORTALS);
+	public static String getPortals() {
+		return getCurrent().get(PORTALS_PROPERTY, DEFAULT_PORTALS);
 	}
 	
-	public Boolean isAutosave() {
-		return current.getBoolean(AUTOSAVE_PROPERTY, false);
+	public static Boolean isAutosave() {
+		return getCurrent().getBoolean(AUTOSAVE_PROPERTY, false);
 	}
 	
-	public void setAutosave(final Boolean bool){
-		current.putBoolean(AUTOSAVE_PROPERTY, bool);
+	public static void setAutosave(final Boolean bool){
+		getCurrent().putBoolean(AUTOSAVE_PROPERTY, bool);
 	}
 	
-	public Boolean isAutoupdate() {
-		return current.getBoolean(AUTOUPDATE_PROPERTY, true);
+	public static Boolean isAutoupdate() {
+		return getCurrent().getBoolean(AUTOUPDATE_PROPERTY, true);
 	}
 	
-	public void setAutoupdate(final Boolean bool){
-		current.putBoolean(AUTOUPDATE_PROPERTY, bool);
+	public static void setAutoupdate(final Boolean bool){
+		getCurrent().putBoolean(AUTOUPDATE_PROPERTY, bool);
 	}
 	
-	public List<String> getPortalsList() {
-		final String portals = current.get(PORTALS_PROPERTY, DEFAULT_PORTALS);
+	public static List<String> getPortalsList() {
+		final String portals = getCurrent().get(PORTALS_PROPERTY, DEFAULT_PORTALS);
 		return Arrays.asList(portals.split(", "));
 	}
 	
-	public void addNewPortal(final String portal){
-		final String portals = current.get(PORTALS_PROPERTY, DEFAULT_PORTALS);
+	public static void addNewPortal(final String portal){
+		final String portals = getCurrent().get(PORTALS_PROPERTY, DEFAULT_PORTALS);
 		if(!StringUtils.contains(portals, portal))
 			setPortals(portals + ", " + portal);
 	}
 	
-	public void save() {
+	public static void save() {
 		try {
-			current.flush();
+			getCurrent().flush();
 		} catch (BackingStoreException e) {
 			l.error("Failed to save preferences", e);
 		}
+	}
+	
+	private static Preferences getCurrent(){
+		return _INSTANCE.current;
 	}
 	
 }

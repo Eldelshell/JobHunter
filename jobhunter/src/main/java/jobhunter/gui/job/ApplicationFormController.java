@@ -78,7 +78,6 @@ public class ApplicationFormController implements JobFormChild<Job> {
     private Button editorButton;
     
     private Job job;
-    private final PreferencesController preferencesController = PreferencesController.instanceOf();
     private FormChangeListener<Job> listener;
     
     public static ApplicationFormController create(ResourceBundle bundle) {
@@ -100,7 +99,7 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		l.debug("Init me {}", this.getClass().getCanonicalName());
 		
 		ObservableList<String> portals = FXCollections.observableArrayList(
-			preferencesController.getPortalsList()
+				PreferencesController.getPortalsList()
 		);
 		
 		List<LocalizedEnum<Job.Status>> vals = Arrays.stream(Job.Status.values())
@@ -188,7 +187,7 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		portalCombo.valueProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setPortal(neu);
-				preferencesController.addNewPortal(neu);
+				PreferencesController.addNewPortal(neu);
 				changed();
 			}
 		});

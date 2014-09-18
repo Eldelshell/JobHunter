@@ -149,12 +149,10 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     private final SubscriptionRepository subscriptionRepository;
     private final SubscriptionController subscriptionController;
-    private final PreferencesController preferencesController;
     private final ApplicationState state;
     
     public FXMLController() {
     	this.subscriptionRepository = SubscriptionRepository.instanceOf();
-    	this.preferencesController = PreferencesController.instanceOf();
     	this.state = ApplicationState.instanceOf();
     	this.subscriptionController = new SubscriptionController(this.state.getBundle());
     }
@@ -176,7 +174,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     		
     	}
     	
-    	preferencesController.setLastFilePath("");
+    	PreferencesController.setLastFilePath("");
     	ProfileRepository.clear();
     	subscriptionRepository.clear();
     	refresh();
@@ -198,7 +196,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     		if (response == Dialog.Actions.YES) {
     			ProfileRepository.load(fopen.get());
     			subscriptionRepository.load(fopen.get());
-    			preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
+    			PreferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     			refresh();
     		}
     	}
@@ -206,8 +204,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
 
     @FXML
     void onActionSaveMenuItemHandler(ActionEvent event) {
-    	if(preferencesController.isLastFilePathSet()){
-    		final File fout = new File(preferencesController.getLastFilePath());
+    	if(PreferencesController.isLastFilePathSet()){
+    		final File fout = new File(PreferencesController.getLastFilePath());
     		try {
 				Persistence.save(fout);
 				JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
@@ -228,7 +226,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	
     	if(fopen.isPresent()){
     		Persistence.rewrite(fopen.get());
-    		preferencesController.setLastFilePath(fopen.get().getAbsolutePath());
+    		PreferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}
     }
@@ -237,7 +235,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     void onAutoSaveAction(ActionEvent event) {
     	// If a user selects this, a save is expected, right?
     	autosave();
-    	preferencesController.setAutosave(autoSaveMenuItem.isSelected());
+    	PreferencesController.setAutosave(autoSaveMenuItem.isSelected());
     }
     
     @FXML
@@ -410,9 +408,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void onActionClearDataMenuItemHandler(ActionEvent e) {
-    	File dataFile = new File(preferencesController.getLastFilePath());
+    	File dataFile = new File(PreferencesController.getLastFilePath());
     	dataFile.delete();
-    	preferencesController.setLastFilePath("");
+    	PreferencesController.setLastFilePath("");
     }
     
     @FXML
@@ -441,8 +439,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		
     	developmentMenu.setVisible(state.isDebug());
     	
-    	if(preferencesController.isLastFilePathSet()){
-    		final File fout = new File(preferencesController.getLastFilePath());
+    	if(PreferencesController.isLastFilePathSet()){
+    		final File fout = new File(PreferencesController.getLastFilePath());
     		ProfileRepository.load(fout);
     		subscriptionRepository.load(fout);
     	}else{
@@ -463,8 +461,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
     		autosave();
     	});
     	
-    	autoSaveMenuItem.setSelected(preferencesController.isAutosave());
-    	autoupdateMenuItem.setSelected(preferencesController.isAutoupdate());
+    	autoSaveMenuItem.setSelected(PreferencesController.isAutosave());
+    	autoupdateMenuItem.setSelected(PreferencesController.isAutoupdate());
     	
     	jobsListView.setCellFactory(new JobCell.JobCellCallback());
     	feedListView.setCellFactory(new SubscriptionListCell.CellCallback());
@@ -512,7 +510,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	private void autosave() {
 		if(!autoSaveMenuItem.isSelected()) return;
 		if(!state.changesPending()) return;
-		if(StringUtils.isEmpty(preferencesController.getLastFilePath())) return;
+		if(StringUtils.isEmpty(PreferencesController.getLastFilePath())) return;
 		l.debug("Autosaving");
 		onActionSaveMenuItemHandler(null);
 	}

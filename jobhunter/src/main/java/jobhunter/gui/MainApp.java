@@ -41,7 +41,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
     	l.debug("Running in debug {}", System.getProperty("debug"));
     	
-    	PreferencesController.instanceOf().init();
+    	PreferencesController.init();
     	
         Parent root = FXMLLoader.load(
     		getClass().getResource(_FXML), 

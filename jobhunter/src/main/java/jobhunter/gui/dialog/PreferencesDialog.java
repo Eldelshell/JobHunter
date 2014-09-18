@@ -56,8 +56,6 @@ public class PreferencesDialog implements Localizable {
 		this.bundle = bundle;
 	}
 
-	private PreferencesController preferencesController = PreferencesController.instanceOf();
-	
 	public static abstract class Property implements PropertySheet.Item {
 
 		protected EventHandler<ActionEvent> handler;
@@ -132,11 +130,11 @@ public class PreferencesDialog implements Localizable {
 	}
 	
 	private ObservableList<Item> getItems() {
-		final Property portals = new PortalsProperty(preferencesController.getPortals());
+		final Property portals = new PortalsProperty(PreferencesController.getPortals());
 		
 		portals.setOnChange(event -> {
 			final StringProperty p = (StringProperty)event.getSource();
-			preferencesController.setPortals((String)p.getValue());
+			PreferencesController.setPortals((String)p.getValue());
 		});
 		
 		final ObservableList<Item> list = FXCollections.observableArrayList();
