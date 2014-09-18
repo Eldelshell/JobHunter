@@ -65,8 +65,8 @@ public enum Persistence {
         return (List<T>)obj;
     }
 	
-	private void _save(final File file) {
-		if(wasModified(file))
+	private void _save(final File file, final Boolean rewrite) {
+		if(wasModified(file) && !rewrite)
 			throw new ConcurrentModificationException("File has been modified");
 
 		ApplicationState.instanceOf().changesPending(false);
@@ -174,7 +174,11 @@ public enum Persistence {
 	}
 	
 	public static void save(final File file) {
-		_INSTANCE._save(file);
+		_INSTANCE._save(file, false);
+	}
+	
+	public static void rewrite(final File file) {
+		_INSTANCE._save(file, true);
 	}
 	
 	public static Optional<Profile> readProfile(final File file) {
