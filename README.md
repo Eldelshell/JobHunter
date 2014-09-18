@@ -5,7 +5,11 @@ Open Source Jobs tracking tool.
 
 ![Imgur](http://i.imgur.com/xjHQPYp.png)
 
+![Imgur](http://i.imgur.com/BNd3iDIs.jpg)
+
 ![Imgur](http://i.imgur.com/Jnwhjug.png)
+
+
 
 The idea is to ease the burden of managing/accessing data about your job applications in different portals.
 
