@@ -39,15 +39,19 @@ public enum SubscriptionRepository {
 	private SubscriptionRepositoryListener listener;
 
 	private List<Subscription> subscriptions;
+	
+	private static SubscriptionRepository self() {
+		return _INSTANCE;
+	}
 
 	public static List<Subscription> getSubscriptions() {
-		if(_INSTANCE.subscriptions == null)
-			_INSTANCE.subscriptions = new ArrayList<>();
-		return _INSTANCE.subscriptions;
+		if(self().subscriptions == null)
+			self().subscriptions = new ArrayList<>();
+		return self().subscriptions;
 	}
 
 	public static void setSubscriptions(List<Subscription> subscriptions) {
-		_INSTANCE.subscriptions = subscriptions;
+		self().subscriptions = subscriptions;
 	}
 	
 	public static void add(final Subscription subs){
@@ -64,7 +68,7 @@ public enum SubscriptionRepository {
 	public static void delete(final Subscription subs){
 		l.debug("Removing subscription");
 		getSubscriptions().remove(subs);
-		_INSTANCE.fireEvent();
+		self().fireEvent();
 		ApplicationState.changesPending(true);
 	}
 	
@@ -91,13 +95,13 @@ public enum SubscriptionRepository {
 	
 	public static void load(final File file) {
 		Optional<List<Subscription>> profile = Persistence.readSubscriptions(file);
-		_INSTANCE.subscriptions = profile.orElse(new ArrayList<>());
-		_INSTANCE.fireEvent();
+		self().subscriptions = profile.orElse(new ArrayList<>());
+		self().fireEvent();
 	}
 	
 	public static void clear() {
-		_INSTANCE.subscriptions = new ArrayList<>();
-		_INSTANCE.fireEvent();
+		self().subscriptions = new ArrayList<>();
+		self().fireEvent();
 	}
 	
 	private void fireEvent() {
@@ -106,12 +110,12 @@ public enum SubscriptionRepository {
 	}
 
 	public static SubscriptionRepositoryListener getListener() {
-		return _INSTANCE.listener;
+		return self().listener;
 	}
 
 	public static SubscriptionRepository setListener(SubscriptionRepositoryListener listener) {
-		_INSTANCE.listener = listener;
-		return _INSTANCE;
+		self().listener = listener;
+		return self();
 	}
 	
 }

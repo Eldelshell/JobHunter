@@ -50,7 +50,7 @@ public enum PreferencesController {
 			? Preferences.userRoot().node("jobhunter-dev") 
 			: Preferences.userRoot().node("jobhunter");
 	}
-
+	
 	public static void init() {
 		
 		Boolean isFirstTime = Boolean.TRUE;

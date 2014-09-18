@@ -38,8 +38,7 @@ public enum ProfileRepository {
 
 	private static final Logger l = LoggerFactory.getLogger(ProfileRepository.class);
 
-	@Deprecated
-	public static ProfileRepository instanceOf() {
+	private static ProfileRepository self() {
 		return _INSTANCE;
 	}
 
@@ -105,22 +104,22 @@ public enum ProfileRepository {
 	// Static methods
 	
 	public static void save(final Job job){
-		_INSTANCE.saveJob(job);
+		self().saveJob(job);
 	}
 	
 	public static void delete(final Job job){
-		_INSTANCE.deleteJob(job);
+		self().deleteJob(job);
 	}
 
 	public static Optional<Job> getJob(final ObjectId id) {
-		return _INSTANCE.current.getJobs()
+		return self().current.getJobs()
 				.stream()
 				.filter(j -> j.getId().equals(id))
 				.findFirst();
 	}
 
 	public static List<Job> getActiveJobs() {
-		return _INSTANCE.current.getJobs()
+		return self().current.getJobs()
 				.stream()
 				.filter(j -> j.getActive())
 				.sorted()
@@ -128,34 +127,34 @@ public enum ProfileRepository {
 	}
 	
 	public static List<Job> getAllJobs() {
-		return _INSTANCE.current.getJobs()
+		return self().current.getJobs()
 				.stream()
 				.sorted()
 				.collect(Collectors.toList());
 	}
 	
 	public static List<Job> getJobsByDate(Boolean all) {
-		return _INSTANCE.getJobsBy(all, new Order.CreatedComparator(Order.DESCENDING));
+		return self().getJobsBy(all, new Order.CreatedComparator(Order.DESCENDING));
 	}
 	
 	public static List<Job> getJobsByRating(Boolean all) {
-		return _INSTANCE.getJobsBy(all, new Order.RatingComparator(Order.DESCENDING));
+		return self().getJobsBy(all, new Order.RatingComparator(Order.DESCENDING));
 	}
 	
 	public static List<Job> getJobsByActivity(Boolean all) {
-		return _INSTANCE.getJobsBy(all, new Order.ActivityComparator(Order.DESCENDING));
+		return self().getJobsBy(all, new Order.ActivityComparator(Order.DESCENDING));
 	}
 	
 	public static List<Job> getJobsByStatus(Boolean all) {
-		return _INSTANCE.getJobsBy(all, new Order.StatusComparator(Order.DESCENDING));
+		return self().getJobsBy(all, new Order.StatusComparator(Order.DESCENDING));
 	}
 	
 	public static Profile getProfile() {
-		return _INSTANCE._getProfile();
+		return self()._getProfile();
 	}
 
 	public static void clear() {
-		_INSTANCE._clear();
+		self()._clear();
 	}
 
 	public static Set<String> getAutocompletePositions() {
@@ -171,19 +170,19 @@ public enum ProfileRepository {
 	}
 
 	public static void load(final File file) {
-		_INSTANCE._load(file);
+		self()._load(file);
 	}
 
 	public static ProfileRepositoryListener getListener() {
-		return _INSTANCE.listener;
+		return self().listener;
 	}
 
 	public static void setListener(ProfileRepositoryListener listener) {
-		_INSTANCE.listener = listener;
+		self().listener = listener;
 	}
 	
 	public static void setProfile(Profile profile) {
-		_INSTANCE.current = profile;
+		self().current = profile;
 	}
 
 }

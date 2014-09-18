@@ -60,6 +60,10 @@ public enum Persistence {
 		xstream.registerConverter(new LocalDateConverter());
 	}
 	
+	private static Persistence self() {
+		return _INSTANCE;
+	}
+	
 	@SuppressWarnings("unchecked")
     static <T> List<T> cast(Object obj) {
         return (List<T>)obj;
@@ -174,27 +178,27 @@ public enum Persistence {
 	}
 	
 	public static void save(final File file) {
-		_INSTANCE._save(file, false);
+		self()._save(file, false);
 	}
 	
 	public static void rewrite(final File file) {
-		_INSTANCE._save(file, true);
+		self()._save(file, true);
 	}
 	
 	public static Optional<Profile> readProfile(final File file) {
-		return _INSTANCE._readProfile(file);
+		return self()._readProfile(file);
 	}
 	
 	public static Optional<List<Subscription>> readSubscriptions(final File file) {
-		return _INSTANCE._readSubscriptions(file);
+		return self()._readSubscriptions(file);
 	}
 	
 	public static String debugProfile() {
-		return _INSTANCE.xstream.toXML(ProfileRepository.getProfile());
+		return self().xstream.toXML(ProfileRepository.getProfile());
 	}
 	
 	public static String debugSubscriptions() {
-		return _INSTANCE.xstream.toXML(SubscriptionRepository.getSubscriptions());
+		return self().xstream.toXML(SubscriptionRepository.getSubscriptions());
 	}
 	
 }
