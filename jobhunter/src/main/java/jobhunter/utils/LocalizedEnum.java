@@ -29,12 +29,12 @@ public class LocalizedEnum<T extends Enum<?>> {
 	private final String message;
 	
 	public static LocalizedEnum<Status> of(Status status){
-		String message = ApplicationState.instanceOf().getBundle().getString("job.status." + status.name().toLowerCase());
+		String message = ApplicationState.getBundle().getString("job.status." + status.name().toLowerCase());
 		return new LocalizedEnum<Status>(status, message);
 	}
 	
 	public static LocalizedEnum<Type> of(Type status){
-		String message = ApplicationState.instanceOf().getBundle().getString("activity.log." + status.name().toLowerCase());
+		String message = ApplicationState.getBundle().getString("activity.log." + status.name().toLowerCase());
 		return new LocalizedEnum<Type>(status, message);
 	}
 	

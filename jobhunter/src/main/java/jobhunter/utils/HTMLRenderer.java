@@ -49,7 +49,7 @@ public class HTMLRenderer {
 	
 	public Map<String, String> getValues() {
 		final Map<String, String> vals = new HashMap<>();
-		if(ApplicationState.instanceOf().isDevelopment()){
+		if(ApplicationState.isDevelopment()){
 			vals.put("styles_path", "src/main/resources/templates/styles.html");
 		}else{
 			vals.put("styles_path", "templates/styles.html");
@@ -82,7 +82,7 @@ public class HTMLRenderer {
 	public Optional<Object> render(final Job job) {
 		String path = "templates/job.html";
 		
-		if(ApplicationState.instanceOf().isDevelopment())
+		if(ApplicationState.isDevelopment())
 			path = "src/main/resources/templates/job.html";
 		
 		try(InputStream io = new FileInputStream(new File(path))){
@@ -97,7 +97,7 @@ public class HTMLRenderer {
 	public Optional<Object> render(final SubscriptionItem item) {
 		String path = "templates/subscription.html";
 		
-		if(ApplicationState.instanceOf().isDevelopment())
+		if(ApplicationState.isDevelopment())
 			path = "src/main/resources/templates/subscription.html";
 		
 		try(InputStream io = new FileInputStream(new File(path))){
@@ -113,7 +113,7 @@ public class HTMLRenderer {
 		l.debug("Rendering for Export");
 		String path = "templates/export.html";
 		
-		if(ApplicationState.instanceOf().isDevelopment())
+		if(ApplicationState.isDevelopment())
 			path = "src/main/resources/templates/export.html";
 		
 		try(InputStream io = new FileInputStream(new File(path))){

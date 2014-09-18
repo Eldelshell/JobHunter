@@ -58,14 +58,14 @@ public enum SubscriptionRepository {
 		}
 		
 		getSubscriptions().add(subs);
-		ApplicationState.instanceOf().changesPending(true);
+		ApplicationState.changesPending(true);
 	}
 	
 	public static void delete(final Subscription subs){
 		l.debug("Removing subscription");
 		getSubscriptions().remove(subs);
 		_INSTANCE.fireEvent();
-		ApplicationState.instanceOf().changesPending(true);
+		ApplicationState.changesPending(true);
 	}
 	
 	public static Optional<Subscription> findByTitle(final String title) {

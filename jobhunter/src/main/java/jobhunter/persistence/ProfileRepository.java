@@ -52,7 +52,7 @@ public enum ProfileRepository {
 		l.debug(job.toString());
 		current.addJob(job);
 		fireEvent();
-		ApplicationState.instanceOf().changesPending(true);
+		ApplicationState.changesPending(true);
 	}
 
 	private void deleteJob(final Job job) {
@@ -61,7 +61,7 @@ public enum ProfileRepository {
 			.filter(j -> j.equals(job))
 			.forEach(j -> j.setActive(Boolean.FALSE));
 		fireEvent();
-		ApplicationState.instanceOf().changesPending(true);
+		ApplicationState.changesPending(true);
 		
 	}
 	

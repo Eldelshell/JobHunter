@@ -37,33 +37,33 @@ public enum ApplicationState {
 	private static final Logger l = LoggerFactory.getLogger(ApplicationState.class);
 	public static final String APP_STRING = "JobHunter 0.1.1";
 	
-	public static ApplicationState instanceOf() {
+	private static ApplicationState self() {
 		return _INSTANCE;
 	}
 	
-	public Boolean changesPending() {
-		return changesPending;
+	public static Boolean changesPending() {
+		return self().changesPending;
 	}
 	
-	public synchronized void changesPending(Boolean val){
+	public static void changesPending(Boolean val){
 		l.debug("Changes pending: {}", val);
-		this.changesPending = val;
+		self().changesPending = val;
 	}
 	
-	public Boolean isDebug() {
+	public static Boolean isDebug() {
 		return debug;
 	}
 	
-	public Boolean isDevelopment() {
+	public static Boolean isDevelopment() {
 		return development;
 	}
 	
-	public Locale getLocale() {
-		return this.locale;
+	public static Locale getLocale() {
+		return self().locale;
 	}
 	
-	public ResourceBundle getBundle() {
-		return bundle;
+	public static ResourceBundle getBundle() {
+		return self().bundle;
 	}
 
 	private static Locale getLocaleOption() {

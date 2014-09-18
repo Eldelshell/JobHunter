@@ -148,16 +148,14 @@ public class FXMLController implements Initializable, Observer, Localizable {
     private ResourceBundle bundle;
     
     private final SubscriptionController subscriptionController;
-    private final ApplicationState state;
     
     public FXMLController() {
-    	this.state = ApplicationState.instanceOf();
-    	this.subscriptionController = new SubscriptionController(this.state.getBundle());
+    	this.subscriptionController = new SubscriptionController(ApplicationState.getBundle());
     }
     
     @FXML
     void onActionNewMenuItemHandler(ActionEvent e) {
-    	if(state.changesPending()) {
+    	if(ApplicationState.changesPending()) {
     		Action response = Dialogs.create()
     			.masthead(getTranslation("message.pending.changes"))
     			.message(getTranslation("message.save.changes"))
@@ -435,7 +433,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	feedErrorLabel.setText(getTranslation("message.feed.failed"));
     	feedErrorLabel.getStyleClass().add("error-label");
 		
-    	developmentMenu.setVisible(state.isDebug());
+    	developmentMenu.setVisible(ApplicationState.isDebug());
     	
     	if(PreferencesController.isLastFilePathSet()){
     		final File fout = new File(PreferencesController.getLastFilePath());
@@ -507,7 +505,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	
 	private void autosave() {
 		if(!autoSaveMenuItem.isSelected()) return;
-		if(!state.changesPending()) return;
+		if(!ApplicationState.changesPending()) return;
 		if(StringUtils.isEmpty(PreferencesController.getLastFilePath())) return;
 		l.debug("Autosaving");
 		onActionSaveMenuItemHandler(null);

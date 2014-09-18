@@ -130,7 +130,7 @@ public class SubscriptionController implements Localizable {
 			}
 		});
 		
-		ApplicationState.instanceOf().changesPending(true);
+		ApplicationState.changesPending(true);
 		
 	}
 	
@@ -142,7 +142,7 @@ public class SubscriptionController implements Localizable {
 					item.setActive(Boolean.FALSE);
 			}
 		}
-		ApplicationState.instanceOf().changesPending(true);
+		ApplicationState.changesPending(true);
 	}
 	
 	public void isAutoupdate(final Boolean enabled){

@@ -45,7 +45,7 @@ public class MainApp extends Application {
     	
         Parent root = FXMLLoader.load(
     		getClass().getResource(_FXML), 
-    		ApplicationState.instanceOf().getBundle()
+    		ApplicationState.getBundle()
 		);
         
         Scene scene = new Scene(root);

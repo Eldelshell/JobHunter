@@ -69,7 +69,7 @@ public enum Persistence {
 		if(wasModified(file) && !rewrite)
 			throw new ConcurrentModificationException("File has been modified");
 
-		ApplicationState.instanceOf().changesPending(false);
+		ApplicationState.changesPending(false);
 		zip(file);
 	}
 	

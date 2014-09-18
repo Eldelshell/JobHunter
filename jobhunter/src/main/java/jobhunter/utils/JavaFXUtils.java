@@ -75,7 +75,7 @@ public class JavaFXUtils {
 	}
 	
 	public static void confirmExit(final Event e) {
-		if(ApplicationState.instanceOf().changesPending()){
+		if(ApplicationState.changesPending()){
     		Action response = Dialogs.create()
     			.masthead("There are pending changes")
     			.message("Do you want to continue without saving?")
