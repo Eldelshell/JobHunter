@@ -147,12 +147,10 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     private ResourceBundle bundle;
     
-    private final SubscriptionRepository subscriptionRepository;
     private final SubscriptionController subscriptionController;
     private final ApplicationState state;
     
     public FXMLController() {
-    	this.subscriptionRepository = SubscriptionRepository.instanceOf();
     	this.state = ApplicationState.instanceOf();
     	this.subscriptionController = new SubscriptionController(this.state.getBundle());
     }
@@ -176,7 +174,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	
     	PreferencesController.setLastFilePath("");
     	ProfileRepository.clear();
-    	subscriptionRepository.clear();
+    	SubscriptionRepository.clear();
     	refresh();
     }
 
@@ -195,7 +193,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     		
     		if (response == Dialog.Actions.YES) {
     			ProfileRepository.load(fopen.get());
-    			subscriptionRepository.load(fopen.get());
+    			SubscriptionRepository.load(fopen.get());
     			PreferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     			refresh();
     		}
@@ -288,7 +286,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     void feedListViewOnMouseClickedHandler(MouseEvent e){
     	Subscription selected = feedListView.getSelectionModel().getSelectedItem();
     	if(selected != null){
-	    	subscriptionRepository.findById(selected.getId())
+    		SubscriptionRepository.findById(selected.getId())
 		    	.ifPresent(sub -> {
 		    		if(sub.getFailed()){
 		    			if(!feedsTableViewContainer.getChildren().contains(feedErrorLabel))
@@ -421,7 +419,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     
     @FXML
     void onInsertRandomSubscription(ActionEvent e) {
-    	subscriptionRepository.add(Random.Subscription());
+    	SubscriptionRepository.add(Random.Subscription());
     	refresh();
     }
     
@@ -442,7 +440,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	if(PreferencesController.isLastFilePathSet()){
     		final File fout = new File(PreferencesController.getLastFilePath());
     		ProfileRepository.load(fout);
-    		subscriptionRepository.load(fout);
+    		SubscriptionRepository.load(fout);
     	}else{
     		ProfileRepository.getProfile();
     	}
@@ -451,7 +449,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     		refresh();
     	});
     	
-    	subscriptionRepository.setListener(() -> {
+    	SubscriptionRepository.setListener(() -> {
     		refresh();
     	});
     	
@@ -536,7 +534,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	private ObservableList<Subscription> getSubscriptions() {
 		l.debug("Getting subscriptions");
 		return FXCollections.observableArrayList(
-			subscriptionRepository.getSubscriptions()
+				SubscriptionRepository.getSubscriptions()
 		);
 	}
 	
@@ -555,9 +553,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
 			break;
 		case RELOAD:
 			ProfileRepository.clear();
-	    	subscriptionRepository.clear();
+			SubscriptionRepository.clear();
 	    	ProfileRepository.load(file);
-    		subscriptionRepository.load(file);
+	    	SubscriptionRepository.load(file);
     		break;
 		default: break;
 		}

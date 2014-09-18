@@ -70,7 +70,7 @@ public class ScheduledFeedService extends ScheduledService<Integer> implements L
 
 		private void update(String message, int position) {
 			updateMessage(message);
-			updateProgress(position, SubscriptionRepository.instanceOf().getSubscriptions().size());
+			updateProgress(position, SubscriptionRepository.getSubscriptions().size());
 		}
 
 		@Override
@@ -80,7 +80,7 @@ public class ScheduledFeedService extends ScheduledService<Integer> implements L
 			
 			final List<Subscription> neu = new ArrayList<>();
 			
-			for(Subscription subscription : SubscriptionRepository.instanceOf().getSubscriptions()){
+			for(Subscription subscription : SubscriptionRepository.getSubscriptions()){
 				l.debug("Updating subscription {}", subscription.getTitle());
 				if(subscription.isUpdatable()){
 					update("", ++counter);
@@ -115,7 +115,7 @@ public class ScheduledFeedService extends ScheduledService<Integer> implements L
 			}
 			
 			neu.forEach(s -> {
-				SubscriptionRepository.instanceOf().add(s);
+				SubscriptionRepository.add(s);
 			});
 			
 			return counter;

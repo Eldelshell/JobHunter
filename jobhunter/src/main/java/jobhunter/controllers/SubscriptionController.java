@@ -67,7 +67,7 @@ public class SubscriptionController implements Localizable {
     	if(action.isPresent() && action.get() != Dialog.Actions.CANCEL) {
     		l.debug("Got response from dialog");
     		Subscription sub = dialog.getSubscription();
-    		SubscriptionRepository.instanceOf().add(sub);
+    		SubscriptionRepository.add(sub);
 			
     		l.debug("Updating the new feed");
     		updateFeeds();
@@ -96,21 +96,19 @@ public class SubscriptionController implements Localizable {
 	}
 	
 	public void deleteFeed() {
-		SubscriptionRepository repo = SubscriptionRepository.instanceOf();
-		
     	Dialogs.create()
 			.lightweight()
 			.title(getTranslation("menu.delete.feed"))
 			.message(getTranslation("message.select.feed.delete"))
 			.showChoices(
-				repo.getSubscriptions()
+				SubscriptionRepository.getSubscriptions()
 					.stream()
 					.map(sub -> sub.getTitle())
 					.collect(Collectors.toList())
 			).ifPresent(response -> {
 				l.debug("Delete {}", response);
-				repo.findByTitle(response)
-					.ifPresent(repo::delete);
+				SubscriptionRepository.findByTitle(response)
+					.ifPresent(SubscriptionRepository::delete);
 			});
     }
 	
@@ -125,8 +123,7 @@ public class SubscriptionController implements Localizable {
 		
 		if(!deleteAction.equals(Dialog.Actions.YES)) return;
 		
-		SubscriptionRepository repo = SubscriptionRepository.instanceOf();
-		repo.findByItem(items.get(0)).ifPresent(sub -> {
+		SubscriptionRepository.findByItem(items.get(0)).ifPresent(sub -> {
 			for(SubscriptionItem item : items){
 				l.debug("Removing item {}", item.getPosition());
 				sub.getItems().remove(item);
@@ -139,8 +136,7 @@ public class SubscriptionController implements Localizable {
 	
 	public void readAll() {
 		l.debug("Marking all feeds as read");
-		SubscriptionRepository repo = SubscriptionRepository.instanceOf();
-		for(Subscription s : repo.getSubscriptions()) {
+		for(Subscription s : SubscriptionRepository.getSubscriptions()) {
 			for(SubscriptionItem item : s.getItems()) {
 				if(item.getActive())
 					item.setActive(Boolean.FALSE);

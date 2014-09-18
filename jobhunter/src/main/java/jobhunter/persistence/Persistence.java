@@ -129,7 +129,7 @@ public enum Persistence {
 			
 			l.debug("Inserting subscriptions XML");
 			zout.putNextEntry(new ZipEntry("subscriptions.xml"));
-			xstream.toXML(SubscriptionRepository.instanceOf().getSubscriptions(), zout);
+			xstream.toXML(SubscriptionRepository.getSubscriptions(), zout);
 			
 			updateLastMod(file);
 		}catch(IOException e){
@@ -194,7 +194,7 @@ public enum Persistence {
 	}
 	
 	public static String debugSubscriptions() {
-		return _INSTANCE.xstream.toXML(SubscriptionRepository.instanceOf().getSubscriptions());
+		return _INSTANCE.xstream.toXML(SubscriptionRepository.getSubscriptions());
 	}
 	
 }

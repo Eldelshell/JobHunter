@@ -38,70 +38,66 @@ public enum SubscriptionRepository {
 	
 	private SubscriptionRepositoryListener listener;
 
-	public static SubscriptionRepository instanceOf() {
-		return _INSTANCE;
-	}
-	
 	private List<Subscription> subscriptions;
 
-	public List<Subscription> getSubscriptions() {
-		if(this.subscriptions == null)
-			this.subscriptions = new ArrayList<>();
-		return subscriptions;
+	public static List<Subscription> getSubscriptions() {
+		if(_INSTANCE.subscriptions == null)
+			_INSTANCE.subscriptions = new ArrayList<>();
+		return _INSTANCE.subscriptions;
 	}
 
-	public void setSubscriptions(List<Subscription> subscriptions) {
-		this.subscriptions = subscriptions;
+	public static void setSubscriptions(List<Subscription> subscriptions) {
+		_INSTANCE.subscriptions = subscriptions;
 	}
 	
-	public synchronized void add(final Subscription subs){
+	public static void add(final Subscription subs){
 		l.debug("Adding subscription");
 		
 		if(getSubscriptions().contains(subs)){
-			this.getSubscriptions().remove(subs);
+			getSubscriptions().remove(subs);
 		}
 		
-		this.getSubscriptions().add(subs);
+		getSubscriptions().add(subs);
 		ApplicationState.instanceOf().changesPending(true);
 	}
 	
-	public void delete(final Subscription subs){
+	public static void delete(final Subscription subs){
 		l.debug("Removing subscription");
-		this.getSubscriptions().remove(subs);
-		fireEvent();
+		getSubscriptions().remove(subs);
+		_INSTANCE.fireEvent();
 		ApplicationState.instanceOf().changesPending(true);
 	}
 	
-	public Optional<Subscription> findByTitle(final String title) {
+	public static Optional<Subscription> findByTitle(final String title) {
 		return getSubscriptions()
 			.stream()
 			.filter(sub -> sub.getTitle().equals(title))
 			.findFirst();
 	}
 	
-	public Optional<Subscription> findById(final ObjectId id) {
+	public static Optional<Subscription> findById(final ObjectId id) {
 		return getSubscriptions()
 			.stream()
 			.filter(sub -> sub.getId().equals(id))
 			.findFirst();
 	}
 	
-	public Optional<Subscription> findByItem(final SubscriptionItem item) {
+	public static Optional<Subscription> findByItem(final SubscriptionItem item) {
 		return getSubscriptions()
 				.stream()
 				.filter(sub -> sub.getItems().contains(item))
 				.findFirst();
 	}
 	
-	public void load(final File file) {
+	public static void load(final File file) {
 		Optional<List<Subscription>> profile = Persistence.readSubscriptions(file);
-		this.subscriptions = profile.orElse(new ArrayList<>());
-		fireEvent();
+		_INSTANCE.subscriptions = profile.orElse(new ArrayList<>());
+		_INSTANCE.fireEvent();
 	}
 	
-	public void clear() {
-		this.subscriptions = new ArrayList<>();
-		fireEvent();
+	public static void clear() {
+		_INSTANCE.subscriptions = new ArrayList<>();
+		_INSTANCE.fireEvent();
 	}
 	
 	private void fireEvent() {
@@ -109,13 +105,13 @@ public enum SubscriptionRepository {
 			this.listener.changed();
 	}
 
-	public SubscriptionRepositoryListener getListener() {
-		return listener;
+	public static SubscriptionRepositoryListener getListener() {
+		return _INSTANCE.listener;
 	}
 
-	public SubscriptionRepository setListener(SubscriptionRepositoryListener listener) {
-		this.listener = listener;
-		return this;
+	public static SubscriptionRepository setListener(SubscriptionRepositoryListener listener) {
+		_INSTANCE.listener = listener;
+		return _INSTANCE;
 	}
 	
 }
