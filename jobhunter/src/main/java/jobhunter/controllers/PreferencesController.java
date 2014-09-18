@@ -46,7 +46,7 @@ public enum PreferencesController {
 	private final Preferences current;
 	
 	private PreferencesController() {
-		this.current = ApplicationState.instanceOf().isDevelopment() 
+		this.current = ApplicationState.isDevelopment() 
 			? Preferences.userRoot().node("jobhunter-dev") 
 			: Preferences.userRoot().node("jobhunter");
 	}
