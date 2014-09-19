@@ -213,6 +213,12 @@ public class Random {
 			.addItem(SubscriptionItem())
 			.addItem(SubscriptionItem())
 			.addItem(SubscriptionItem())
+			.addItem(SubscriptionItem())
+			.addItem(SubscriptionItem())
+			.addItem(SubscriptionItem())
+			.addItem(SubscriptionItem())
+			.addItem(SubscriptionItem())
+			.addItem(SubscriptionItem())
 			.addItem(SubscriptionItem());
     }
     
