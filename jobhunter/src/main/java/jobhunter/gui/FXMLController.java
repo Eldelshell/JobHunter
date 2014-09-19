@@ -302,7 +302,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
     		    	subscriptionTable.requestFocus();
 		    		subscriptionTable.getSelectionModel().selectFirst();
 		    		subscriptionTable.getFocusModel().focus(0);
+		    		subscriptionTable.scrollTo(0);
 		    		subscriptionTableOnClick(null);
+		    		
 		    	});
     	}else{
     		subscriptionTable.setItems(null);
