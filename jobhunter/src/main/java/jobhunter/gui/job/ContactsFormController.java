@@ -49,6 +49,9 @@ public class ContactsFormController implements JobFormChild<Contact> {
     @FXML
     private TableColumn<Contact, String> emailColumn;
     
+    @FXML
+    private TableColumn<Contact, String> positionColumn;
+    
     private Job job;
     
     private final ResourceBundle bundle;
@@ -88,6 +91,15 @@ public class ContactsFormController implements JobFormChild<Contact> {
     		final int index = e.getTablePosition().getRow();
     		final Contact selected = e.getTableView().getItems().get(index);
     		selected.setEmail(e.getNewValue());
+    		updateContact(selected);
+    	});
+    	
+    	positionColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("position"));
+    	positionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    	positionColumn.setOnEditCommit(e -> {
+    		final int index = e.getTablePosition().getRow();
+    		final Contact selected = e.getTableView().getItems().get(index);
+    		selected.setPosition(e.getNewValue());
     		updateContact(selected);
     	});
     	

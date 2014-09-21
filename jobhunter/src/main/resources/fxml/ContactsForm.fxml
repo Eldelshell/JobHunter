@@ -8,24 +8,26 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="430.0" prefWidth="520.0" styleClass="form-container" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columns>
-          <TableColumn fx:id="nameColumn" minWidth="50.0" prefWidth="150.0" sortable="false" text="%label.name" />
-          <TableColumn fx:id="phoneColumn" sortable="false" text="%label.phone" />
-            <TableColumn fx:id="emailColumn" prefWidth="218.0" sortable="false" text="%label.email" />
-        </columns>
-         <contextMenu>
-            <ContextMenu>
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.contact" />
-                <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.contact" />
-              </items>
-            </ContextMenu>
-         </contextMenu>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-   </children>
+    <children>
+        <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="nameColumn" minWidth="50.0" prefWidth="105.0" sortable="false" text="%label.name" />
+                <TableColumn fx:id="positionColumn" prefWidth="133.0" sortable="false" text="%label.position" />
+                <TableColumn fx:id="phoneColumn" prefWidth="120.0" sortable="false" text="%label.phone" />
+                <TableColumn fx:id="emailColumn" prefWidth="138.0" sortable="false" text="%label.email" />
+                
+            </columns>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.contact" />
+                        <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.contact" />
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
 </AnchorPane>
