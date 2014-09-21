@@ -53,11 +53,13 @@
              </div>
           </div>
           
+          @if{job.address != empty}
           <div class="row">
             <div class="col-lg-12" style="font-size: 14pt;">
-                Salary @{job.salary != empty ? job.salary : 'N/A'}
+                Salary @{job.salary}
             </div>
           </div>
+          @end{}
           
           <div class="row">
             <div class="col-lg-12" style="font-size: 14pt;">
