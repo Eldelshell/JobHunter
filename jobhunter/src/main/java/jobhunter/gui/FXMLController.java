@@ -21,13 +21,10 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ConcurrentModificationException;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -72,7 +69,7 @@ import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FXMLController implements Initializable, Observer, Localizable {
+public class FXMLController implements Initializable, Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(FXMLController.class);
 	
@@ -470,28 +467,18 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	refresh();
     }
     
-	@Override
-	public void update(Observable o, Object arg) {
-		l.debug("Update");
-		refresh();
-		autosave();
-	}
-	
 	private void openJobForm(final Optional<Job> job) {
 		JobFormController
 			.create(bundle)
 			.setJob(job.orElse(null))
-			.setObserver(this)
 			.show();
 	}
 	
 	private void refresh() {
 		l.debug("Refreshing View");
 		mainWebView.getEngine().loadContent("");
-		jobsList.getSelectionModel().clearSelection();
-    	jobsList.setItems(FXCollections.observableArrayList(getJobs()));
-    	subscriptionsList.setItems(getSubscriptions());
-    	subscriptionsListClick(null);
+		refreshJobsListView();
+		refreshSubscriptionsListView();
 	}
 	
 	private void autosave() {
@@ -507,24 +494,30 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		return this.bundle;
 	}
 	
-	private List<Job> getJobs() {
+	private void refreshJobsListView() {
+		List<Job> jobs;
 		if(orderByRatingMenuItem.isSelected()){
-			return ProfileRepository.getJobsByRating(deletedMenuItem.isSelected());
+			jobs = ProfileRepository.getJobsByRating(deletedMenuItem.isSelected());
 		}else if(orderByActivityMenuItem.isSelected()){
-			return ProfileRepository.getJobsByActivity(deletedMenuItem.isSelected());
+			jobs = ProfileRepository.getJobsByActivity(deletedMenuItem.isSelected());
 		}else if(orderByStatusMenuItem.isSelected()){
-			return ProfileRepository.getJobsByStatus(deletedMenuItem.isSelected());
+			jobs = ProfileRepository.getJobsByStatus(deletedMenuItem.isSelected());
 		}else{
 			orderByDateMenuItem.setSelected(true);
-			return ProfileRepository.getJobsByDate(deletedMenuItem.isSelected());
+			jobs = ProfileRepository.getJobsByDate(deletedMenuItem.isSelected());
 		}
+		
+		jobsList.getSelectionModel().clearSelection();
+		jobsList.getItems().clear();
+		jobsList.setItems(FXCollections.observableArrayList(jobs));
 	}
 	
-	private ObservableList<Subscription> getSubscriptions() {
-		l.debug("Getting subscriptions");
-		return FXCollections.observableArrayList(
-				SubscriptionRepository.getSubscriptions()
-		);
+	private void refreshSubscriptionsListView() {
+		subscriptionsList.getItems().clear();
+		subscriptionsList.setItems(FXCollections.observableArrayList(
+			SubscriptionRepository.getSubscriptions()
+		));
+		subscriptionsListClick(null);
 	}
 	
 	private void loadPlugIns(ActionEvent e) {
