@@ -29,6 +29,8 @@ public class SubscriptionListCell extends ListCell<Subscription> {
 	
 	private static Image DEFAULT;
 	
+	private static final String label_text = "%s (%d)";
+	
 	private final AnchorPane container;
 	private final Label label;
 	private final ImageView image;
@@ -61,12 +63,19 @@ public class SubscriptionListCell extends ListCell<Subscription> {
 		
 		if(!empty) {
 			image.setImage(getIcon(subscription));
-			label.setText(subscription.getTitle());
 			
 			if(subscription.unreadItems() > 0){
 				label.getStyleClass().add("feed-list-view-label-highlight");
+				label.setText(
+					String.format(
+						label_text, 
+						subscription.getTitle(), 
+						subscription.unreadItems()
+					)
+				);
 			}else{
-				label.getStyleClass().remove("feed-list-view-label-highlight");
+				label.getStyleClass().removeAll("feed-list-view-label-highlight");
+				label.setText(subscription.getTitle());
 			}
 			
 			this.setGraphic(container);
