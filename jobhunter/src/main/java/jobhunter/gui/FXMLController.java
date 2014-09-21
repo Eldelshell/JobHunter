@@ -432,10 +432,12 @@ public class FXMLController implements Initializable, Localizable {
     	}
     	
     	ProfileRepository.setListener(() -> {
+    		// Listen for change events in the repo and react
     		refresh();
     	});
     	
     	SubscriptionRepository.setListener(() -> {
+    		// Listen for change events in the repo and react
     		refresh();
     	});
     	
