@@ -88,6 +88,7 @@
                     @foreach{contact : job.contacts}
                       <tr>
                         <td>@{contact.name != empty ? contact.name : ''}</td>
+                        <td>@{contact.position != empty ? contact.position : ''}</td>
                         <td>
                           <a href="tel:@{contact.phone != empty ? contact.phone : ''}">
                             &#9742; @{contact.phone != empty ? contact.phone : ''}
