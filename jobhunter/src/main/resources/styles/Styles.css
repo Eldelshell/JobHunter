@@ -102,3 +102,7 @@
 .feed-list-view-label-highlight {
     -fx-font-weight: bold;
 }
+
+.status-label {
+    -fx-font-size: 10pt;
+}
