@@ -32,7 +32,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
@@ -78,10 +77,10 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	private static final Logger l = LoggerFactory.getLogger(FXMLController.class);
 	
     @FXML
-    private ListView<Job> jobsListView;
+    private ListView<Job> jobsList;
     
     @FXML
-    private ListView<Subscription> feedListView;
+    private ListView<Subscription> subscriptionsList;
     
     @FXML
     private VBox feedsTableViewContainer;
@@ -117,13 +116,10 @@ public class FXMLController implements Initializable, Observer, Localizable {
     private Menu importMenu;
     
     @FXML
-    private ComboBox<String> sortCombo;
-    
-    @FXML
     private Label statusLabel;
     
     @FXML
-    private TableView<SubscriptionItem> subscriptionTable;
+    private TableView<SubscriptionItem> subscriptionItemsTable;
     
     @FXML
     private TableColumn<SubscriptionItem, LocalDateTime> dateColumn;
@@ -154,7 +150,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
     
     @FXML
-    void onActionNewMenuItemHandler(ActionEvent e) {
+    void newFile(ActionEvent e) {
     	if(ApplicationState.changesPending()) {
     		Action response = Dialogs.create()
     			.masthead(getTranslation("message.pending.changes"))
@@ -163,7 +159,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     			.showConfirm();
     		
     		if (response == Dialog.Actions.YES){
-    			onActionSaveMenuItemHandler(e);
+    			save(e);
     		}else if (response == Dialog.Actions.CANCEL){
     			return;
     		}
@@ -177,7 +173,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
 
     @FXML
-    void onActionOpenMenuItemHandler(ActionEvent event) {
+    void openFile(ActionEvent event) {
     	Optional<File> fopen = FileChooserFactory
     			.create(bundle)
     			.open(JavaFXUtils.getWindow(mainWebView));
@@ -199,7 +195,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
 
     @FXML
-    void onActionSaveMenuItemHandler(ActionEvent event) {
+    void save(ActionEvent event) {
     	if(PreferencesController.isLastFilePathSet()){
     		final File fout = new File(PreferencesController.getLastFilePath());
     		try {
@@ -210,12 +206,12 @@ public class FXMLController implements Initializable, Observer, Localizable {
 			}
     		
     	}else{
-    		onActionSaveAsMenuItemHandler(event);
+    		saveAs(event);
     	}
     }
 
     @FXML
-    void onActionSaveAsMenuItemHandler(ActionEvent event) {
+    void saveAs(ActionEvent event) {
     	final Optional<File> fopen = FileChooserFactory
     			.create(bundle)
     			.saveAs(JavaFXUtils.getWindow(mainWebView));
@@ -228,14 +224,14 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
     
     @FXML
-    void onAutoSaveAction(ActionEvent event) {
+    void autoSaveActionHandler(ActionEvent event) {
+    	PreferencesController.setAutosave(autoSaveMenuItem.isSelected());
     	// If a user selects this, a save is expected, right?
     	autosave();
-    	PreferencesController.setAutosave(autoSaveMenuItem.isSelected());
     }
     
     @FXML
-    void onExportHTML(ActionEvent event) {
+    void exportHTML(ActionEvent event) {
     	final Optional<File> fopen = FileChooserFactory
     			.create(bundle)
     			.exportHTML(JavaFXUtils.getWindow(mainWebView));
@@ -253,24 +249,24 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
 
     @FXML
-    void onActionQuitMenuItemHandler(ActionEvent event) {
+    void quit(ActionEvent event) {
     	JavaFXUtils.confirmExit(event);
     }
 
     @FXML
-    void onRefreshAction(ActionEvent event) {
+    void refresh(ActionEvent event) {
     	l.debug("onActionDeletedMenuItemHandler");
     	refresh();
     }
     
     @FXML
-    void onActionAboutMenuItemHandler(ActionEvent event) {
+    void showAboutDialog(ActionEvent event) {
     	AboutDialog.create(getBundle()).show();
     }
 
     @FXML
-    void jobListViewOnMouseClickedHandler(MouseEvent e){
-    	Job selectedJob = jobsListView.getSelectionModel().getSelectedItem();
+    void jobsListClick(MouseEvent e){
+    	Job selectedJob = jobsList.getSelectionModel().getSelectedItem();
     	if(selectedJob != null){
 	    	if(JavaFXUtils.isDoubleClick(e)){
     			openJobForm(Optional.of(selectedJob));
@@ -281,8 +277,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
     }
     
     @FXML
-    void feedListViewOnMouseClickedHandler(MouseEvent e){
-    	Subscription selected = feedListView.getSelectionModel().getSelectedItem();
+    void subscriptionsListClick(MouseEvent e){
+    	Subscription selected = subscriptionsList.getSelectionModel().getSelectedItem();
     	if(selected != null){
     		SubscriptionRepository.findById(selected.getId())
 		    	.ifPresent(sub -> {
@@ -292,142 +288,129 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		    		}else{
 		    			feedsTableViewContainer.getChildren().remove(feedErrorLabel);
 		    		}
-		    		subscriptionTable.setItems(
+		    		subscriptionItemsTable.setItems(
 	    				FXCollections.observableArrayList(
 							sub.getSortedItems()
 	    				)
 					);
 		    		
-		    		subscriptionTable.getSelectionModel().clearSelection();
-    		    	subscriptionTable.requestFocus();
-		    		subscriptionTable.getSelectionModel().selectFirst();
-		    		subscriptionTable.getFocusModel().focus(0);
-		    		subscriptionTable.scrollTo(0);
-		    		subscriptionTableOnClick(null);
+		    		subscriptionItemsTable.getSelectionModel().clearSelection();
+    		    	subscriptionItemsTable.requestFocus();
+		    		subscriptionItemsTable.getSelectionModel().selectFirst();
+		    		subscriptionItemsTable.getFocusModel().focus(0);
+		    		subscriptionItemsTable.scrollTo(0);
+		    		subscriptionTableClick(null);
 		    		
 		    	});
     	}else{
-    		subscriptionTable.setItems(null);
+    		subscriptionItemsTable.setItems(null);
     	}
     }
     
     
     
     @FXML
-    void subscriptionTableOnClick(MouseEvent e){
-    	SubscriptionItem item = subscriptionTable.getSelectionModel().getSelectedItem();
+    void subscriptionTableClick(MouseEvent e){
+    	SubscriptionItem item = subscriptionItemsTable.getSelectionModel().getSelectedItem();
     	if(item != null){
 	    	webViewRenderer.render(item);
 	    	item.setActive(false);
-	    	UpdateableListViewSkin.cast(feedListView.getSkin()).refresh();
+	    	UpdateableListViewSkin.cast(subscriptionsList.getSkin()).refresh();
     	}
     }
     
     @FXML
     void deleteItems(ActionEvent e){
     	subscriptionController.deleteItems(
-			subscriptionTable.getSelectionModel().getSelectedItems()
+			subscriptionItemsTable.getSelectionModel().getSelectedItems()
 		);
     	refresh();
     }
     
     @FXML
-    void subscriptionTableOnKeyPress(KeyEvent e){
+    void subscriptionTableKey(KeyEvent e){
     	if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN)
-    		subscriptionTableOnClick(null);
+    		subscriptionTableClick(null);
     }
     
     @FXML
-    void feedListViewOnKeyPress(KeyEvent e){
+    void subscriptionsListKey(KeyEvent e){
     	if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN)
-    		feedListViewOnMouseClickedHandler(null);
+    		subscriptionsListClick(null);
     }
     
     @FXML
-    void jobsListViewOnKeyPress(KeyEvent e){
+    void jobsListKey(KeyEvent e){
     	if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN)
-    		jobListViewOnMouseClickedHandler(null);
+    		jobsListClick(null);
     }
     
     @FXML
-    void addJobButtonActionHandler(ActionEvent e){
+    void addJob(ActionEvent e){
     	openJobForm(Optional.empty());
     }
     
     @FXML
-    void addFeedHandler(ActionEvent e){
+    void addFeed(ActionEvent e){
     	subscriptionController.addFeed();
     	refresh();
     }
     
     @FXML
-    void deleteFeedHandler(ActionEvent e){
+    void deleteFeed(ActionEvent e){
     	l.debug("Deleting selected items");
     	subscriptionController.deleteFeed();
     	refresh();
     }
     
     @FXML
-    void updateFeedHandler(ActionEvent e){
+    void updateFeeds(ActionEvent e){
     	subscriptionController.updateFeeds();
     }
     
     @FXML
-    void autoupdateFeedHandler(ActionEvent e){
+    void autoUpdateFeeds(ActionEvent e){
     	subscriptionController.isAutoupdate(autoupdateMenuItem.isSelected());
     }
     
     @FXML
-    void readAllFeedHandler(ActionEvent e){
+    void readAllFeeds(ActionEvent e){
     	subscriptionController.readAll();
     	autosave();
     	refresh();
     }
     
-	@FXML
-    void onLoadPlugIns(ActionEvent e) {
-    	l.debug("Loading plugins");
-    	
-    	PlugInLoader pl = new PlugInLoader();
-    	
-    	Dialogs.create()
-    		.message(getTranslation("message.loading.plugins"))
-    		.showWorkerProgress(pl);
-    	
-    	pl.start(importMenu);
-    }
-    
     @FXML
-    void onActionPreferencesMenuItemHandler(ActionEvent e) {
+    void showPreferencesDialog(ActionEvent e) {
     	PreferencesDialog.create(getBundle()).show();
     }
     
     @FXML
-    void onActionReportBugMenuItemHandler(ActionEvent event) {
+    void showBugReportDialog(ActionEvent event) {
     	BugReportDialog.create().setBundle(bundle).show();
     }
     
     @FXML
-    void onActionClearDataMenuItemHandler(ActionEvent e) {
+    void clearData(ActionEvent e) {
     	File dataFile = new File(PreferencesController.getLastFilePath());
     	dataFile.delete();
     	PreferencesController.setLastFilePath("");
     }
     
     @FXML
-    void onInsertRandomJob(ActionEvent e) {
+    void insertRandomJob(ActionEvent e) {
     	ProfileRepository.getProfile().addJob(Random.Job());
     	refresh();
     }
     
     @FXML
-    void onInsertRandomSubscription(ActionEvent e) {
+    void insertRandomSubscription(ActionEvent e) {
     	SubscriptionRepository.add(Random.Subscription());
     	refresh();
     }
     
     @FXML
-    void onShowJobs(ActionEvent e){
+    void showJobs(ActionEvent e){
     	DebugDialog.create(getBundle()).show();
     }
     
@@ -435,8 +418,8 @@ public class FXMLController implements Initializable, Observer, Localizable {
     public void initialize(URL url, ResourceBundle rb) {
     	this.bundle = rb;
     	
-    	UpdateableListViewSkin<Subscription> skin = new UpdateableListViewSkin<>(this.feedListView);
-    	this.feedListView.setSkin(skin);
+    	UpdateableListViewSkin<Subscription> skin = new UpdateableListViewSkin<>(this.subscriptionsList);
+    	this.subscriptionsList.setSkin(skin);
     	
     	feedErrorLabel.setText(getTranslation("message.feed.failed"));
     	feedErrorLabel.getStyleClass().add("error-label");
@@ -468,21 +451,21 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	autoSaveMenuItem.setSelected(PreferencesController.isAutosave());
     	autoupdateMenuItem.setSelected(PreferencesController.isAutoupdate());
     	
-    	jobsListView.setCellFactory(new JobCell.JobCellCallback());
-    	feedListView.setCellFactory(new SubscriptionListCell.CellCallback());
+    	jobsList.setCellFactory(new JobCell.JobCellCallback());
+    	subscriptionsList.setCellFactory(new SubscriptionListCell.CellCallback());
     	
     	// Initialize the table
     	dateColumn.setCellValueFactory(SubscriptionRow.DATE_VALUE);
     	dateColumn.setCellFactory(SubscriptionRow::getCellFactory);
     	positionColumn.setCellValueFactory(SubscriptionRow.POSITION_VALUE);
-    	subscriptionTable.setRowFactory(SubscriptionRow::create);
-    	subscriptionTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    	subscriptionItemsTable.setRowFactory(SubscriptionRow::create);
+    	subscriptionItemsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	
 		this.webViewRenderer = new WebViewRenderer(mainWebView);
 		WebViewOnClickListener.set(mainWebView);
 		
 		// Load Plugins
-    	onLoadPlugIns(null);
+    	loadPlugIns(null);
     	
     	refresh();
     }
@@ -505,10 +488,10 @@ public class FXMLController implements Initializable, Observer, Localizable {
 	private void refresh() {
 		l.debug("Refreshing View");
 		mainWebView.getEngine().loadContent("");
-		jobsListView.getSelectionModel().clearSelection();
-    	jobsListView.setItems(FXCollections.observableArrayList(getJobs()));
-    	feedListView.setItems(getSubscriptions());
-    	feedListViewOnMouseClickedHandler(null);
+		jobsList.getSelectionModel().clearSelection();
+    	jobsList.setItems(FXCollections.observableArrayList(getJobs()));
+    	subscriptionsList.setItems(getSubscriptions());
+    	subscriptionsListClick(null);
 	}
 	
 	private void autosave() {
@@ -516,7 +499,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		if(!ApplicationState.changesPending()) return;
 		if(StringUtils.isEmpty(PreferencesController.getLastFilePath())) return;
 		l.debug("Autosaving");
-		onActionSaveMenuItemHandler(null);
+		save(null);
 	}
 
 	@Override
@@ -544,6 +527,18 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		);
 	}
 	
+	private void loadPlugIns(ActionEvent e) {
+    	l.debug("Loading plugins");
+    	
+    	PlugInLoader pl = new PlugInLoader();
+    	
+    	Dialogs.create()
+    		.message(getTranslation("message.loading.plugins"))
+    		.showWorkerProgress(pl);
+    	
+    	pl.start(importMenu);
+    }
+	
 	private void handleConcurrentFileModification(final File file) {
 		ConcurrentFileModificationDialog.Actions act = ConcurrentFileModificationDialog.create()
 			.setBundle(getBundle())
@@ -551,7 +546,7 @@ public class FXMLController implements Initializable, Observer, Localizable {
 		
 		switch(act){
 		case SAVE:
-			onActionSaveAsMenuItemHandler(null);
+			saveAs(null);
 			break;
 		case OVERWRITE:
 			Persistence.rewrite(file);

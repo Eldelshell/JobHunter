@@ -13,30 +13,30 @@
             <menus>
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.file">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onActionNewMenuItemHandler" styleClass="main-menu-item" text="%menu.new">
+                        <MenuItem mnemonicParsing="false" onAction="#newFile" styleClass="main-menu-item" text="%menu.new">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#onActionOpenMenuItemHandler" styleClass="main-menu-item" text="%menu.open">
+                        <MenuItem mnemonicParsing="false" onAction="#openFile" styleClass="main-menu-item" text="%menu.open">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#onActionSaveMenuItemHandler" styleClass="main-menu-item" text="%menu.save">
+                        <MenuItem mnemonicParsing="false" onAction="#save" styleClass="main-menu-item" text="%menu.save">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#onActionSaveAsMenuItemHandler" styleClass="main-menu-item" text="%menu.saveas" />
-                        <CheckMenuItem fx:id="autoSaveMenuItem" mnemonicParsing="false" onAction="#onAutoSaveAction" text="%menu.autosave" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveAs" styleClass="main-menu-item" text="%menu.saveas" />
+                        <CheckMenuItem fx:id="autoSaveMenuItem" mnemonicParsing="false" onAction="#autoSaveActionHandler" text="%menu.autosave" />
                         <Menu mnemonicParsing="false" text="%menu.export">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#onExportHTML" text="%menu.html" />
+                                <MenuItem mnemonicParsing="false" onAction="#exportHTML" text="%menu.html" />
                             </items>
                         </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#onActionQuitMenuItemHandler" styleClass="main-menu-item" text="%menu.quit">
+                        <MenuItem mnemonicParsing="false" onAction="#quit" styleClass="main-menu-item" text="%menu.quit">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
@@ -45,21 +45,21 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu.jobs">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addJobButtonActionHandler" text="%menu.add.job" />
+                        <MenuItem mnemonicParsing="false" onAction="#addJob" text="%menu.add.job" />
                         <Menu fx:id="importMenu" mnemonicParsing="false" text="%menu.import.from">
                         </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" styleClass="main-menu-item" text="%menu.deleted.jobs" />
+                        <RadioMenuItem fx:id="deletedMenuItem" mnemonicParsing="false" onAction="#refresh" styleClass="main-menu-item" text="%menu.deleted.jobs" />
                         <Menu mnemonicParsing="false" text="%menu.order.by">
                             <items>
-                                <RadioMenuItem fx:id="orderByDateMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.date">
+                                <RadioMenuItem fx:id="orderByDateMenuItem" mnemonicParsing="false" onAction="#refresh" text="%menu.date">
                                     <toggleGroup>
                                         <ToggleGroup fx:id="orderBy" />
                                     </toggleGroup>
                                 </RadioMenuItem>
-                                <RadioMenuItem fx:id="orderByRatingMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.rating" toggleGroup="$orderBy" />
-                                <RadioMenuItem fx:id="orderByActivityMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.activity" toggleGroup="$orderBy" />
-                                <RadioMenuItem fx:id="orderByStatusMenuItem" mnemonicParsing="false" onAction="#onRefreshAction" text="%menu.status" toggleGroup="$orderBy" />
+                                <RadioMenuItem fx:id="orderByRatingMenuItem" mnemonicParsing="false" onAction="#refresh" text="%menu.rating" toggleGroup="$orderBy" />
+                                <RadioMenuItem fx:id="orderByActivityMenuItem" mnemonicParsing="false" onAction="#refresh" text="%menu.activity" toggleGroup="$orderBy" />
+                                <RadioMenuItem fx:id="orderByStatusMenuItem" mnemonicParsing="false" onAction="#refresh" text="%menu.status" toggleGroup="$orderBy" />
                             </items>
                         </Menu>
                         
@@ -67,28 +67,27 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu.feeds">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addFeedHandler" text="%menu.add.feed" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteFeedHandler" text="%menu.delete.feed" />
-                        <MenuItem mnemonicParsing="false" onAction="#updateFeedHandler" text="%menu.update.feeds" />
-                        <CheckMenuItem mnemonicParsing="false" fx:id="autoupdateMenuItem" onAction="#autoupdateFeedHandler" text="%menu.update.automatically" />
+                        <MenuItem mnemonicParsing="false" onAction="#addFeed" text="%menu.add.feed" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteFeed" text="%menu.delete.feed" />
+                        <MenuItem mnemonicParsing="false" onAction="#updateFeeds" text="%menu.update.feeds" />
+                        <CheckMenuItem mnemonicParsing="false" fx:id="autoupdateMenuItem" onAction="#autoUpdateFeeds" text="%menu.update.automatically" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#readAllFeedHandler" text="%menu.read.all.feeds" />
+                        <MenuItem mnemonicParsing="false" onAction="#readAllFeeds" text="%menu.read.all.feeds" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.help">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onActionAboutMenuItemHandler" styleClass="main-menu-item" text="%menu.about" />
-                        <MenuItem mnemonicParsing="false" onAction="#onActionPreferencesMenuItemHandler" styleClass="main-menu-item" text="%menu.preferences" />
-                        <MenuItem mnemonicParsing="false" onAction="#onActionReportBugMenuItemHandler" styleClass="main-menu-item" text="%menu.bug" />
+                        <MenuItem mnemonicParsing="false" onAction="#showAboutDialog" styleClass="main-menu-item" text="%menu.about" />
+                        <MenuItem mnemonicParsing="false" onAction="#showPreferencesDialog" styleClass="main-menu-item" text="%menu.preferences" />
+                        <MenuItem mnemonicParsing="false" onAction="#showBugReportDialog" styleClass="main-menu-item" text="%menu.bug" />
                     </items>
                 </Menu>
                 <Menu fx:id="developmentMenu" mnemonicParsing="false" styleClass="main-menu" text="Development" visible="false">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onActionClearDataMenuItemHandler" styleClass="main-menu-item" text="Clear Data" />
-                        <MenuItem mnemonicParsing="false" onAction="#onInsertRandomJob" styleClass="main-menu-item" text="Insert Random Job" />
-                        <MenuItem mnemonicParsing="false" onAction="#onInsertRandomSubscription" styleClass="main-menu-item" text="Insert Random Subscription" />
-                        <MenuItem mnemonicParsing="false" onAction="#onLoadPlugIns" styleClass="main-menu-item" text="Load Plugins" />
-                        <MenuItem mnemonicParsing="false" onAction="#onShowJobs" styleClass="main-menu-item" text="Show Jobs" />
+                        <MenuItem mnemonicParsing="false" onAction="#clearData" styleClass="main-menu-item" text="Clear Data" />
+                        <MenuItem mnemonicParsing="false" onAction="#insertRandomJob" styleClass="main-menu-item" text="Insert Random Job" />
+                        <MenuItem mnemonicParsing="false" onAction="#insertRandomSubscription" styleClass="main-menu-item" text="Insert Random Subscription" />
+                        <MenuItem mnemonicParsing="false" onAction="#showJobs" styleClass="main-menu-item" text="Show Jobs" />
                     </items>
                 </Menu>
             </menus>
@@ -99,12 +98,12 @@
                     <panes>
                         <TitledPane animated="false" text="%label.jobs">
                             <content>
-                                <ListView id="jobs-list-view" fx:id="jobsListView" onKeyReleased="#jobsListViewOnKeyPress" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobListViewOnMouseClickedHandler" prefWidth="220.0" styleClass="job-list-view" />
+                                <ListView id="jobs-list-view" fx:id="jobsList" onKeyReleased="#jobsListKey" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobsListClick" prefWidth="220.0" styleClass="job-list-view" />
                             </content>
                         </TitledPane>
                         <TitledPane animated="false" text="%label.feeds">
                             <content>
-                                <ListView fx:id="feedListView" onKeyReleased="#feedListViewOnKeyPress" maxWidth="400.0" minWidth="50.0" onMouseClicked="#feedListViewOnMouseClickedHandler" prefWidth="220.0" />
+                                <ListView fx:id="subscriptionsList" onKeyReleased="#subscriptionsListKey" maxWidth="400.0" minWidth="50.0" onMouseClicked="#subscriptionsListClick" prefWidth="220.0" />
                             </content>
                         </TitledPane>
                     </panes>
@@ -113,7 +112,7 @@
                     <items>
                         <VBox fx:id="feedsTableViewContainer" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="160.0">
                             <children>
-                                <TableView fx:id="subscriptionTable" onKeyReleased="#subscriptionTableOnKeyPress" onMouseClicked="#subscriptionTableOnClick" prefHeight="115.0" prefWidth="415.0" VBox.vgrow="ALWAYS">
+                                <TableView fx:id="subscriptionItemsTable" onKeyReleased="#subscriptionTableKey" onMouseClicked="#subscriptionTableClick" prefHeight="115.0" prefWidth="415.0" VBox.vgrow="ALWAYS">
                                     <columns>
                                         <TableColumn fx:id="dateColumn" editable="false" prefWidth="117.0" resizable="false" sortable="false" text="%label.date" />
                                         <TableColumn fx:id="positionColumn" editable="false" prefWidth="436.0" resizable="false" sortable="false" text="%label.position" />
