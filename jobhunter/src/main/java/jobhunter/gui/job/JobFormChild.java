@@ -20,8 +20,8 @@ import java.util.Optional;
 
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import jobhunter.gui.FormChangeListener;
 import jobhunter.gui.Localizable;
+import jobhunter.models.Job;
 import jobhunter.utils.JavaFXUtils;
 
 import org.slf4j.Logger;
@@ -31,13 +31,9 @@ public interface JobFormChild<T> extends Localizable, Initializable {
 	
 	static final Logger l = LoggerFactory.getLogger(JobFormChild.class);
 
-	abstract void changed();
-	
-	FormChangeListener<T> getListener();
-	
-	void setListener(FormChangeListener<T> listener);
-	
 	String getFXMLPath();
+	
+	public Job getJob();
 	
 	default Optional<Parent> show() {
 		return JavaFXUtils.loadFXML(this, getFXMLPath(), getBundle());

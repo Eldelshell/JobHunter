@@ -18,7 +18,6 @@ package jobhunter.gui.job;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -27,9 +26,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import jobhunter.gui.FormChangeListener;
 import jobhunter.gui.dialog.LogEventDialogController;
 import jobhunter.models.ActivityLog;
+import jobhunter.models.Job;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,9 +50,7 @@ public class ActivityLogController implements JobFormChild<ActivityLog> {
     @FXML
     private TableColumn<ActivityLog, String> descriptionColumn;
     
-    private Set<ActivityLog> logs;
-    
-    private FormChangeListener<ActivityLog> listener;
+    private Job job;
     
     private final ResourceBundle bundle;
     
@@ -72,7 +69,7 @@ public class ActivityLogController implements JobFormChild<ActivityLog> {
 			.setLog(ActivityLog.of())
 			.show()
 			.ifPresent(neu -> {
-				this.logs.add(neu);
+				this.job.addLog(neu);
 	    		table.getItems().add(neu);
 	    		table.getSelectionModel().selectLast();
 			});
@@ -85,7 +82,7 @@ public class ActivityLogController implements JobFormChild<ActivityLog> {
     	
     	if(selected == null) return;
     	
-    	this.logs.remove(selected);
+    	this.job.getLogs().remove(selected);
     	table.getItems().remove(index);
     }
     
@@ -111,7 +108,7 @@ public class ActivityLogController implements JobFormChild<ActivityLog> {
 			};
 		});
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<ActivityLog, String>("description"));
-		table.setItems(FXCollections.observableArrayList(this.logs));
+		table.setItems(FXCollections.observableArrayList(this.job.getLogs()));
 	}
 	
 	@Override
@@ -119,32 +116,18 @@ public class ActivityLogController implements JobFormChild<ActivityLog> {
 		return PATH;
 	}
 
-	@Override
-	public void changed() {
-		
-	}
-
-	@Override
-	public FormChangeListener<ActivityLog> getListener() {
-		return this.listener;
-	}
-
-	@Override
-	public void setListener(FormChangeListener<ActivityLog> listener) {
-		this.listener = listener;
-	}
-
-	public Set<ActivityLog> getLogs() {
-		return logs;
-	}
-
-	public ActivityLogController setLogs(Set<ActivityLog> logs) {
-		this.logs = logs;
-		return this;
-	}
-
 	public ResourceBundle getBundle() {
 		return bundle;
+	}
+
+	@Override
+	public Job getJob() {
+		return job;
+	}
+
+	public ActivityLogController setJob(Job job) {
+		this.job = job;
+		return this;
 	}
 	
 }

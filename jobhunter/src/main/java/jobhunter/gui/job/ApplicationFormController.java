@@ -33,7 +33,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import jobhunter.controllers.PreferencesController;
-import jobhunter.gui.FormChangeListener;
 import jobhunter.gui.dialog.EditorDialog;
 import jobhunter.models.Job;
 import jobhunter.persistence.ProfileRepository;
@@ -78,7 +77,6 @@ public class ApplicationFormController implements JobFormChild<Job> {
     private Button editorButton;
     
     private Job job;
-    private FormChangeListener<Job> listener;
     
     public static ApplicationFormController create(ResourceBundle bundle) {
     	return new ApplicationFormController(bundle);
@@ -138,49 +136,42 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		positionTextField.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setPosition(neu);
-				changed();
 			}
 		});
 		
 		addressTextField.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setAddress(neu);
-				changed();
 			}
 		});
 		
 		salaryTextField.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setSalary(neu);
-				changed();
 			}
 		});
 		
 		linkTextField.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setLink(neu);
-				changed();
 			}
 		});
 		
 		descriptionTextArea.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setDescription(neu);
-				changed();
 			}
 		});
 		
 		ratingSlider.valueProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setRating(neu.intValue());
-				changed();
 			}
 		});
 		
 		statusCombo.valueProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setStatus((Job.Status)neu.getEnum());
-				changed();
 			}
 		});
 		
@@ -188,7 +179,6 @@ public class ApplicationFormController implements JobFormChild<Job> {
 			if(neu != null){
 				this.job.setPortal(neu);
 				PreferencesController.addNewPortal(neu);
-				changed();
 			}
 		});
 	}
@@ -228,34 +218,19 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		editorButton.setDisable(true);
 	}
 	
-	public Job getJob() {
-		return job;
-	}
-
 	public ApplicationFormController setJob(Job job) {
 		this.job = job;
 		return this;
 	}
 	
 	@Override
-	public void changed(){
-		if(this.listener != null)
-			this.listener.changed(this.job);
-	}
-	
-	@Override
-	public FormChangeListener<Job> getListener() {
-		return listener;
-	}
-	
-	@Override
-	public void setListener(FormChangeListener<Job> listener) {
-		this.listener = listener;
-	}
-
-	@Override
 	public ResourceBundle getBundle() {
 		return this.bundle;
+	}
+	
+	@Override
+	public Job getJob() {
+		return job;
 	}
 	
 }

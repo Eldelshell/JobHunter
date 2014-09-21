@@ -18,7 +18,6 @@ package jobhunter.gui.job;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -27,8 +26,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import jobhunter.gui.FormChangeListener;
 import jobhunter.models.Contact;
+import jobhunter.models.Job;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,9 +49,7 @@ public class ContactsFormController implements JobFormChild<Contact> {
     @FXML
     private TableColumn<Contact, String> emailColumn;
     
-    private Set<Contact> contacts;
-    
-    private FormChangeListener<Contact> listener;
+    private Job job;
     
     private final ResourceBundle bundle;
     
@@ -94,7 +91,7 @@ public class ContactsFormController implements JobFormChild<Contact> {
     		updateContact(selected);
     	});
     	
-    	table.setItems(FXCollections.observableArrayList(contacts));
+    	table.setItems(FXCollections.observableArrayList(job.getContacts()));
 	}
     
 	@Override
@@ -107,7 +104,7 @@ public class ContactsFormController implements JobFormChild<Contact> {
 		l.debug("Menu");
 		
 		final Contact contact = Contact.of();
-		this.contacts.add(contact);
+		this.job.addContact(contact);
 		table.getItems().add(contact);
 		table.getSelectionModel().selectLast();
 	}
@@ -119,38 +116,14 @@ public class ContactsFormController implements JobFormChild<Contact> {
     	
     	if(selected == null) return;
     	
-    	this.contacts.remove(selected);
+    	this.job.getContacts().remove(selected);
     	table.getItems().remove(index);
     }
 	
 	private void updateContact(final Contact contact) {
-		this.contacts.stream()
+		this.job.getContacts().stream()
 			.filter(c -> c.getId().equals(contact.getId()))
 			.forEach(c -> c = contact);
-	}
-
-	@Override
-	public void changed() {
-		
-	}
-
-	@Override
-	public FormChangeListener<Contact> getListener() {
-		return this.listener;
-	}
-
-	@Override
-	public void setListener(FormChangeListener<Contact> listener) {
-		this.listener = listener;
-	}
-
-	public Set<Contact> getContacts() {
-		return contacts;
-	}
-
-	public ContactsFormController setContacts(Set<Contact> contacts) {
-		this.contacts = contacts;
-		return this;
 	}
 
 	@Override
@@ -158,4 +131,14 @@ public class ContactsFormController implements JobFormChild<Contact> {
 		return bundle;
 	}
 
+	@Override
+	public Job getJob() {
+		return job;
+	}
+
+	public ContactsFormController setJob(Job job) {
+		this.job = job;
+		return this;
+	}
+	
 }

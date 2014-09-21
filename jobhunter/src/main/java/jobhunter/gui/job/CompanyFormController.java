@@ -22,8 +22,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import jobhunter.gui.FormChangeListener;
 import jobhunter.models.Company;
+import jobhunter.models.Job;
 import jobhunter.persistence.ProfileRepository;
 
 import org.controlsfx.control.textfield.TextFields;
@@ -47,9 +47,7 @@ public class CompanyFormController implements JobFormChild<Company> {
     @FXML
     private TextArea descriptionTextArea;
     
-    private Company company;
-    
-    private FormChangeListener<Company> listener;
+    private Job job;
     
     private final ResourceBundle bundle;
     
@@ -71,7 +69,7 @@ public class CompanyFormController implements JobFormChild<Company> {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		l.debug("Initializing");
 		bindEvents();
-		if(this.company == null){
+		if(this.job.getCompany() == null){
 			initializeEmpty();
 		}else{
 			initializeFull();
@@ -87,64 +85,46 @@ public class CompanyFormController implements JobFormChild<Company> {
 	}
 	
 	private void initializeFull() {
-		companyTextField.setText(company.getName());
-		addressTextField.setText(company.getAddress());
-		linkTextField.setText(company.getUrl());
+		companyTextField.setText(job.getCompany().getName());
+		addressTextField.setText(job.getCompany().getAddress());
+		linkTextField.setText(job.getCompany().getUrl());
 	}
 	
 	private void bindEvents() {
 		
 		companyTextField.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
-				this.company.setName(neu);
-				changed();
+				job.getCompany().setName(neu);
 			}
 		});
 		
 		addressTextField.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
-				this.company.setAddress(neu);
-				changed();
+				job.getCompany().setAddress(neu);
 			}
 		});
 		
 		linkTextField.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
-				this.company.setUrl(neu);
-				changed();
+				job.getCompany().setUrl(neu);
 			}
 		});
 		
 	}
 	
-	public Company getCompany() {
-		return company;
-	}
-
-	public CompanyFormController setCompany(Company company) {
-		this.company = company;
-		return this;
-	}
-	
-	@Override
-	public void changed(){
-		if(this.listener != null)
-			this.listener.changed(this.company);
-	}
-
-	@Override
-	public FormChangeListener<Company> getListener() {
-		return listener;
-	}
-	
-	@Override
-	public void setListener(FormChangeListener<Company> listener) {
-		this.listener = listener;
-	}
-
 	@Override
 	public ResourceBundle getBundle() {
 		return bundle;
+	}
+	
+	@Override
+	public Job getJob() {
+		return job;
+	}
+
+	public CompanyFormController setJob(Job job) {
+		this.job = job;
+		return this;
 	}
 	
 }

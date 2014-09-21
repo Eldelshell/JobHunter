@@ -17,8 +17,6 @@
 package jobhunter.gui.job;
 
 import java.net.URL;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -48,7 +46,7 @@ import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JobFormController extends Observable implements Initializable, Localizable {
+public class JobFormController implements Initializable, Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(JobFormController.class);
 	private static final String PATH = "/fxml/JobForm.fxml";
@@ -90,14 +88,14 @@ public class JobFormController extends Observable implements Initializable, Loca
 	@FXML
 	void cancelButtonHandler(ActionEvent event) {
 		l.debug("Cancel!");
-		close(event, false);
+		close(event);
 	}
 
 	@FXML
 	void saveButtonHandler(ActionEvent event) {
 		l.debug("Save: {}", job.toString());
 		ProfileRepository.save(job);
-		close(event, true);
+		close(event);
 	}
 	
 	@FXML
@@ -111,7 +109,7 @@ public class JobFormController extends Observable implements Initializable, Loca
 
 		if (response == Dialog.Actions.YES) {
 			ProfileRepository.delete(this.job);
-			close(event, true);
+			close(event);
 		}
 	}
 	
@@ -176,20 +174,9 @@ public class JobFormController extends Observable implements Initializable, Loca
 		}
 		
 		applicationForm = ApplicationFormController.create(bundle).setJob(job);
-		
-		applicationForm.setListener(e -> {
-			this.job = e;
-		});
-		
-		companyForm = CompanyFormController.create(bundle).setCompany(job.getCompany());
-		
-		companyForm.setListener(e -> {
-			this.job.setCompany(e);
-		});
-		
-		contactsForm = ContactsFormController.create(bundle).setContacts(job.getContacts());
-		
-		logController = ActivityLogController.create(bundle).setLogs(job.getLogs());
+		companyForm = CompanyFormController.create(bundle).setJob(job);
+		contactsForm = ContactsFormController.create(bundle).setJob(job);
+		logController = ActivityLogController.create(bundle).setJob(job);
 
 		jobFormListView.setItems(FXCollections.observableArrayList(
 			getTranslationArray("job.form.items")
@@ -200,11 +187,7 @@ public class JobFormController extends Observable implements Initializable, Loca
 		applicationForm.show().ifPresent(this::drawForm);
 	}
 	
-	private void close(Event event, Boolean changed) {
-		if(changed){
-			setChanged();
-			notifyObservers(job);
-		}
+	private void close(Event event) {
 		JavaFXUtils.closeWindow(event);
 	}
 
@@ -217,11 +200,6 @@ public class JobFormController extends Observable implements Initializable, Loca
 		return this;
 	}
 	
-	public JobFormController setObserver(Observer obs){
-		addObserver(obs);
-		return this;
-	}
-
 	@Override
 	public ResourceBundle getBundle() {
 		return bundle;
