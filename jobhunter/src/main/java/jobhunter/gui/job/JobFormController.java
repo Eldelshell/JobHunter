@@ -20,7 +20,6 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -29,8 +28,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -53,8 +51,6 @@ public class JobFormController implements Initializable, Localizable {
 	private static final int WIDTH 	= 700;
 	private static final int HEIGHT = 500;
 	
-	private Integer lastSelectedIndex = 0;
-	
 	private Job job;
 	
 	@FXML
@@ -65,10 +61,19 @@ public class JobFormController implements Initializable, Localizable {
     
     @FXML
     private Button saveButton;
+    
+    @FXML
+    private ToggleButton companyButton;
 
     @FXML
-    private ListView<String> jobFormListView;
-    
+    private ToggleButton contactsButton;
+
+    @FXML
+    private ToggleButton eventsButton;
+
+    @FXML
+    private ToggleButton applicationButton;
+
 	private final ResourceBundle bundle;
 	
 	private ApplicationFormController applicationForm;
@@ -114,28 +119,17 @@ public class JobFormController implements Initializable, Localizable {
 	}
 	
 	@FXML
-	void jobFormListViewOnMouseClickedHandler(MouseEvent event) {
-		final int index = jobFormListView.getSelectionModel().getSelectedIndex();
-		
-		if(index == lastSelectedIndex) return; //dont redraw everything
-		
-		lastSelectedIndex = index;
-		switch(lastSelectedIndex){
-		case 0:
+    void switchForm(ActionEvent event) {
+		if(event.getSource().equals(applicationButton)){
 			applicationForm.show().ifPresent(this::drawForm);
-			break;
-		case 1:
+		}else if(event.getSource().equals(companyButton)){
 			companyForm.show().ifPresent(this::drawForm);
-			break;
-		case 2:
+		}else if(event.getSource().equals(contactsButton)){
 			contactsForm.show().ifPresent(this::drawForm);
-			break;
-		case 3:
+		}else if(event.getSource().equals(eventsButton)){
 			logController.show().ifPresent(this::drawForm);
-			break;
 		}
-		
-	}
+    }
 	
 	void drawForm(final Node node) {
 		mainPanel.setCenter(node);
@@ -178,12 +172,6 @@ public class JobFormController implements Initializable, Localizable {
 		contactsForm = ContactsFormController.create(bundle).setJob(job);
 		logController = ActivityLogController.create(bundle).setJob(job);
 
-		jobFormListView.setItems(FXCollections.observableArrayList(
-			getTranslationArray("job.form.items")
-		));
-		
-		jobFormListView.getSelectionModel().selectFirst();
-		
 		applicationForm.show().ifPresent(this::drawForm);
 	}
 	

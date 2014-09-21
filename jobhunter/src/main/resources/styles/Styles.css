@@ -63,12 +63,16 @@
 
 .job-form-list-view {
     -fx-background-insets: 0;
-    -fx-fixed-cell-size: 40px;
     -fx-border-color: #ececec;
 }
 
-.job-form-list-view .virtual-flow .clipped-container .sheet .list-cell {
-    -fx-padding: 5;
+.job-form-list-view:vertical {
+    -fx-background-color: white;
+    -fx-border-color: #ececec;
+}
+
+.job-form-list-view:vertical .container {
+    -fx-background-color: white;
 }
 
 .job-list-view {

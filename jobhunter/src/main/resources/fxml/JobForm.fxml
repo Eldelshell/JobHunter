@@ -29,7 +29,20 @@
       </Pane>
    </center>
    <left>
-      <ListView fx:id="jobFormListView" onMouseClicked="#jobFormListViewOnMouseClickedHandler" prefWidth="150.0" styleClass="job-form-list-view" BorderPane.alignment="CENTER">
-      </ListView>
+      <ToolBar orientation="VERTICAL" prefHeight="40.0" prefWidth="200.0" styleClass="job-form-list-view" BorderPane.alignment="CENTER">
+         <items>
+            <ToggleButton fx:id="applicationButton" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="185.0" selected="true" text="%label.job">
+               <toggleGroup>
+                  <ToggleGroup fx:id="buttonsGroup" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="companyButton" layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="185.0" text="%label.company" toggleGroup="$buttonsGroup" />
+            <ToggleButton fx:id="contactsButton" layoutX="10.0" layoutY="54.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="185.0" text="%label.contacts" toggleGroup="$buttonsGroup" />
+            <ToggleButton fx:id="eventsButton" layoutX="10.0" layoutY="98.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="185.0" text="%label.events" toggleGroup="$buttonsGroup" />
+         </items>
+         <BorderPane.margin>
+            <Insets right="5.0" />
+         </BorderPane.margin>
+      </ToolBar>
    </left>
 </BorderPane>
