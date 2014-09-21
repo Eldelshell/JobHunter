@@ -45,7 +45,7 @@ public class JobCell extends ListCell<Job> {
 		this.container = new AnchorPane();
 		this.label1 = new Label();
 		this.label2 = new Label();
-		this.rect = new Rectangle(3.0, 36.0, Paint.valueOf("red"));
+		this.rect = new Rectangle(3.0, 36.0, WHITE);
 		
 		label1.setId("job-list-view-label-1");
 		AnchorPane.setLeftAnchor(label1, 10.0);
