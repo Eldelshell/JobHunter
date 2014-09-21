@@ -311,12 +311,15 @@ public class FXMLController implements Initializable, Observer, Localizable {
     	}
     }
     
+    
+    
     @FXML
     void subscriptionTableOnClick(MouseEvent e){
     	SubscriptionItem item = subscriptionTable.getSelectionModel().getSelectedItem();
     	if(item != null){
 	    	webViewRenderer.render(item);
 	    	item.setActive(false);
+	    	UpdateableListViewSkin.cast(feedListView.getSkin()).refresh();
     	}
     }
     
@@ -431,6 +434,9 @@ public class FXMLController implements Initializable, Observer, Localizable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	this.bundle = rb;
+    	
+    	UpdateableListViewSkin<Subscription> skin = new UpdateableListViewSkin<>(this.feedListView);
+    	this.feedListView.setSkin(skin);
     	
     	feedErrorLabel.setText(getTranslation("message.feed.failed"));
     	feedErrorLabel.getStyleClass().add("error-label");
