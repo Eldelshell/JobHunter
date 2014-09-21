@@ -27,42 +27,30 @@
     </div>
     @foreach{job : jobs}
       @if{job.active}
-          
           <div class="row">
-            <div class="col-sm-12">
-                <h2>@{job.portal != empty ? job.portal : ''}</h2>
-                <h3 id="@{job.id}">
-                    @if{job.link != empty}
-                        <a href="@{job.link}">@{job.position != empty ? job.position : ''}</a>
-                    @else{}
-                        @{job.position != empty ? job.position : ''}
-                    @end{}
-                </h3>
-                <h4>
-                  @if{job.company.url != empty}
-                      <a href="@{job.company.url}">@{job.company.name}</a>
-                  @else{}
-                      @{job.company.name != empty ? job.company.name : ''}
-                  @end{}
-                  
-                  @if{job.address != empty}
-                      (@{job.address})
-                  @end{}
-                </h4>
+            <div class="col-xs-8">
+              <h2>
+                @if{job.link != empty}
+                    <a href="@{job.link}">@{job.position}</a>
+                @else{}
+                    @{job.position}
+                @end{}
+              </h2>
+              <h4>
+                @if{job.company.url != empty}
+                    <a href="@{job.company.url}">@{job.company.name}</a>
+                @else{}
+                    @{job.company.name != empty ? job.company.name : ''}
+                @end{}
                 
-             </div>
-          </div>
-          
-          @if{job.address != empty}
-          <div class="row">
-            <div class="col-lg-12" style="font-size: 14pt;">
-                Salary @{job.salary}
+                @if{job.address != empty}
+                    (@{job.address})
+                @end{}
+              </h4>
+              <h4>@{job.portal != empty ? job.portal : ''}</h4>
             </div>
-          </div>
-          @end{}
-          
-          <div class="row">
-            <div class="col-lg-12" style="font-size: 14pt;">
+            <div class="col-xs-4" style="text-align: right;">
+              <h2>
                 @if{job.rating == 0}
                     &#9734; &#9734; &#9734; &#9734; &#9734;
                 @else{job.rating == 1}
@@ -76,15 +64,24 @@
                 @else{}
                     &#9733; &#9733; &#9733; &#9733; &#9733;
                 @end{}
+              </h2>
             </div>
           </div>
+          
+          @if{job.salary != empty}
+          <div class="row">
+            <div class="col-lg-12">
+                Salary @{job.salary}
+            </div>
+          </div>
+          @end{}
           
           @if{job.contacts.size() > 0}
             <div class="row">
               <div class="col-lg-12">
                 <h2>Contacts</h2>
                 <table class="table table-condensed">
-                  <tbody>
+                  <tbody style="font-size: 12px;">
                     @foreach{contact : job.contacts}
                       <tr>
                         <td>@{contact.name != empty ? contact.name : ''}</td>
