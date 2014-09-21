@@ -129,7 +129,7 @@ public class Random {
     }
     
     public static String email(){
-        return Random.String() + "@hibu.com";
+        return Random.String() + "@acme";
     }
     
     public static LocalDate birthday(){
