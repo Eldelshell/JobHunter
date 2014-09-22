@@ -54,7 +54,7 @@ public class PreferencesDialog implements Localizable {
 		
 		autosave.setSelected(PreferencesController.isAutosave());
 		autosave.setText(getTranslation("label.autosave"));
-		autosave.pressedProperty().addListener((obs, old, neu) -> {
+		autosave.selectedProperty().addListener((obs, old, neu) -> {
 			PreferencesController.setAutosave(neu);
 		});
 		
