@@ -103,6 +103,13 @@
                             <content>
                                 <ListView fx:id="subscriptionsList" onKeyReleased="#subscriptionsListKey" maxWidth="400.0" minWidth="50.0" onMouseClicked="#subscriptionsListClick" prefWidth="220.0" />
                             </content>
+                            <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem mnemonicParsing="false" onAction="#deleteFeed" text="%menu.delete.feed" />
+                                </items>
+                              </ContextMenu>
+                            </contextMenu>
                         </TitledPane>
                     </panes>
                 </Accordion>

@@ -261,6 +261,8 @@ public class FXMLController implements Initializable, Localizable {
     
     @FXML
     void subscriptionsListClick(MouseEvent e){
+    	if(!JavaFXUtils.isLeftButton(e)) return;
+    	
     	Subscription selected = subscriptionsList.getSelectionModel().getSelectedItem();
     	if(selected != null){
     		SubscriptionRepository.findById(selected.getId())
@@ -341,9 +343,12 @@ public class FXMLController implements Initializable, Localizable {
     
     @FXML
     void deleteFeed(ActionEvent e){
-    	l.debug("Deleting selected items");
-    	subscriptionController.deleteFeed();
-    	refresh();
+    	l.debug("Show delete dialog");
+    	subscriptionController.deleteFeed(
+			Optional.ofNullable(
+				subscriptionsList.getSelectionModel().getSelectedItem()
+			)
+		);
     }
     
     @FXML
