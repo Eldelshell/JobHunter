@@ -101,7 +101,7 @@
                         </TitledPane>
                         <TitledPane animated="false" text="%label.feeds">
                             <content>
-                                <ListView fx:id="subscriptionsList" onKeyReleased="#subscriptionsListKey" maxWidth="400.0" minWidth="50.0" onMouseClicked="#subscriptionsListClick" prefWidth="220.0" />
+                                <ListView fx:id="subscriptionsList" maxWidth="400.0" minWidth="50.0" onMouseClicked="#subscriptionsListClick" prefWidth="220.0" />
                             </content>
                             <contextMenu>
                               <ContextMenu>

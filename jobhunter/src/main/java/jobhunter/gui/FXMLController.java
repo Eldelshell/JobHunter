@@ -317,12 +317,6 @@ public class FXMLController implements Initializable, Localizable {
     }
     
     @FXML
-    void subscriptionsListKey(KeyEvent e){
-    	if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN)
-    		subscriptionsListClick(null);
-    }
-    
-    @FXML
     void jobsListKey(KeyEvent e){
     	if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN)
     		jobsListClick(null);
