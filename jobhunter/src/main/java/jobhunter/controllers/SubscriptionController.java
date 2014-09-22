@@ -109,6 +109,21 @@ public class SubscriptionController implements Localizable {
 			});
     }
 	
+	public void deleteFeed(Optional<Subscription> feed) {
+		if(feed.isPresent()){
+			Action act = Dialogs.create()
+				.title(getTranslation("menu.delete.feed"))
+				.message(getTranslation("message.confirmation"))
+				.showConfirm();//.equals(Dialog.Actions.YES)
+			
+			if(act.equals(Dialog.Actions.YES)){
+				SubscriptionRepository.delete(feed.get());
+			}
+		}else{
+			deleteFeed();
+		}
+	}
+	
 	public void deleteItems(ObservableList<SubscriptionItem> items) {
 		if(items.isEmpty()) return;
 		
