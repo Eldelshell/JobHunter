@@ -20,30 +20,26 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
 import javafx.util.Duration;
-import jobhunter.gui.Localizable;
+import jobhunter.controllers.PreferencesController;
 import jobhunter.models.Subscription;
 import jobhunter.persistence.SubscriptionRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ScheduledFeedService extends ScheduledService<Integer> implements Localizable {
+public class ScheduledFeedService extends ScheduledService<Integer> {
 	
 	private static final Logger l = LoggerFactory.getLogger(ScheduledFeedService.class);
-	
-	private final ResourceBundle bundle;
 	
 	private final Duration delay = Duration.minutes(1);
 	private final Duration period = Duration.minutes(30);
 	
-	public ScheduledFeedService(ResourceBundle bundle) {
+	public ScheduledFeedService() {
 		super();
-		this.bundle = bundle;
 		this.setDelay(delay);
 		this.setRestartOnFailure(true);
 		this.setPeriod(period);
@@ -51,21 +47,16 @@ public class ScheduledFeedService extends ScheduledService<Integer> implements L
 	
 	@Override
 	protected Task<Integer> createTask() {
-		return new FeedTask(this.bundle);
+		return new FeedTask(false);
 	}
 
-	@Override
-	public ResourceBundle getBundle() {
-		return bundle;
-	}
-
-	public static class FeedTask extends Task<Integer> implements Localizable {
+	public static class FeedTask extends Task<Integer> {
 		
-		private final ResourceBundle bundle;
+		private final Boolean force;
 		
-		public FeedTask(ResourceBundle bundle) {
+		public FeedTask(Boolean force) {
 			super();
-			this.bundle = bundle;
+			this.force = force;
 		}
 
 		private void update(String message, int position) {
@@ -75,14 +66,20 @@ public class ScheduledFeedService extends ScheduledService<Integer> implements L
 
 		@Override
 		protected Integer call() throws Exception {
+			if(!force && !PreferencesController.isAutoupdate()){
+				l.info("Autoupdate is disabled");
+				return 0;
+			}
+			
+			
 			l.info("Updating feeds");
 			int counter = 0;
 			
 			final List<Subscription> neu = new ArrayList<>();
 			
 			for(Subscription subscription : SubscriptionRepository.getSubscriptions()){
-				l.debug("Updating subscription {}", subscription.getTitle());
-				if(subscription.isUpdatable()){
+				if(subscription.isUpdatable() || force){
+					l.debug("Updating subscription {}", subscription.getTitle());
 					update(subscription.getTitle(), ++counter);
 					
 					Optional<Root> rss = Client.create(subscription.getURI()).execute();
@@ -121,11 +118,6 @@ public class ScheduledFeedService extends ScheduledService<Integer> implements L
 			return counter;
 		}
 
-		@Override
-		public ResourceBundle getBundle() {
-			return bundle;
-		}
-		
 	}
 	
 }

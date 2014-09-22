@@ -28,7 +28,6 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
@@ -83,9 +82,6 @@ public class FXMLController implements Initializable, Localizable {
     private VBox feedsTableViewContainer;
     
     @FXML
-    private CheckMenuItem autoSaveMenuItem;
-
-    @FXML
     private RadioMenuItem deletedMenuItem;
     
     @FXML
@@ -123,9 +119,6 @@ public class FXMLController implements Initializable, Localizable {
     
     @FXML
     private TableColumn<SubscriptionItem, String> positionColumn;
-    
-    @FXML
-    private CheckMenuItem autoupdateMenuItem;
     
     /**
      * Renders the HTML for the mainWebView
@@ -218,13 +211,6 @@ public class FXMLController implements Initializable, Localizable {
     		PreferencesController.setLastFilePath(fopen.get().getAbsolutePath());
     		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
     	}
-    }
-    
-    @FXML
-    void autoSaveActionHandler(ActionEvent event) {
-    	PreferencesController.setAutosave(autoSaveMenuItem.isSelected());
-    	// If a user selects this, a save is expected, right?
-    	autosave();
     }
     
     @FXML
@@ -366,11 +352,6 @@ public class FXMLController implements Initializable, Localizable {
     }
     
     @FXML
-    void autoUpdateFeeds(ActionEvent e){
-    	subscriptionController.isAutoupdate(autoupdateMenuItem.isSelected());
-    }
-    
-    @FXML
     void readAllFeeds(ActionEvent e){
     	subscriptionController.readAll();
     	autosave();
@@ -447,9 +428,6 @@ public class FXMLController implements Initializable, Localizable {
     		autosave();
     	});
     	
-    	autoSaveMenuItem.setSelected(PreferencesController.isAutosave());
-    	autoupdateMenuItem.setSelected(PreferencesController.isAutoupdate());
-    	
     	jobsList.setCellFactory(new JobCell.JobCellCallback());
     	subscriptionsList.setCellFactory(new SubscriptionListCell.CellCallback());
     	
@@ -484,7 +462,7 @@ public class FXMLController implements Initializable, Localizable {
 	}
 	
 	private void autosave() {
-		if(!autoSaveMenuItem.isSelected()) return;
+		if(!PreferencesController.isAutosave()) return;
 		if(!ApplicationState.changesPending()) return;
 		if(StringUtils.isEmpty(PreferencesController.getLastFilePath())) return;
 		l.debug("Autosaving");

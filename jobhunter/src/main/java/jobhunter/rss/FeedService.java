@@ -16,23 +16,18 @@
 
 package jobhunter.rss;
 
-import java.util.ResourceBundle;
-
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 public class FeedService extends Service<Integer> {
 	
-	private final ResourceBundle bundle;
-	
-	public FeedService(ResourceBundle bundle) {
+	public FeedService() {
 		super();
-		this.bundle = bundle;
 	}
 	
 	@Override
 	protected Task<Integer> createTask() {
-		return new ScheduledFeedService.FeedTask(bundle);
+		return new ScheduledFeedService.FeedTask(true);
 	}
 	
 }

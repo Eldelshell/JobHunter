@@ -38,7 +38,6 @@ import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class SubscriptionController implements Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(SubscriptionController.class);
@@ -51,10 +50,8 @@ public class SubscriptionController implements Localizable {
 	public SubscriptionController(ResourceBundle bundle) {
 		super();
 		this.bundle = bundle;
-		feedService = new ScheduledFeedService(bundle);
-		
-		if(PreferencesController.isAutosave())
-			feedService.start();
+		feedService = new ScheduledFeedService();
+		feedService.start();
 	}
 
 	public void addFeed() {
@@ -76,7 +73,7 @@ public class SubscriptionController implements Localizable {
 	}
 	
 	public void updateFeeds() {
-		FeedService fs = new FeedService(getBundle());
+		FeedService fs = new FeedService();
     	
     	fs.setOnFailed(err -> {
     		Dialogs.create()
@@ -145,15 +142,6 @@ public class SubscriptionController implements Localizable {
 		ApplicationState.changesPending(true);
 	}
 	
-	public void isAutoupdate(final Boolean enabled){
-		PreferencesController.setAutoupdate(enabled);
-		
-		if(enabled && !this.feedService.isRunning())
-			this.feedService.restart();
-		else
-			this.feedService.cancel();
-	}
-
 	@Override
 	public ResourceBundle getBundle() {
 		return bundle;

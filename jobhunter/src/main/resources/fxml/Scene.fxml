@@ -29,7 +29,6 @@
                             </accelerator>
                         </MenuItem>
                         <MenuItem mnemonicParsing="false" onAction="#saveAs" styleClass="main-menu-item" text="%menu.saveas" />
-                        <CheckMenuItem fx:id="autoSaveMenuItem" mnemonicParsing="false" onAction="#autoSaveActionHandler" text="%menu.autosave" />
                         <Menu mnemonicParsing="false" text="%menu.export">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#exportHTML" text="%menu.html" />
@@ -70,7 +69,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#addFeed" text="%menu.add.feed" />
                         <MenuItem mnemonicParsing="false" onAction="#deleteFeed" text="%menu.delete.feed" />
                         <MenuItem mnemonicParsing="false" onAction="#updateFeeds" text="%menu.update.feeds" />
-                        <CheckMenuItem mnemonicParsing="false" fx:id="autoupdateMenuItem" onAction="#autoUpdateFeeds" text="%menu.update.automatically" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#readAllFeeds" text="%menu.read.all.feeds" />
                     </items>
