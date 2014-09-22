@@ -83,7 +83,7 @@ public class ScheduledFeedService extends ScheduledService<Integer> implements L
 			for(Subscription subscription : SubscriptionRepository.getSubscriptions()){
 				l.debug("Updating subscription {}", subscription.getTitle());
 				if(subscription.isUpdatable()){
-					update("", ++counter);
+					update(subscription.getTitle(), ++counter);
 					
 					Optional<Root> rss = Client.create(subscription.getURI()).execute();
 					
