@@ -292,8 +292,6 @@ public class FXMLController implements Initializable, Localizable {
     	}
     }
     
-    
-    
     @FXML
     void subscriptionTableClick(MouseEvent e){
     	SubscriptionItem item = subscriptionItemsTable.getSelectionModel().getSelectedItem();
@@ -359,6 +357,17 @@ public class FXMLController implements Initializable, Localizable {
     @FXML
     void readAllFeeds(ActionEvent e){
     	subscriptionController.readAll();
+    	autosave();
+    	refresh();
+    }
+    
+    @FXML
+    void readAllItems(ActionEvent e){
+    	subscriptionController.readAll(
+			Optional.ofNullable(
+				subscriptionsList.getSelectionModel().getSelectedItem()
+			)
+		);
     	autosave();
     	refresh();
     }

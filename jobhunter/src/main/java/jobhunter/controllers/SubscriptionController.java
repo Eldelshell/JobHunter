@@ -157,6 +157,17 @@ public class SubscriptionController implements Localizable {
 		ApplicationState.changesPending(true);
 	}
 	
+	public void readAll(final Optional<Subscription> option) {
+		option.ifPresent(s -> {
+			l.debug("Marking all items as read for subscription {}", s.getTitle());
+			for(SubscriptionItem item : s.getItems()) {
+				if(item.getActive())
+					item.setActive(Boolean.FALSE);
+			}
+			ApplicationState.changesPending(true);
+		});
+	}
+	
 	@Override
 	public ResourceBundle getBundle() {
 		return bundle;

@@ -106,7 +106,9 @@
                             <contextMenu>
                               <ContextMenu>
                                 <items>
+                                  <MenuItem mnemonicParsing="false" onAction="#updateFeeds" text="%menu.update.feeds" />
                                   <MenuItem mnemonicParsing="false" onAction="#deleteFeed" text="%menu.delete.feed" />
+                                  <MenuItem mnemonicParsing="false" onAction="#readAllItems" text="%menu.read.all.feeds" />
                                 </items>
                               </ContextMenu>
                             </contextMenu>
