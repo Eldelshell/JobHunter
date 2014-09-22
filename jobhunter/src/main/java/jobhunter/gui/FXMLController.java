@@ -415,11 +415,13 @@ public class FXMLController implements Initializable, Localizable {
     	ProfileRepository.setListener(() -> {
     		// Listen for change events in the repo and react
     		refresh();
+    		autosave();
     	});
     	
     	SubscriptionRepository.setListener(() -> {
     		// Listen for change events in the repo and react
     		refresh();
+    		autosave();
     	});
     	
     	subscriptionController.setOnUpdate(e -> {
@@ -462,10 +464,10 @@ public class FXMLController implements Initializable, Localizable {
 	}
 	
 	private void autosave() {
+		l.debug("Autosaving");
 		if(!PreferencesController.isAutosave()) return;
 		if(!ApplicationState.changesPending()) return;
 		if(StringUtils.isEmpty(PreferencesController.getLastFilePath())) return;
-		l.debug("Autosaving");
 		save(null);
 	}
 
