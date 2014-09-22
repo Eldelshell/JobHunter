@@ -251,10 +251,11 @@ public class Subscription implements Comparable<Subscription> {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Subscription [title=").append(title)
-				.append(", portal=").append(portal).append(", uri=")
-				.append(uri).append(", lastUpdate=").append(lastUpdate)
-				.append("]");
+		builder.append("Subscription [id=").append(id).append(", title=")
+				.append(title).append(", portal=").append(portal)
+				.append(", link=").append(link).append(", uri=").append(uri)
+				.append(", lastUpdate=").append(lastUpdate).append(", ttl=")
+				.append(ttl).append("]");
 		return builder.toString();
 	}
 
