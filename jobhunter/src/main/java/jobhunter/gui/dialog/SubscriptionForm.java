@@ -122,6 +122,7 @@ public class SubscriptionForm implements Localizable {
 
 	public SubscriptionForm setSubscription(Subscription subscription) {
 		this.subscription = subscription;
+		l.debug(subscription.toString());
 		return this;
 	}
 	
