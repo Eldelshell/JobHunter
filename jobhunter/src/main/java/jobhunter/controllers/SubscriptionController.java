@@ -55,21 +55,12 @@ public class SubscriptionController implements Localizable {
 	}
 
 	public void addFeed() {
-		l.debug("Opening Subscription Dialog");
-    	SubscriptionForm dialog = SubscriptionForm.create(getBundle())
-			.setSubscription(Subscription.create());
-    	
-    	Optional<Action> action = dialog.show();
-    	
-    	if(action.isPresent() && action.get() != Dialog.Actions.CANCEL) {
-    		l.debug("Got response from dialog");
-    		Subscription sub = dialog.getSubscription();
-    		SubscriptionRepository.add(sub);
-			
-    		l.debug("Updating the new feed");
-    		updateFeeds();
-    	}
-    	
+		l.debug("Adding a new subscription feed");
+		editFeed(Optional.empty());
+		
+//		Shall we update the feeds?
+//		l.debug("Updating the new feed");
+//		updateFeeds();
 	}
 	
 	public void updateFeeds() {
@@ -114,7 +105,7 @@ public class SubscriptionController implements Localizable {
 			Action act = Dialogs.create()
 				.title(getTranslation("menu.delete.feed"))
 				.message(getTranslation("message.confirmation"))
-				.showConfirm();//.equals(Dialog.Actions.YES)
+				.showConfirm();
 			
 			if(act.equals(Dialog.Actions.YES)){
 				SubscriptionRepository.delete(feed.get());
@@ -166,6 +157,18 @@ public class SubscriptionController implements Localizable {
 			}
 			ApplicationState.changesPending(true);
 		});
+	}
+	
+	public void editFeed(Optional<Subscription> feed) {
+		SubscriptionForm dialog = SubscriptionForm.create(getBundle())
+				.setSubscription(feed.orElse(Subscription.create()));
+	    	
+    	Optional<Action> action = dialog.show();
+		if(action.isPresent() && action.get() != Dialog.Actions.CANCEL){
+    		l.debug("Got response from dialog");
+    		Subscription sub = dialog.getSubscription();
+    		SubscriptionRepository.add(sub);
+		}
 	}
 	
 	@Override

@@ -55,13 +55,14 @@ public enum SubscriptionRepository {
 	}
 	
 	public static void add(final Subscription subs){
-		l.debug("Adding subscription");
+		l.debug("Adding subscription {}", subs.toString());
 		
 		if(getSubscriptions().contains(subs)){
 			getSubscriptions().remove(subs);
 		}
 		
 		getSubscriptions().add(subs);
+		self().fireEvent();
 		ApplicationState.changesPending(true);
 	}
 	

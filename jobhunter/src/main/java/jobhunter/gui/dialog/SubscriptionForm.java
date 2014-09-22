@@ -55,21 +55,6 @@ public class SubscriptionForm implements Localizable {
 		this.bundle = bundle;
 		this.save = new SaveAction(getTranslation("label.save"));
 		save.disabledProperty().set(true);
-		
-		urlField.textProperty().addListener((observable, old, neu) -> {
-			subscription.setURI(neu);
-			save.disabledProperty().set(!isValid());
-	    });
-		
-		titleField.textProperty().addListener((observable, old, neu) -> {
-			subscription.setTitle(neu);
-			save.disabledProperty().set(!isValid());
-	    });
-		
-		portalField.valueProperty().addListener((observable, old, neu) -> {
-			subscription.setPortal(neu);
-			save.disabledProperty().set(!isValid());
-	    });
 	}
 
     public static SubscriptionForm create(ResourceBundle bundle){
@@ -94,6 +79,24 @@ public class SubscriptionForm implements Localizable {
 		portalField.setItems(portals);
         portalField.setPrefWidth(400.0);
         portalField.setEditable(true);
+        
+        portalField.setValue(subscription.getPortal());
+		portalField.valueProperty().addListener((observable, old, neu) -> {
+			subscription.setPortal(neu);
+			save.disabledProperty().set(!isValid());
+	    });
+		
+		urlField.setText(subscription.getUri());
+		urlField.textProperty().addListener((observable, old, neu) -> {
+			subscription.setURI(neu);
+			save.disabledProperty().set(!isValid());
+	    });
+		
+		titleField.setText(subscription.getTitle());
+		titleField.textProperty().addListener((observable, old, neu) -> {
+			subscription.setTitle(neu);
+			save.disabledProperty().set(!isValid());
+	    });
 		
         content.add(new Label(getTranslation("label.portal")), 0, 1);
         content.add(portalField, 1, 1);

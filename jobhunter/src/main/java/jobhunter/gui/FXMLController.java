@@ -367,6 +367,15 @@ public class FXMLController implements Initializable, Localizable {
     }
     
     @FXML
+    void editFeed(ActionEvent e){
+    	subscriptionController.editFeed(
+			Optional.ofNullable(
+				subscriptionsList.getSelectionModel().getSelectedItem()
+			)
+		);
+    }
+    
+    @FXML
     void showPreferencesDialog(ActionEvent e) {
     	PreferencesDialog.create(getBundle()).show();
     }
