@@ -18,34 +18,23 @@ package jobhunter.gui.dialog;
 
 import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.NodeOrientation;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToolBar;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.gui.Localizable;
-import jobhunter.utils.JavaFXUtils;
 
-import org.controlsfx.control.PropertySheet;
-import org.controlsfx.control.PropertySheet.Item;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.controlsfx.dialog.Dialog;
 
 public class PreferencesDialog implements Localizable {
 
-	private static final Logger l = LoggerFactory.getLogger(PreferencesDialog.class);
-	private static final int WIDTH 	= 400;
-	private static final int HEIGHT = 300;
-	
 	private final ResourceBundle bundle;
+	
+	private final TextField portals = new TextField();
+	private final CheckBox autosave = new CheckBox();
+	private final CheckBox autoupdate = new CheckBox();
 	
 	public static PreferencesDialog create(ResourceBundle bundle){
 		return new PreferencesDialog(bundle);
@@ -54,122 +43,50 @@ public class PreferencesDialog implements Localizable {
 	private PreferencesDialog(ResourceBundle bundle) {
 		super();
 		this.bundle = bundle;
-	}
-
-	public static abstract class Property implements PropertySheet.Item {
-
-		protected EventHandler<ActionEvent> handler;
-		protected String category, name, description;
-		
-		protected Property(String category, String name, String description) {
-			super();
-			this.category = category;
-			this.name = name;
-			this.description = description;
-		}
-		
-		public void setOnChange(EventHandler<ActionEvent> handler) {
-			this.handler = handler;
-		}
-
-		@Override
-		public String getCategory() {
-			return this.category;
-		}
-
-		@Override
-		public String getDescription() {
-			return this.description;
-		}
-
-		@Override
-		public String getName() {
-			return this.name;
-		}
-
+		bindEvents();
 	}
 	
-	public static class StringProperty extends Property {
-		
-		protected StringProperty(String name, String description, String value) {
-			super(null, name, description);
-			this.value = value;
-		}
-		
-		protected StringProperty(String category, String name, String description, String value) {
-			super(category, name, description);
-			this.value = value;
-		}
-
-		private String value;
-
-		@Override
-		public Class<?> getType() {
-			return String.class;
-		}
-
-		@Override
-		public Object getValue() {
-			return this.value;
-		}
-
-		@Override
-		public void setValue(Object arg0) {
-			this.value = (String)arg0;
-			this.handler.handle(new ActionEvent(this, null));
-		}
-		
-	}
-	
-	public static class PortalsProperty extends StringProperty {
-
-		protected PortalsProperty(String value) {
-			super("Portals", "Comma separated list", value);
-		}
-		
-	}
-	
-	private ObservableList<Item> getItems() {
-		final Property portals = new PortalsProperty(PreferencesController.getPortals());
-		
-		portals.setOnChange(event -> {
-			final StringProperty p = (StringProperty)event.getSource();
-			PreferencesController.setPortals((String)p.getValue());
+	private void bindEvents() {
+		portals.setText(PreferencesController.getPortals());
+		portals.textProperty().addListener((obs, old, neu) -> {
+			PreferencesController.setPortals(neu);
 		});
 		
-		final ObservableList<Item> list = FXCollections.observableArrayList();
-		list.add(portals);
-		return list;
+		autosave.setSelected(PreferencesController.isAutosave());
+		autosave.setText(getTranslation("label.autosave"));
+		autosave.pressedProperty().addListener((obs, old, neu) -> {
+			PreferencesController.setAutosave(neu);
+		});
+		
+		autoupdate.setSelected(PreferencesController.isAutoupdate());
+		autoupdate.setText(getTranslation("label.autoupdate"));
+		autoupdate.pressedProperty().addListener((obs, old, neu) -> {
+			PreferencesController.setAutoupdate(neu);
+		});
 	}
 	
 	public void show() {
-		l.debug("Showing Preferences Dialog");
-		final PropertySheet s = new PropertySheet(getItems());
-    	s.setSearchBoxVisible(false);
-    	s.setModeSwitcherVisible(false);
-    	
-    	final Button closeButton = new Button(getTranslation("button.close"));
-    	
-    	closeButton.setOnAction(event -> {
-    		JavaFXUtils.closeWindow(event);
-    	});
-    	
-    	final ToolBar toolbar = new ToolBar(closeButton);
-    	toolbar.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-    	
-    	final BorderPane infoPane = new BorderPane();
-    	infoPane.setBottom(toolbar);
-    	infoPane.setCenter(s);
-    	infoPane.setMaxHeight(Double.MAX_VALUE);
-    	
-    	final Stage stage = new Stage();
-		stage.setTitle(getTranslation("label.preferences"));
-        stage.setScene(new Scene(infoPane, WIDTH, HEIGHT));
-        stage.initStyle(StageStyle.UTILITY);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.showAndWait();
+		Dialog dlg = new Dialog(null, getTranslation("label.preferences"));
+        
+        final GridPane content = new GridPane();
+        content.setHgap(10);
+        content.setVgap(10);
+        
+        content.add(new Label(getTranslation("label.portals")), 0, 0);
+        content.add(portals, 1, 0);
+        GridPane.setHgrow(portals, Priority.ALWAYS);
+        
+        content.add(autosave, 1, 1);
+        content.add(autoupdate, 1, 2);
+        
+        dlg.setResizable(false);
+        dlg.setIconifiable(false);
+        dlg.setContent(content);
+        dlg.getActions().addAll(Dialog.Actions.CLOSE);
+          
+        dlg.show();
 	}
-	
+
 	@Override
 	public ResourceBundle getBundle() {
 		return bundle;
