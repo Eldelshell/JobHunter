@@ -60,7 +60,7 @@ public class PreferencesDialog implements Localizable {
 		
 		autoupdate.setSelected(PreferencesController.isAutoupdate());
 		autoupdate.setText(getTranslation("label.autoupdate"));
-		autoupdate.pressedProperty().addListener((obs, old, neu) -> {
+		autoupdate.selectedProperty().addListener((obs, old, neu) -> {
 			PreferencesController.setAutoupdate(neu);
 		});
 	}
