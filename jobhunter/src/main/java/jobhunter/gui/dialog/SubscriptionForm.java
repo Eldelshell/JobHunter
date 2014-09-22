@@ -46,6 +46,7 @@ public class SubscriptionForm implements Localizable {
 	private final ResourceBundle bundle;
     private final TextField urlField = new TextField();
     private final TextField titleField = new TextField();
+    private final TextField historyField = new TextField();
     private final ComboBox<String> portalField = new ComboBox<>();
     private final Action save;
     
@@ -67,10 +68,6 @@ public class SubscriptionForm implements Localizable {
         final GridPane content = new GridPane();
         content.setHgap(10);
         content.setVgap(10);
-        
-        content.add(new Label(getTranslation("label.title")), 0, 0);
-        content.add(titleField, 1, 0);
-        GridPane.setHgrow(titleField, Priority.ALWAYS);
         
         ObservableList<String> portals = FXCollections.observableArrayList(
 			PreferencesController.getPortalsList()
@@ -98,12 +95,26 @@ public class SubscriptionForm implements Localizable {
 			save.disabledProperty().set(!isValid());
 	    });
 		
+		historyField.setText(subscription.getHistory().toString());
+		historyField.textProperty().addListener((observable, old, neu) -> {
+			subscription.setHistory(Integer.valueOf(neu));
+			save.disabledProperty().set(!isValid());
+	    });
+		
+		content.add(new Label(getTranslation("label.title")), 0, 0);
+        content.add(titleField, 1, 0);
+        GridPane.setHgrow(titleField, Priority.ALWAYS);
+		
         content.add(new Label(getTranslation("label.portal")), 0, 1);
         content.add(portalField, 1, 1);
         
         content.add(new Label(getTranslation("label.feed.url")), 0, 2);
         content.add(urlField, 1, 2);
         GridPane.setHgrow(urlField, Priority.ALWAYS);
+        
+        content.add(new Label(getTranslation("label.history")), 0, 3);
+        content.add(historyField, 1, 3);
+        GridPane.setHgrow(historyField, Priority.ALWAYS);
         
         dlg.setResizable(false);
         dlg.setIconifiable(false);
