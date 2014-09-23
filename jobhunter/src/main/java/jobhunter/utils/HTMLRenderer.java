@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import jobhunter.gui.Localizable;
 import jobhunter.models.Job;
 import jobhunter.models.Profile;
 import jobhunter.models.SubscriptionItem;
@@ -39,7 +40,7 @@ import org.mvel2.templates.TemplateRuntime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HTMLRenderer {
+public class HTMLRenderer implements Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(HTMLRenderer.class);
 	
@@ -55,6 +56,11 @@ public class HTMLRenderer {
 			vals.put("styles_path", "templates/styles.html");
 		}
 		vals.put("generated", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+		vals.put("label_contacts", getTranslation("label.contacts"));
+		vals.put("label_back_to_top", getTranslation("label.back.to.top"));
+		vals.put("label_your_job_applications", getTranslation("label.your.job.applications"));
+		vals.put("label_generated_on", getTranslation("label.generated.on"));
+		vals.put("label_salary", getTranslation("label.salary"));
 		return vals;
 	}
 	

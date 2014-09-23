@@ -14,8 +14,8 @@
     <div class="row">
       <div class="col-sm-12">
         <a id="top"></a>
-        <h1>Your Job Applications</h1>
-        <p>Generated on @{generated}</p>
+        <h1>@{label_your_job_applications}</h1>
+        <p>@{label_generated_on} @{generated}</p>
         <div class="btn-group-vertical well" style="width: 100%;">
           @foreach{job : jobs}
             @if{job.active}
@@ -71,7 +71,7 @@
           @if{job.salary != empty}
           <div class="row">
             <div class="col-lg-12">
-                Salary @{job.salary}
+                @{label_salary} @{job.salary}
             </div>
           </div>
           @end{}
@@ -79,7 +79,7 @@
           @if{job.contacts.size() > 0}
             <div class="row">
               <div class="col-lg-12">
-                <h2>Contacts</h2>
+                <h2>@{label_contacts}</h2>
                 <table class="table table-condensed">
                   <tbody style="font-size: 12px;">
                     @foreach{contact : job.contacts}
@@ -114,7 +114,7 @@
           
           <div class="row">
             <div class="col-lg-12">
-                <a href="#top">Back to top</a>
+                <a href="#top">@{label_back_to_top}</a>
             </div>
           </div>
         
