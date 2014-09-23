@@ -36,8 +36,6 @@ public enum SubscriptionRepository {
 
 	private static final Logger l = LoggerFactory.getLogger(SubscriptionRepository.class);
 	
-	private SubscriptionRepositoryListener listener;
-
 	private List<Subscription> subscriptions;
 	
 	private static SubscriptionRepository self() {
@@ -62,14 +60,12 @@ public enum SubscriptionRepository {
 		}
 		
 		getSubscriptions().add(subs);
-		self().fireEvent();
 		ApplicationState.changesPending(true);
 	}
 	
 	public static void delete(final Subscription subs){
 		l.debug("Removing subscription");
 		getSubscriptions().remove(subs);
-		self().fireEvent();
 		ApplicationState.changesPending(true);
 	}
 	
@@ -97,26 +93,10 @@ public enum SubscriptionRepository {
 	public static void load(final File file) {
 		Optional<List<Subscription>> profile = Persistence.readSubscriptions(file);
 		self().subscriptions = profile.orElse(new ArrayList<>());
-		self().fireEvent();
 	}
 	
 	public static void clear() {
 		self().subscriptions = new ArrayList<>();
-		self().fireEvent();
-	}
-	
-	private void fireEvent() {
-		if(this.listener != null)
-			this.listener.changed();
-	}
-
-	public static SubscriptionRepositoryListener getListener() {
-		return self().listener;
-	}
-
-	public static SubscriptionRepository setListener(SubscriptionRepositoryListener listener) {
-		self().listener = listener;
-		return self();
 	}
 	
 }
