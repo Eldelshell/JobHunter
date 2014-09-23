@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,12 +41,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
+import javafx.stage.Window;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.controllers.SubscriptionController;
 import jobhunter.gui.dialog.AboutDialog;
 import jobhunter.gui.dialog.BugReportDialog;
 import jobhunter.gui.dialog.ConcurrentFileModificationDialog;
 import jobhunter.gui.dialog.DebugDialog;
+import jobhunter.gui.dialog.DialogFactory;
 import jobhunter.gui.dialog.PreferencesDialog;
 import jobhunter.gui.job.JobFormController;
 import jobhunter.models.Job;
@@ -131,6 +134,8 @@ public class FXMLController implements Initializable, Localizable {
      */
     private Label feedErrorLabel = new Label();
     
+    private Window parent;
+    
     private ResourceBundle bundle;
     
     private final SubscriptionController subscriptionController;
@@ -142,18 +147,13 @@ public class FXMLController implements Initializable, Localizable {
     @FXML
     void newFile(ActionEvent e) {
     	if(ApplicationState.changesPending()) {
-    		Action response = Dialogs.create()
-    			.masthead(getTranslation("message.pending.changes"))
-    			.message(getTranslation("message.save.changes"))
-    			.lightweight()
-    			.showConfirm();
+    		Action response = DialogFactory.pendingChanges();
     		
-    		if (response == Dialog.Actions.YES){
+    		if (response.equals(Dialog.Actions.YES)){
     			save(e);
-    		}else if (response == Dialog.Actions.CANCEL){
+    		}else if (response.equals(Dialog.Actions.CANCEL)){
     			return;
     		}
-    		
     	}
     	
     	PreferencesController.setLastFilePath("");
@@ -164,24 +164,15 @@ public class FXMLController implements Initializable, Localizable {
 
     @FXML
     void openFile(ActionEvent event) {
-    	Optional<File> fopen = FileChooserFactory
-    			.create(bundle)
-    			.open(JavaFXUtils.getWindow(mainWebView));
-    	
-    	if(fopen.isPresent()) {
-    		Action response = Dialogs.create()
-    			.title(getTranslation("message.open.file", fopen.get().getName()))
-    			.message(getTranslation("message.changes.lost"))
-    			.lightweight()
-    			.showConfirm();
-    		
-    		if (response == Dialog.Actions.YES) {
-    			ProfileRepository.load(fopen.get());
-    			SubscriptionRepository.load(fopen.get());
-    			PreferencesController.setLastFilePath(fopen.get().getAbsolutePath());
+    	DialogFactory.open(parent)
+		.ifPresent(fopen -> {
+			if (DialogFactory.openFile(fopen.getName())) {
+    			ProfileRepository.load(fopen);
+    			SubscriptionRepository.load(fopen);
+    			PreferencesController.setLastFilePath(fopen);
     			refresh();
     		}
-    	}
+		});
     }
 
     @FXML
@@ -202,38 +193,39 @@ public class FXMLController implements Initializable, Localizable {
 
     @FXML
     void saveAs(ActionEvent event) {
-    	final Optional<File> fopen = FileChooserFactory
-    			.create(bundle)
-    			.saveAs(JavaFXUtils.getWindow(mainWebView));
-    	
-    	if(fopen.isPresent()){
-    		Persistence.rewrite(fopen.get());
-    		PreferencesController.setLastFilePath(fopen.get().getAbsolutePath());
+    	DialogFactory.saveAs(parent)
+    	.ifPresent(fopen -> {
+    		Persistence.rewrite(fopen);
+    		PreferencesController.setLastFilePath(fopen);
     		JavaFXUtils.toast(statusLabel, getTranslation("message.changes.saved"));
-    	}
+    	});
     }
     
     @FXML
     void exportHTML(ActionEvent event) {
-    	final Optional<File> fopen = FileChooserFactory
-    			.create(bundle)
-    			.exportHTML(JavaFXUtils.getWindow(mainWebView));
-    	
-    	if(fopen.isPresent() && HTMLRenderer.of().export(fopen.get(), ProfileRepository.getProfile())){
-    		JavaFXUtils.toast(statusLabel, getTranslation("message.exported.html"));
-    	}else{
-    		Dialogs
-    			.create()
-    			.lightweight()
-    			.message(getTranslation("message.failed.export.html"))
-    			.showError();
-    	}
-    	
+    	DialogFactory.exportHTML(parent)
+    	.ifPresent(fopen -> {
+    		if(HTMLRenderer.of().export(fopen, ProfileRepository.getProfile())){
+    			JavaFXUtils.toast(statusLabel, getTranslation("message.exported.html"));
+    		}else{
+    			DialogFactory.error("message.failed.export.html");
+    		}
+    	});
     }
 
     @FXML
     void quit(ActionEvent event) {
-    	JavaFXUtils.confirmExit(event);
+    	Action response = DialogFactory.quit();
+    	
+    	// Cancel so no action is done
+    	if(response.equals(Dialog.Actions.CANCEL)) return;
+    	
+    	// Don't save changes, then quit
+    	if(response.equals(Dialog.Actions.NO)) Platform.exit();
+    	
+    	// Lets save and then quit
+    	save(null);
+    	Platform.exit();
     }
 
     @FXML
@@ -560,6 +552,13 @@ public class FXMLController implements Initializable, Localizable {
 		default: break;
 		}
 		
+	}
+
+	public void setParent(Window parent) {
+		this.parent = parent;
+		this.parent.setOnCloseRequest(e -> {
+        	this.quit(null);
+        });
 	}
 	
 }
