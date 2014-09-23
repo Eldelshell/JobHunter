@@ -23,6 +23,7 @@ import jobhunter.utils.ApplicationState;
 
 import org.controlsfx.dialog.Dialogs;
 
+@Deprecated
 public class AboutDialog implements Localizable {
 	
 	private final ResourceBundle bundle;
