@@ -6,6 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <AnchorPane prefHeight="430.0" prefWidth="520.0" styleClass="form-container" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -20,8 +22,24 @@
             <contextMenu>
                 <ContextMenu>
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.contact" />
-                        <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.contact" />
+                        <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.contact">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/plus32.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.contact">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/delete30.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
                     </items>
                 </ContextMenu>
             </contextMenu>

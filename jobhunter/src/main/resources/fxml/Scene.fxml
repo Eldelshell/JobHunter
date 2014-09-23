@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- Icons made by Freepik, Yannick, Dave Gandy from http://www.flaticon.com -->
+
+<?import javafx.scene.image.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.scene.input.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
-<VBox fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8"
+    xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <MenuBar styleClass="main-menu-bar">
             <menus>
@@ -17,34 +23,86 @@
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/plus32.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
                         </MenuItem>
                         <MenuItem mnemonicParsing="false" onAction="#openFile" styleClass="main-menu-item" text="%menu.open">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/open131.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
                         </MenuItem>
                         <MenuItem mnemonicParsing="false" onAction="#save" styleClass="main-menu-item" text="%menu.save">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/download7.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#saveAs" styleClass="main-menu-item" text="%menu.saveas" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveAs" styleClass="main-menu-item" text="%menu.saveas">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/download7.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
                         <Menu mnemonicParsing="false" text="%menu.export">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#exportHTML" text="%menu.html" />
+                                <MenuItem mnemonicParsing="false" onAction="#exportHTML" text="%menu.html">
+                                    <graphic>
+                                        <ImageView>
+                                            <image>
+                                                <Image url="@../images/16/document78.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </MenuItem>
                             </items>
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/document76.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
                         </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#quit" styleClass="main-menu-item" text="%menu.quit">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/curve9.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
                         </MenuItem>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu.jobs">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addJob" text="%menu.add.job" />
+                        <MenuItem mnemonicParsing="false" onAction="#addJob" text="%menu.add.job">
+                        </MenuItem>
                         <Menu fx:id="importMenu" mnemonicParsing="false" text="%menu.import.from">
                         </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
@@ -61,23 +119,79 @@
                                 <RadioMenuItem fx:id="orderByStatusMenuItem" mnemonicParsing="false" onAction="#refresh" text="%menu.status" toggleGroup="$orderBy" />
                             </items>
                         </Menu>
-                        
+
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu.feeds">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addFeed" text="%menu.add.feed" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteFeed" text="%menu.delete.feed" />
-                        <MenuItem mnemonicParsing="false" onAction="#updateFeeds" text="%menu.update.feeds" />
+                        <MenuItem mnemonicParsing="false" onAction="#addFeed" text="%menu.add.feed">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/plus32.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#deleteFeed" text="%menu.delete.feed">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/delete30.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#updateFeeds" text="%menu.update.feeds">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/download5.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#readAllFeeds" text="%menu.read.all.feeds" />
+                        <MenuItem mnemonicParsing="false" onAction="#readAllFeeds" text="%menu.read.all.feeds">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/checklist3.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" styleClass="main-menu" text="%menu.help">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showAboutDialog" styleClass="main-menu-item" text="%menu.about" />
-                        <MenuItem mnemonicParsing="false" onAction="#showPreferencesDialog" styleClass="main-menu-item" text="%menu.preferences" />
-                        <MenuItem mnemonicParsing="false" onAction="#showBugReportDialog" styleClass="main-menu-item" text="%menu.bug" />
+                        <MenuItem mnemonicParsing="false" onAction="#showAboutDialog" styleClass="main-menu-item" text="%menu.about">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/logo.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#showPreferencesDialog" styleClass="main-menu-item" text="%menu.preferences">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/wrenches1.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#showBugReportDialog" styleClass="main-menu-item" text="%menu.bug">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/virus4.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
                     </items>
                 </Menu>
                 <Menu fx:id="developmentMenu" mnemonicParsing="false" styleClass="main-menu" text="Development" visible="false">
@@ -96,7 +210,8 @@
                     <panes>
                         <TitledPane animated="false" text="%label.jobs">
                             <content>
-                                <ListView id="jobs-list-view" fx:id="jobsList" onKeyReleased="#jobsListKey" maxWidth="400.0" minWidth="50.0" onMouseClicked="#jobsListClick" prefWidth="220.0" styleClass="job-list-view" />
+                                <ListView id="jobs-list-view" fx:id="jobsList" maxWidth="400.0" minWidth="50.0" onKeyReleased="#jobsListKey" onMouseClicked="#jobsListClick" prefWidth="220.0"
+                                    styleClass="job-list-view" />
                             </content>
                         </TitledPane>
                         <TitledPane animated="false" text="%label.feeds">
@@ -104,14 +219,46 @@
                                 <ListView fx:id="subscriptionsList" maxWidth="400.0" minWidth="50.0" onMouseClicked="#subscriptionsListClick" prefWidth="220.0" />
                             </content>
                             <contextMenu>
-                              <ContextMenu>
-                                <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#editFeed" text="%label.edit" />
-                                  <MenuItem mnemonicParsing="false" onAction="#updateFeeds" text="%menu.update.feeds" />
-                                  <MenuItem mnemonicParsing="false" onAction="#deleteFeed" text="%menu.delete.feed" />
-                                  <MenuItem mnemonicParsing="false" onAction="#readAllItems" text="%menu.read.all.feeds" />
-                                </items>
-                              </ContextMenu>
+                                <ContextMenu>
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#editFeed" text="%label.edit">
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../images/16/edit26.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </MenuItem>
+                                        <MenuItem mnemonicParsing="false" onAction="#updateFeeds" text="%menu.update.feeds">
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../images/16/download5.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </MenuItem>
+                                        <MenuItem mnemonicParsing="false" onAction="#deleteFeed" text="%menu.delete.feed">
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../images/16/delete30.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </MenuItem>
+                                        <MenuItem mnemonicParsing="false" onAction="#readAllItems" text="%menu.read.all.feeds">
+                                            <graphic>
+                                                <ImageView>
+                                                    <image>
+                                                        <Image url="@../images/16/checklist3.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </MenuItem>
+                                    </items>
+                                </ContextMenu>
                             </contextMenu>
                         </TitledPane>
                     </panes>
@@ -120,7 +267,8 @@
                     <items>
                         <VBox fx:id="feedsTableViewContainer" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="160.0">
                             <children>
-                                <TableView fx:id="subscriptionItemsTable" onKeyReleased="#subscriptionTableKey" onMouseClicked="#subscriptionTableClick" prefHeight="115.0" prefWidth="415.0" VBox.vgrow="ALWAYS">
+                                <TableView fx:id="subscriptionItemsTable" onKeyReleased="#subscriptionTableKey" onMouseClicked="#subscriptionTableClick" prefHeight="115.0" prefWidth="415.0"
+                                    VBox.vgrow="ALWAYS">
                                     <columns>
                                         <TableColumn fx:id="dateColumn" editable="false" prefWidth="117.0" resizable="false" sortable="false" text="%label.date" />
                                         <TableColumn fx:id="positionColumn" editable="false" prefWidth="436.0" resizable="false" sortable="false" text="%label.position" />
@@ -129,12 +277,20 @@
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                     <contextMenu>
-                                      <ContextMenu>
-                                        <items>
-                                          <MenuItem mnemonicParsing="false" onAction="#deleteItems" text="%menu.delete.feed" />
-                                        </items>
-                                      </ContextMenu>
-                                   </contextMenu>
+                                        <ContextMenu>
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#deleteItems" text="%menu.delete.feed">
+                                                    <graphic>
+                                                        <ImageView>
+                                                            <image>
+                                                                <Image url="@../images/16/delete30.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </MenuItem>
+                                            </items>
+                                        </ContextMenu>
+                                    </contextMenu>
                                 </TableView>
                             </children>
                         </VBox>
@@ -143,12 +299,6 @@
                 </SplitPane>
             </items>
         </SplitPane>
-        <Label 
-            fx:id="statusLabel" 
-            contentDisplay="TEXT_ONLY" 
-            opacity="0.0" 
-            prefHeight="16.0" 
-            styleClass="status-label" 
-            text="buooooooooo" />
+        <Label fx:id="statusLabel" contentDisplay="TEXT_ONLY" opacity="0.0" prefHeight="16.0" styleClass="status-label" text="buooooooooo" />
     </children>
 </VBox>

@@ -6,26 +6,45 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <AnchorPane prefHeight="430.0" prefWidth="520.0" styleClass="form-container" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columns>
-          <TableColumn fx:id="dateColumn" minWidth="50.0" prefWidth="60.0" sortable="false" text="%label.date" />
-          <TableColumn fx:id="eventColumn" sortable="false" text="%label.event" />
-            <TableColumn fx:id="descriptionColumn" prefWidth="218.0" sortable="false" text="%label.description" />
-        </columns>
-         <contextMenu>
-            <ContextMenu>
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.event" />
-                  <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.event" />
-              </items>
-            </ContextMenu>
-         </contextMenu>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-   </children>
+    <children>
+        <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="dateColumn" minWidth="50.0" prefWidth="60.0" sortable="false" text="%label.date" />
+                <TableColumn fx:id="eventColumn" sortable="false" text="%label.event" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="218.0" sortable="false" text="%label.description" />
+            </columns>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onAddRowMenuItemAction" text="%label.add.event">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/plus32.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onDeleteRowMenuItemAction" text="%label.delete.event">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/16/delete30.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
 </AnchorPane>
