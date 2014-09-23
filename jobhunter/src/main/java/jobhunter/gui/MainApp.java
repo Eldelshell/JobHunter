@@ -24,7 +24,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.utils.ApplicationState;
-import jobhunter.utils.JavaFXUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,11 +54,6 @@ public class MainApp extends Application {
         stage.getIcons().add(new Image(MainApp.class.getResourceAsStream(_LOGO)));
         stage.setScene(scene);
         stage.show();
-        
-        scene.getWindow().setOnCloseRequest(e -> {
-        	JavaFXUtils.confirmExit(e);
-        });
-        
     }
     
     @Override
