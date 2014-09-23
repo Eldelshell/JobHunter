@@ -341,15 +341,11 @@ public class FXMLController implements Initializable, Localizable {
     @FXML
     void updateFeeds(ActionEvent e){
     	subscriptionController.updateFeeds();
-    	autosave();
-    	refresh();
     }
     
     @FXML
     void readAllFeeds(ActionEvent e){
     	subscriptionController.readAll();
-    	autosave();
-    	refresh();
     }
     
     @FXML
@@ -432,15 +428,15 @@ public class FXMLController implements Initializable, Localizable {
     		autosave();
     	});
     	
-    	SubscriptionRepository.setListener(() -> {
-    		// Listen for change events in the repo and react
-    		refresh();
-    		autosave();
-    	});
-    	
     	subscriptionController.setOnUpdate(e -> {
     		l.debug("Subscription Controller onUpdate");
     		JavaFXUtils.toast(statusLabel, getTranslation("message.all.feeds.updated"));
+    		UpdateableListViewSkin.cast(subscriptionsList.getSkin()).refresh();
+    		autosave();
+    	});
+    	
+    	subscriptionController.setOnAdd(e -> {
+    		l.debug("Subscription Controller onAdd");
     		refresh();
     		autosave();
     	});
