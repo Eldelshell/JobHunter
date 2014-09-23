@@ -19,9 +19,13 @@ package jobhunter.gui;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import jobhunter.utils.ApplicationState;
+
 public interface Localizable {
 
-	public ResourceBundle getBundle();
+	public default ResourceBundle getBundle(){
+		return ApplicationState.getBundle();
+	}
 	
 	default String getTranslation(String str) {
 		try {
