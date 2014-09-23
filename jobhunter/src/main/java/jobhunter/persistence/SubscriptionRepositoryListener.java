@@ -16,6 +16,7 @@
 
 package jobhunter.persistence;
 
+@Deprecated
 public interface SubscriptionRepositoryListener {
 
 	void changed();
