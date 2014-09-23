@@ -24,6 +24,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
 
+@Deprecated
 public class FileChooserFactory implements Localizable{
 
 	private static final ExtensionFilter JHF_FILTER = new ExtensionFilter("JobHunter (.jhf)", "*.jhf");
