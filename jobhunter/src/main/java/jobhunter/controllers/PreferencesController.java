@@ -16,6 +16,7 @@
 
 package jobhunter.controllers;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.prefs.BackingStoreException;
@@ -77,6 +78,10 @@ public enum PreferencesController {
 	
 	public static void setLastFilePath(final String value) {
 		getCurrent().put(LAST_FILE_PATH_PROPERTY, value);
+	}
+	
+	public static void setLastFilePath(final File value) {
+		getCurrent().put(LAST_FILE_PATH_PROPERTY, value.getAbsolutePath());
 	}
 	
 	public static Boolean isLastFilePathSet() {
