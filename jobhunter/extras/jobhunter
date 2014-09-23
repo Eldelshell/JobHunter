@@ -3,6 +3,9 @@
 # JobHunter Startup Script for Linux
 #
 
+# We need to come to our location
+cd ${0%/*}
+
 if [ "${JAVA_HOME}" == "" ]; then
     echo "JAVA_HOME Not set. Install the JRE and set the JAVA_HOME in your initialization file"
     exit 1
