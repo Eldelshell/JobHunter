@@ -262,7 +262,10 @@ public class FXMLController implements Initializable, Localizable {
     @FXML
     void subscriptionsListClick(MouseEvent e){
     	if(!JavaFXUtils.isLeftButton(e)) return;
-    	
+    	showSubscriptionItems();
+    }
+    
+    void showSubscriptionItems() {
     	Subscription selected = subscriptionsList.getSelectionModel().getSelectedItem();
     	if(selected != null){
     		SubscriptionRepository.findById(selected.getId())
@@ -307,7 +310,9 @@ public class FXMLController implements Initializable, Localizable {
     	subscriptionController.deleteItems(
 			subscriptionItemsTable.getSelectionModel().getSelectedItems()
 		);
-    	refresh();
+    	showSubscriptionItems();
+    	autosave();
+    	
     }
     
     @FXML
@@ -330,7 +335,6 @@ public class FXMLController implements Initializable, Localizable {
     @FXML
     void addFeed(ActionEvent e){
     	subscriptionController.addFeed();
-    	refresh();
     }
     
     @FXML
@@ -346,6 +350,8 @@ public class FXMLController implements Initializable, Localizable {
     @FXML
     void updateFeeds(ActionEvent e){
     	subscriptionController.updateFeeds();
+    	autosave();
+    	refresh();
     }
     
     @FXML
@@ -362,8 +368,8 @@ public class FXMLController implements Initializable, Localizable {
 				subscriptionsList.getSelectionModel().getSelectedItem()
 			)
 		);
+    	showSubscriptionItems();
     	autosave();
-    	refresh();
     }
     
     @FXML
@@ -444,6 +450,7 @@ public class FXMLController implements Initializable, Localizable {
     	subscriptionController.setOnUpdate(e -> {
     		l.debug("Subscription Controller onUpdate");
     		JavaFXUtils.toast(statusLabel, getTranslation("message.all.feeds.updated"));
+    		refresh();
     		autosave();
     	});
     	

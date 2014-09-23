@@ -119,7 +119,6 @@ public class SubscriptionController implements Localizable {
 		if(items.isEmpty()) return;
 		
 		Action deleteAction = Dialogs.create()
-			.lightweight()
 			.title(getTranslation("message.delete.item.confirmation"))
 			.message(getTranslation("message.confirmation"))
 			.showConfirm();
