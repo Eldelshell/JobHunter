@@ -45,6 +45,16 @@ public enum DialogFactory implements Localizable {
 		
 		return deleteAction.equals(Dialog.Actions.YES);
 	}
+	
+	private Boolean _deleteJob(final String position) {
+		Action response = Dialogs.create()
+		        .title(getTranslation("message.delete.job", position))
+		        .lightweight()
+		        .masthead(getTranslation("message.delete.job.confirmation"))
+		        .message(getTranslation("message.confirmation"))
+		        .showConfirm();
+		return response.equals(Dialog.Actions.YES);
+	}
 
 	private Action _pendingChanges() {
 		Action response = Dialogs.create()
@@ -121,6 +131,10 @@ public enum DialogFactory implements Localizable {
 	
 	public static Boolean deleteFeed() {
 		return _INSTANCE._delete("menu.delete.feed");
+	}
+	
+	public static Boolean deleteJob(final String position) {
+		return _INSTANCE._deleteJob(position);
 	}
 	
 	public static Action pendingChanges() {

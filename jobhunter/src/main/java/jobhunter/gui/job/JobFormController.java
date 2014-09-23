@@ -34,13 +34,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jobhunter.gui.Localizable;
+import jobhunter.gui.dialog.DialogFactory;
 import jobhunter.models.Job;
 import jobhunter.persistence.ProfileRepository;
 import jobhunter.utils.JavaFXUtils;
 
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -105,14 +103,7 @@ public class JobFormController implements Initializable, Localizable {
 	
 	@FXML
 	void deleteButtonHandler(ActionEvent event) {
-		Action response = Dialogs.create()
-		        .title(getTranslation("message.delete.job", this.job.getPosition()))
-		        .lightweight()
-		        .masthead(getTranslation("message.delete.job.confirmation"))
-		        .message(getTranslation("message.confirmation"))
-		        .showConfirm();
-
-		if (response == Dialog.Actions.YES) {
+		if(DialogFactory.deleteJob(this.job.getPosition())){
 			ProfileRepository.delete(this.job);
 			close(event);
 		}
