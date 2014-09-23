@@ -44,7 +44,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Window;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.controllers.SubscriptionController;
-import jobhunter.gui.dialog.AboutDialog;
 import jobhunter.gui.dialog.BugReportDialog;
 import jobhunter.gui.dialog.ConcurrentFileModificationDialog;
 import jobhunter.gui.dialog.DebugDialog;
@@ -236,7 +235,7 @@ public class FXMLController implements Initializable, Localizable {
     
     @FXML
     void showAboutDialog(ActionEvent event) {
-    	AboutDialog.create(getBundle()).show();
+    	DialogFactory.about();
     }
 
     @FXML
