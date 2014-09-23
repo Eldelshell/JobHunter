@@ -16,14 +16,16 @@
 
 package jobhunter.gui;
 
+import java.util.Optional;
+
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jobhunter.controllers.PreferencesController;
 import jobhunter.utils.ApplicationState;
+import jobhunter.utils.JavaFXUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,18 +44,17 @@ public class MainApp extends Application {
     	
     	PreferencesController.init();
     	
-        Parent root = FXMLLoader.load(
-    		getClass().getResource(_FXML), 
-    		ApplicationState.getBundle()
-		);
-        
-        Scene scene = new Scene(root);
+    	FXMLController controller = new FXMLController();
+    	Optional<Parent> root = JavaFXUtils.loadFXML(controller, _FXML, ApplicationState.getBundle());
+    	
+        Scene scene = new Scene(root.get());
         scene.getStylesheets().add(_CSS);
-        
         stage.setTitle(ApplicationState.APP_STRING);
         stage.getIcons().add(new Image(MainApp.class.getResourceAsStream(_LOGO)));
         stage.setScene(scene);
         stage.show();
+        
+        controller.setParent(scene.getWindow());
     }
     
     @Override
