@@ -45,14 +45,20 @@ public class SubscriptionController implements Localizable {
 	
 	private final ResourceBundle bundle;
 	private final ScheduledFeedService feedService;
+	private final ActionEvent dumbEvent = new ActionEvent();
 	
 	private EventHandler<ActionEvent> onUpdate;
+	private EventHandler<ActionEvent> onAdd;
 	
 	public SubscriptionController(ResourceBundle bundle) {
 		super();
 		this.bundle = bundle;
 		feedService = new ScheduledFeedService();
 		feedService.start();
+		
+		feedService.setOnSucceeded(ev -> {
+			this.onUpdate.handle(dumbEvent);
+		});
 	}
 
 	public void addFeed() {
@@ -74,7 +80,7 @@ public class SubscriptionController implements Localizable {
     	});
     	
     	fs.setOnSucceeded(ev -> {
-    		this.onUpdate.handle(new ActionEvent(null, null));
+    		this.onUpdate.handle(dumbEvent);
     	});
     	
     	Dialogs.create()
@@ -96,8 +102,10 @@ public class SubscriptionController implements Localizable {
 					.collect(Collectors.toList())
 			).ifPresent(response -> {
 				l.debug("Delete {}", response);
-				SubscriptionRepository.findByTitle(response)
+				SubscriptionRepository
+					.findByTitle(response)
 					.ifPresent(SubscriptionRepository::delete);
+				this.onAdd.handle(dumbEvent);
 			});
     }
 	
@@ -105,10 +113,12 @@ public class SubscriptionController implements Localizable {
 		if(feed.isPresent()){
 			if(DialogFactory.deleteFeed()){
 				SubscriptionRepository.delete(feed.get());
+				this.onAdd.handle(dumbEvent);
 			}
 		}else{
 			deleteFeed();
 		}
+		
 	}
 	
 	public void deleteItems(ObservableList<SubscriptionItem> items) {
@@ -124,6 +134,7 @@ public class SubscriptionController implements Localizable {
 		});
 		
 		ApplicationState.changesPending(true);
+		this.onUpdate.handle(dumbEvent);
 		
 	}
 	
@@ -136,6 +147,7 @@ public class SubscriptionController implements Localizable {
 			}
 		}
 		ApplicationState.changesPending(true);
+		this.onUpdate.handle(dumbEvent);
 	}
 	
 	public void readAll(final Optional<Subscription> option) {
@@ -146,6 +158,7 @@ public class SubscriptionController implements Localizable {
 					item.setActive(Boolean.FALSE);
 			}
 			ApplicationState.changesPending(true);
+			this.onUpdate.handle(dumbEvent);
 		});
 	}
 	
@@ -159,6 +172,8 @@ public class SubscriptionController implements Localizable {
     		Subscription sub = dialog.getSubscription();
     		SubscriptionRepository.add(sub);
 		}
+		
+		this.onAdd.handle(dumbEvent);
 	}
 	
 	@Override
@@ -166,9 +181,12 @@ public class SubscriptionController implements Localizable {
 		return bundle;
 	}
 	
-	public SubscriptionController setOnUpdate(EventHandler<ActionEvent> event) {
+	public void setOnUpdate(EventHandler<ActionEvent> event) {
 		this.onUpdate = (event);
-		return this;
+	}
+
+	public void setOnAdd(EventHandler<ActionEvent> onAdd) {
+		this.onAdd = onAdd;
 	}
 	
 }
