@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import jobhunter.gui.Localizable;
+import jobhunter.gui.dialog.DialogFactory;
 import jobhunter.gui.dialog.SubscriptionForm;
 import jobhunter.models.Subscription;
 import jobhunter.models.SubscriptionItem;
@@ -102,12 +103,7 @@ public class SubscriptionController implements Localizable {
 	
 	public void deleteFeed(Optional<Subscription> feed) {
 		if(feed.isPresent()){
-			Action act = Dialogs.create()
-				.title(getTranslation("menu.delete.feed"))
-				.message(getTranslation("message.confirmation"))
-				.showConfirm();
-			
-			if(act.equals(Dialog.Actions.YES)){
+			if(DialogFactory.deleteFeed()){
 				SubscriptionRepository.delete(feed.get());
 			}
 		}else{
@@ -118,12 +114,7 @@ public class SubscriptionController implements Localizable {
 	public void deleteItems(ObservableList<SubscriptionItem> items) {
 		if(items.isEmpty()) return;
 		
-		Action deleteAction = Dialogs.create()
-			.title(getTranslation("message.delete.item.confirmation"))
-			.message(getTranslation("message.confirmation"))
-			.showConfirm();
-		
-		if(!deleteAction.equals(Dialog.Actions.YES)) return;
+		if(!DialogFactory.deleteItems()) return;
 		
 		SubscriptionRepository.findByItem(items.get(0)).ifPresent(sub -> {
 			for(SubscriptionItem item : items){
