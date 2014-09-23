@@ -21,7 +21,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,8 +32,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,29 +67,6 @@ public class JavaFXUtils {
 	
 	public static Window getWindow(Event event) {
 		return ((Node) event.getSource()).getScene().getWindow();
-	}
-	
-	public static Window getWindow(final Node node){
-		return node.getParent().getScene().getWindow();
-	}
-	
-	public static void confirmExit(final Event e) {
-		if(ApplicationState.changesPending()){
-    		Action response = Dialogs.create()
-    			.masthead("There are pending changes")
-    			.message("Do you want to continue without saving?")
-    			.lightweight()
-    			.showConfirm();
-    		
-    		if (response != Dialog.Actions.YES) {
-    			e.consume(); //Abort exit
-    		}else{
-    			Platform.exit();
-    		}
-    			
-    	}else{
-    		Platform.exit();
-    	}
 	}
 	
 	public static Optional<Parent> loadFXML(Initializable clazz, String path, ResourceBundle bundle) {
