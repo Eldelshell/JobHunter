@@ -11,7 +11,11 @@
             <outputDirectory>/lib</outputDirectory>
             <scope>runtime</scope>
             <excludes>
-                <exclude>hsqldb*.jar</exclude>
+                <exclude>jobhunter:infojobs-plugin</exclude>
+                <exclude>jobhunter:infoempleo-plugin</exclude>
+                <exclude>jobhunter:monster-plugin</exclude>
+                <exclude>jobhunter:cb-plugin</exclude>
+                <exclude>jobhunter:dice-plugin</exclude>
             </excludes>
         </dependencySet>
     </dependencySets>
