@@ -20,9 +20,9 @@
           </h2>
           <h4>
             <#if job.company.url??>
-                <a href="${job.company.url}">${job.company.name}</a>
+                <a href="${job.company.url}">${job.company.name!""}</a>
             <#else>
-                ${job.company.name}
+                ${job.company.name!""}
             </#if>
           
             <#if job.address??>

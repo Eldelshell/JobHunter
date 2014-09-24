@@ -18,7 +18,7 @@
             <div class="btn-group-vertical well" style="width: 100%;">
               <#list jobs as job>
                 <#if job.active>
-                  <a class="btn btn-default" href="#${job.id}"><strong>${job.position}</strong><br><i>${job.company.name}</i></a>
+                  <a class="btn btn-default" href="#${job.id}"><strong>${job.position!""}</strong><br><i>${job.company.name}</i></a>
                 </#if>
               </#list>
             </div>
@@ -30,16 +30,16 @@
             <div class="col-xs-8">
               <h2>
                 <#if job.link??>
-                    <a href="${job.link}">${job.position}</a>
+                    <a href="${job.link}">${job.position!""}</a>
                 <#else>
-                    ${job.position}
+                    ${job.position!""}
                 </#if>
               </h2>
               <h4>
                 <#if job.company.url??>
-                    <a href="${job.company.url}">${job.company.name}</a>
+                    <a href="${job.company.url}">${job.company.name!""}</a>
                 <#else>
-                    ${job.company.name}
+                    ${job.company.name!""}
                 </#if>
               
                 <#if job.address??>
