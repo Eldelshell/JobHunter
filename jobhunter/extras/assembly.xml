@@ -41,6 +41,7 @@
             <directoryMode>0755</directoryMode>
             <includes>
                 <include>*.html</include>
+                <include>*.ftl</include>
             </includes>
         </fileSet>
 
