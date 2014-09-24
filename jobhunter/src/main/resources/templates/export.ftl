@@ -94,7 +94,7 @@
                           </#if>
                         </td>
                         <td>
-                          <#if contact.phone??>
+                          <#if contact.email??>
                             <a href="mailto:${contact.email}">
                               &#9993; ${contact.email}
                             </a>
