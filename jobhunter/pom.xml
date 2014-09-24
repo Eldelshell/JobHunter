@@ -178,5 +178,72 @@
             <artifactId>jsoup</artifactId>
             <version>1.7.3</version>
         </dependency>
+
+        <!-- Our Plugins -->
+        <dependency>
+            <groupId>jobhunter</groupId>
+            <artifactId>infojobs-plugin</artifactId>
+            <version>0.2</version>
+            <scope>assembly</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jobhunter</artifactId>
+                    <groupId>jobhunter</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>jobhunter</groupId>
+            <artifactId>infoempleo-plugin</artifactId>
+            <version>0.3</version>
+            <scope>assembly</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jobhunter</artifactId>
+                    <groupId>jobhunter</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>jobhunter</groupId>
+            <artifactId>monster-plugin</artifactId>
+            <version>0.2</version>
+            <scope>assembly</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jobhunter</artifactId>
+                    <groupId>jobhunter</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>jobhunter</groupId>
+            <artifactId>cb-plugin</artifactId>
+            <version>0.1</version>
+            <scope>assembly</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jobhunter</artifactId>
+                    <groupId>jobhunter</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>jobhunter</groupId>
+            <artifactId>dice-plugin</artifactId>
+            <version>0.1</version>
+            <scope>assembly</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jobhunter</artifactId>
+                    <groupId>jobhunter</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 </project>
