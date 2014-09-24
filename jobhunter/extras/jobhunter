@@ -22,7 +22,7 @@ else
 fi
 
 do_start () {
-    local path="lib/*:etc"
+    local path="lib/*"
     local opts=""
 
     local exit_code=10
@@ -34,7 +34,7 @@ do_start () {
 
 do_debug () {
     local opts="-Ddebug=true -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044"
-    local path="lib/*:etc"
+    local path="lib/*"
     "${JAVA_HOME}/bin/java" ${opts} -cp "${path}" jobhunter.gui.MainApp
 }
 
