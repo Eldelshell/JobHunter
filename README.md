@@ -7,10 +7,10 @@ Open Source Jobs tracking tool.
 ![http://i.imgur.com/Ns3RhgG](http://i.imgur.com/Ns3RhgG.png)
 
 ### Dialog to add/edit job positions
-![http://i.imgur.com/SlF4zBb](http://i.imgur.com/SlF4zBb.png)
+![http://i.imgur.com/wp9WvKt](http://i.imgur.com/wp9WvKt.png)
 
 ### Main view with some RSS feeds
-![http://i.imgur.com/wp9WvKt](http://i.imgur.com/wp9WvKt.png)
+![http://i.imgur.com/SlF4zBb](http://i.imgur.com/SlF4zBb.png)
 
 The idea is to ease the burden of managing/accessing data about your job applications in different portals.
 
