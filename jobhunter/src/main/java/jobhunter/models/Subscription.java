@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 import jobhunter.persistence.ObjectId;
 import jobhunter.rss.Item;
-import jobhunter.utils.HTMLRenderer;
+import jobhunter.utils.FreeMarkerRenderer;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -187,11 +187,11 @@ public class Subscription implements Comparable<Subscription> {
 	}
 	
 	public String getLink() {
-		return HTMLRenderer.sanitizeURL(link);
+		return FreeMarkerRenderer.sanitizeURL(link);
 	}
 
 	public Subscription setLink(String link) {
-		this.link = HTMLRenderer.sanitizeURL(link);
+		this.link = FreeMarkerRenderer.sanitizeURL(link);
 		return this;
 	}
 	

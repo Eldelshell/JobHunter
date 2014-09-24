@@ -26,10 +26,12 @@ public class WebViewRenderer {
 	
 	private final WebView view;
 	private final FadeTransition anim;
+	private final FreeMarkerRenderer renderer;
 	
 	public WebViewRenderer(WebView view) {
 		super();
 		this.view = view;
+		this.renderer = FreeMarkerRenderer.create();
 		anim = new FadeTransition();
 		anim.setDuration(Duration.millis(300));
 		anim.setFromValue(0);
@@ -42,14 +44,14 @@ public class WebViewRenderer {
 	}
 
 	public void render(Job job) {
-		HTMLRenderer.of().render(job).ifPresent(obj -> {
+		renderer.render(job).ifPresent(obj -> {
 			view.getEngine().loadContent((String) obj);
 			anim.playFromStart();
 		});
 	}
 	
 	public void render(SubscriptionItem item) {
-		HTMLRenderer.of().render(item).ifPresent(obj -> {
+		renderer.render(item).ifPresent(obj -> {
 			view.getEngine().loadContent((String) obj);
 			anim.playFromStart();
 		});
