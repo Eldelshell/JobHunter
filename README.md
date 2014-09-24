@@ -30,7 +30,7 @@ by different job portals to stay always up-to-date with new jobs.
 
 You'll need Java Version 8_20 or later.
 
-Download the file `jobhunter-X.X.X-exec.jar` from the Release page and double click on it.
+Download the file `jobhunter-X.X.X-exec.jar` from the [releases](https://github.com/Eldelshell/JobHunter/releases) page and double click on it.
 
 ### Custom Installation
 
@@ -46,13 +46,13 @@ C:> java -cp lib\* jobhunter.gui.MainApp
 
 You'll need Java Version 8_20 or later.
 
-Download the file `jobhunter-X.X.X-exec.jar` from the Release page and double click on it.
+Download the file `jobhunter-X.X.X-exec.jar` from the [releases](https://github.com/Eldelshell/JobHunter/releases) page and double click on it.
 
 If double click doesn't work use `java -jar jobhunter-X.X.X-exec.jar`
 
 ### Custom Installation
 
-In case you don't want all the plugins included, download the `jobhunter-0.1.2-distribution.zip` file from Releases and unzip it in any folder. Then run with:
+In case you don't want all the plugins included, download the `jobhunter-X.X.X-distribution.zip` file from Releases and unzip it in any folder. Then run with:
 
 ```
 $ cd path/to/jobhunter-X.X.X
