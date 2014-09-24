@@ -85,8 +85,22 @@
                     <descriptors>
                         <descriptor>${project.basedir}/extras/assembly.xml</descriptor>
                         <descriptor>${project.basedir}/extras/assembly-plugins.xml</descriptor>
+                        <descriptor>${project.basedir}/extras/assembly-exec-jar.xml</descriptor>
                     </descriptors>
+                    <archive>
+                        <manifest>
+                            <mainClass>jobhunter.gui.MainApp</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
