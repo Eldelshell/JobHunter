@@ -40,6 +40,7 @@ import org.mvel2.templates.TemplateRuntime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Deprecated
 public class HTMLRenderer implements Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(HTMLRenderer.class);
