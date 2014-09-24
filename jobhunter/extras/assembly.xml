@@ -21,30 +21,6 @@
     </dependencySets>
 
     <fileSets>
-        <!-- Put configuration files in conf -->
-        <fileSet>
-            <directory>src/main/resources/</directory>
-            <outputDirectory>/etc</outputDirectory>
-            <fileMode>0644</fileMode>
-            <directoryMode>0755</directoryMode>
-            <includes>
-                <include>*.properties</include>
-                <include>*.xml</include>
-            </includes>
-        </fileSet>
-
-        <!-- Our MVEL templates -->
-        <fileSet>
-            <directory>src/main/resources/templates/</directory>
-            <outputDirectory>/templates</outputDirectory>
-            <fileMode>0644</fileMode>
-            <directoryMode>0755</directoryMode>
-            <includes>
-                <include>*.html</include>
-                <include>*.ftl</include>
-            </includes>
-        </fileSet>
-
         <!-- Put the startup script -->
         <fileSet>
             <directory>extras/</directory>
@@ -55,7 +31,6 @@
             <fileMode>0777</fileMode>
             <directoryMode>0755</directoryMode>
         </fileSet>
-        
     </fileSets>
 
 </assembly>
