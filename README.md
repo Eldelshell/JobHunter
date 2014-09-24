@@ -4,13 +4,13 @@ JobHunter
 Open Source Jobs tracking tool. 
 
 ### Main view with some jobs
-![http://i.imgur.com/xjHQPYp](http://i.imgur.com/xjHQPYp.png)
+![http://i.imgur.com/Ns3RhgG](http://i.imgur.com/Ns3RhgG.png)
 
 ### Dialog to add/edit job positions
-![http://imgur.com/BNd3iDI](http://i.imgur.com/BNd3iDI.png)
+![http://i.imgur.com/SlF4zBb](http://i.imgur.com/SlF4zBb.png)
 
 ### Main view with some RSS feeds
-![http://i.imgur.com/Jnwhjug.png](http://i.imgur.com/Jnwhjug.png)
+![http://i.imgur.com/wp9WvKt](http://i.imgur.com/wp9WvKt.png)
 
 The idea is to ease the burden of managing/accessing data about your job applications in different portals.
 
@@ -26,15 +26,40 @@ The things you can keep track of are:
 JobHunter also works as a RSS feed reader which you can use to consume the feeds provided
 by different job portals to stay always up-to-date with new jobs.
 
-## Installation
+## Installation Windows
 
 You'll need Java Version 8_20 or later.
 
-Download the latest ZIP file from Releases and execute the `jobhunter` script.
+Download the file `jobhunter-X.X.X-exec.jar` from the Release page and double click on it.
 
-To run the application in debug mode execute `./jobhunter debug`
+### Custom Installation
 
-### Plugins
+In case you don't want all the plugins included, download the `jobhunter-0.1.2-distribution.zip` file from Releases and unzip it in your `C:` drive. Then run with:
+
+```
+C:> cd C:\jobhunter-X.X.X
+C:> java -cp lib\* jobhunter.gui.MainApp
+```
+
+
+## Installation Linux/Mac
+
+You'll need Java Version 8_20 or later.
+
+Download the file `jobhunter-X.X.X-exec.jar` from the Release page and double click on it.
+
+If double click doesn't work use `java -jar jobhunter-X.X.X-exec.jar`
+
+### Custom Installation
+
+In case you don't want all the plugins included, download the `jobhunter-0.1.2-distribution.zip` file from Releases and unzip it in any folder. Then run with:
+
+```
+$ cd path/to/jobhunter-X.X.X
+$ ./jobhunter
+```
+
+## Plugins
 
 Plugins are used to import a job posting from different portals.
 
