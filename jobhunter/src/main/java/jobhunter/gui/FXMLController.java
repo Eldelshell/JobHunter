@@ -58,7 +58,7 @@ import jobhunter.persistence.ProfileRepository;
 import jobhunter.persistence.SubscriptionRepository;
 import jobhunter.plugins.PlugInLoader;
 import jobhunter.utils.ApplicationState;
-import jobhunter.utils.HTMLRenderer;
+import jobhunter.utils.FreeMarkerRenderer;
 import jobhunter.utils.JavaFXUtils;
 import jobhunter.utils.Random;
 import jobhunter.utils.WebViewRenderer;
@@ -204,7 +204,7 @@ public class FXMLController implements Initializable, Localizable {
     void exportHTML(ActionEvent event) {
     	DialogFactory.exportHTML(parent)
     	.ifPresent(fopen -> {
-    		if(HTMLRenderer.of().export(fopen, ProfileRepository.getProfile())){
+    		if(FreeMarkerRenderer.create().export(fopen, ProfileRepository.getProfile())){
     			JavaFXUtils.toast(statusLabel, getTranslation("message.exported.html"));
     		}else{
     			DialogFactory.error("message.failed.export.html");
