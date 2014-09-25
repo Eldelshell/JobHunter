@@ -24,16 +24,12 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import jobhunter.controllers.PreferencesController;
-import jobhunter.gui.dialog.EditorDialog;
 import jobhunter.models.Job;
 import jobhunter.persistence.ProfileRepository;
 import jobhunter.utils.LocalizedEnum;
@@ -65,16 +61,10 @@ public class ApplicationFormController implements JobFormChild<Job> {
     private ChoiceBox<LocalizedEnum<Job.Status>> statusCombo;
 
     @FXML
-    private TextArea descriptionTextArea;
-
-    @FXML
     private Slider ratingSlider;
 
     @FXML
     private TextField linkTextField;
-    
-    @FXML
-    private Button editorButton;
     
     private Job job;
     
@@ -121,17 +111,6 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		
 	}
 	
-	@FXML
-	void onOpenEditorAction(ActionEvent event) {
-		EditorDialog
-			.create(bundle)
-			.setHtml(this.job.getDescription())
-			.setOnSaveEvent((e) -> {
-				EditorDialog dialog = (EditorDialog)e.getSource();
-				this.descriptionTextArea.setText(dialog.getHtml());
-			}).show();
-	}
-	
 	private void bindEvents() {
 		positionTextField.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
@@ -154,12 +133,6 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		linkTextField.textProperty().addListener((obs,old,neu) -> {
 			if(neu != null){
 				this.job.setLink(neu);
-			}
-		});
-		
-		descriptionTextArea.textProperty().addListener((obs,old,neu) -> {
-			if(neu != null){
-				this.job.setDescription(neu);
 			}
 		});
 		
@@ -199,7 +172,6 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		salaryTextField.setText(job.getSalary());
 		portalCombo.getSelectionModel().select(job.getPortal());
 		linkTextField.setText(job.getLink());
-		descriptionTextArea.setText(job.getDescription());
 		ratingSlider.setValue(job.getRating().doubleValue());
 		
 		if(!job.getActive())
@@ -213,9 +185,7 @@ public class ApplicationFormController implements JobFormChild<Job> {
 		salaryTextField.setDisable(true);
 		portalCombo.setDisable(true);
 		linkTextField.setDisable(true);
-		descriptionTextArea.setDisable(true);
 		ratingSlider.setDisable(true);
-		editorButton.setDisable(true);
 	}
 	
 	public ApplicationFormController setJob(Job job) {
