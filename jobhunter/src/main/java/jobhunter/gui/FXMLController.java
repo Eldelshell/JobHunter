@@ -139,7 +139,7 @@ public class FXMLController implements Initializable, Localizable {
     
     private final SubscriptionController subscriptionController;
     
-    private Integer lastSelectedItem = Integer.MAX_VALUE;
+    private Integer lastSelectedJobIndex = Integer.MAX_VALUE;
     
     public FXMLController() {
     	this.subscriptionController = new SubscriptionController(ApplicationState.getBundle());
@@ -255,11 +255,11 @@ public class FXMLController implements Initializable, Localizable {
     	if(selectedJob != null){
 	    	if(JavaFXUtils.isDoubleClick(e)){
     			openJobForm(Optional.of(selectedJob));
-	    	}else if(currentlySelected != lastSelectedItem){
+	    	}else if(currentlySelected != lastSelectedJobIndex){
 	    		webViewRenderer.render(selectedJob);
 	    	}
     	}
-    	lastSelectedItem = currentlySelected;
+    	lastSelectedJobIndex = currentlySelected;
     }
     
     @FXML
@@ -481,7 +481,7 @@ public class FXMLController implements Initializable, Localizable {
 	
 	private void refresh() {
 		l.debug("Refreshing View");
-		this.lastSelectedItem = Integer.MAX_VALUE;
+		this.lastSelectedJobIndex = Integer.MAX_VALUE;
 		mainWebView.getEngine().loadContent("");
 		refreshJobsListView();
 		refreshSubscriptionsListView();
