@@ -481,6 +481,7 @@ public class FXMLController implements Initializable, Localizable {
 	
 	private void refresh() {
 		l.debug("Refreshing View");
+		this.lastSelectedItem = Integer.MAX_VALUE;
 		mainWebView.getEngine().loadContent("");
 		refreshJobsListView();
 		refreshSubscriptionsListView();
