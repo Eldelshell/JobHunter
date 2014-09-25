@@ -16,53 +16,29 @@
 
 package jobhunter.gui.job;
 
-import java.util.Optional;
-import java.util.ResourceBundle;
-
-import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.HTMLEditor;
-import jobhunter.gui.Localizable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class DescriptionController implements Localizable {
+public class DescriptionController extends AnchorPane {
 	
-	private static final Logger l = LoggerFactory.getLogger(DescriptionController.class);
+	private final HTMLEditor editor;
 	
-	private AnchorPane pane;
-	private HTMLEditor editor;
-	private final ResourceBundle bundle;
-	
-	public static DescriptionController create(ResourceBundle bundle){
-    	return new DescriptionController(bundle);
+	public static DescriptionController create(){
+    	return new DescriptionController();
     }
     
-    private DescriptionController(ResourceBundle bundle) {
+    private DescriptionController() {
 		super();
-		this.bundle = bundle;
-		this.pane = new AnchorPane();
 		this.editor = new HTMLEditor();
 		AnchorPane.setBottomAnchor(editor, 0.0);
 		AnchorPane.setLeftAnchor(editor, 0.0);
 		AnchorPane.setTopAnchor(editor, 0.0);
 		AnchorPane.setRightAnchor(editor, 0.0);
-		pane.setPrefSize(520, 430);
-		pane.getChildren().add(editor);
+		setPrefSize(520, 430);
+		getChildren().add(editor);
 	}
 
 	
-	public Optional<Parent> show() {
-		l.debug("Showing");
-		return Optional.of(pane);
-	}
-
-	@Override
-	public ResourceBundle getBundle() {
-		return bundle;
-	}
-
 	public String getDescription() {
 		return this.editor.getHtmlText();
 	}

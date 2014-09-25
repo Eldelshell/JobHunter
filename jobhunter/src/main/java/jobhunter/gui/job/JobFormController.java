@@ -125,7 +125,7 @@ public class JobFormController implements Initializable, Localizable {
 		}else if(event.getSource().equals(eventsButton)){
 			logController.show().ifPresent(this::drawForm);
 		}else if(event.getSource().equals(descriptionButton)){
-			descriptionController.show().ifPresent(this::drawForm);
+			this.drawForm(descriptionController);
 		}
     }
 	
@@ -169,7 +169,7 @@ public class JobFormController implements Initializable, Localizable {
 		companyForm = CompanyFormController.create(bundle).setJob(job);
 		contactsForm = ContactsFormController.create(bundle).setJob(job);
 		logController = ActivityLogController.create(bundle).setJob(job);
-		descriptionController = DescriptionController.create(bundle)
+		descriptionController = DescriptionController.create()
 			.setDescription(job.getDescription());
 
 		applicationForm.show().ifPresent(this::drawForm);
