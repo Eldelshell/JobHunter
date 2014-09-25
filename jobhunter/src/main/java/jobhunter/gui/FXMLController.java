@@ -221,7 +221,10 @@ public class FXMLController implements Initializable, Localizable {
         	if(response.equals(Dialog.Actions.CANCEL)) return;
         	
         	// Don't save changes, then quit
-        	if(response.equals(Dialog.Actions.NO)) Platform.exit();
+        	if(response.equals(Dialog.Actions.NO)){
+        		Platform.exit(); 
+        		return;
+        	}
         	
         	// Lets save and then quit
         	save(null);
