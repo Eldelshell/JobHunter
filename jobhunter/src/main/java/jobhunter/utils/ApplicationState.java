@@ -35,7 +35,7 @@ public enum ApplicationState {
 	private final ResourceBundle bundle = loadBundle();
 	
 	private static final Logger l = LoggerFactory.getLogger(ApplicationState.class);
-	public static final String APP_STRING = "JobHunter 0.1.2";
+	public static final String APP_STRING = "JobHunter 0.1.3";
 	
 	private static ApplicationState self() {
 		return _INSTANCE;
