@@ -111,16 +111,18 @@ public enum DialogFactory implements Localizable {
     	return Optional.ofNullable(fc.showSaveDialog(window));
 	}
 	
-	private Action _quit(){
+	private Action _quit(final Window window){
 		return Dialogs.create()
+			.owner(window)
 			.masthead(getTranslation("message.pending.changes"))
 			.message(getTranslation("message.save.changes"))
 			.lightweight()
 			.showConfirm();
 	}
 	
-	private void _about() {
+	private void _about(final Window window) {
 		Dialogs.create()
+			.owner(window)
 			.title(getTranslation("message.about"))
 			.lightweight()
 			.masthead(ApplicationState.APP_STRING)
@@ -172,11 +174,11 @@ public enum DialogFactory implements Localizable {
 		_INSTANCE._error(message);
 	}
 	
-	public static Action quit(){
-		return _INSTANCE._quit();
+	public static Action quit(final Window window){
+		return _INSTANCE._quit(window);
 	}
 	
-	public static void about() {
-		_INSTANCE._about();
+	public static void about(final Window window) {
+		_INSTANCE._about(window);
 	}
 }

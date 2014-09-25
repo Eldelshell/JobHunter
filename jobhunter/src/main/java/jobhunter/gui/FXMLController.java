@@ -220,7 +220,7 @@ public class FXMLController implements Initializable, Localizable {
     @FXML
     void quit(ActionEvent event) {
     	if(ApplicationState.changesPending()) {
-    		Action response = DialogFactory.quit();
+    		Action response = DialogFactory.quit(this.parent);
         	
         	// Cancel so no action is done
         	if(response.equals(Dialog.Actions.CANCEL)) return;
@@ -248,7 +248,7 @@ public class FXMLController implements Initializable, Localizable {
     
     @FXML
     void showAboutDialog(ActionEvent event) {
-    	DialogFactory.about();
+    	DialogFactory.about(this.parent);
     }
 
     @FXML
