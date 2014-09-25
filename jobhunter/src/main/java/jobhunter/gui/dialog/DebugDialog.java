@@ -25,11 +25,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jobhunter.gui.Localizable;
-import jobhunter.persistence.Persistence;
 
+/**
+ * A dialog to display any data we want.
+ */
 public class DebugDialog implements Localizable {
 	
-private final ResourceBundle bundle;
+	private final ResourceBundle bundle;
+	private String text;
 	
 	private DebugDialog(ResourceBundle bundle) {
 		super();
@@ -41,13 +44,13 @@ private final ResourceBundle bundle;
 	}
 
 	public void show() {
-		TextArea text = new TextArea();
-		text.setText(Persistence.debugProfile());
-		text.setEditable(false);
-		text.setPrefSize(600, 500);
+		TextArea textArea = new TextArea();
+		textArea.setText(this.text);
+		textArea.setEditable(false);
+		textArea.setPrefSize(600, 500);
 		
 		VBox box = new VBox(1);
-		box.getChildren().add(text);
+		box.getChildren().add(textArea);
 		box.setPrefSize(600, 500);
 		
 		Scene scene = new Scene(box, 600, 500);
@@ -65,6 +68,14 @@ private final ResourceBundle bundle;
 	public ResourceBundle getBundle() {
 		return bundle;
 	}
-	
+
+	public String getText() {
+		return text;
+	}
+
+	public DebugDialog setText(String text) {
+		this.text = text;
+		return this;
+	}
 	
 }
