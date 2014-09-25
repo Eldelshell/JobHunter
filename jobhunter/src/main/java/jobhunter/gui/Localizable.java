@@ -21,6 +21,9 @@ import java.util.ResourceBundle;
 
 import jobhunter.utils.ApplicationState;
 
+/**
+ * Indicates that the implementing classes will be localized.
+ */
 public interface Localizable {
 
 	public default ResourceBundle getBundle(){

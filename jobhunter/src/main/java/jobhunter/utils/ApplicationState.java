@@ -24,6 +24,10 @@ import java.util.ResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Singleton to hold information about the application, like environment
+ * locale, version, changes pending, etc.
+ */
 public enum ApplicationState {
 	
 	_INSTANCE;

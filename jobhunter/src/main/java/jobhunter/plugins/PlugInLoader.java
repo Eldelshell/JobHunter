@@ -29,6 +29,11 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A JavaFX Service that loads in the background all the Plugins using
+ * the Reflections library by looking for all classes in the "jobhunter.plugin"
+ * package that implement the "PlugIn" interface.
+ */
 public class PlugInLoader extends Service<Void> {
 	
 	private static final Logger l = LoggerFactory.getLogger(PlugInLoader.class);

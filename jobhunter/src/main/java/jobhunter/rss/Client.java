@@ -33,6 +33,9 @@ import org.slf4j.LoggerFactory;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
 
+/**
+ * An RSS client.
+ */
 public class Client {
 
 	private static final Logger l = LoggerFactory.getLogger(Client.class);

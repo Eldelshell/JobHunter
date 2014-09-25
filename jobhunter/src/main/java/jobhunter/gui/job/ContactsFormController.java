@@ -32,6 +32,9 @@ import jobhunter.models.Job;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Controller to edit a job's contacts data.
+ */
 public class ContactsFormController implements JobFormChild<Contact> {
 	
 	private static final Logger l = LoggerFactory.getLogger(ApplicationFormController.class);

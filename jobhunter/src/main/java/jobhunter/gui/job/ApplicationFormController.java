@@ -38,6 +38,9 @@ import org.controlsfx.control.textfield.TextFields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Controller to edit a job's application data.
+ */
 public class ApplicationFormController implements JobFormChild<Job> {
 	
 	private static final Logger l = LoggerFactory.getLogger(ApplicationFormController.class);

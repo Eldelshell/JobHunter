@@ -19,6 +19,9 @@ package jobhunter.rss;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
+/**
+ * A JavaFX Service to update RSS feeds on request by the user.
+ */
 public class FeedService extends Service<Integer> {
 	
 	public FeedService() {

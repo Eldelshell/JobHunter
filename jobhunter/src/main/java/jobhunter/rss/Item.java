@@ -21,6 +21,9 @@ import java.time.LocalDateTime;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
+/**
+ * Model to describe the XML Item element in a RSS feed channel
+ */
 @XStreamAlias("item")
 public class Item {
 	

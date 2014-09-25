@@ -31,6 +31,10 @@ import jobhunter.persistence.SubscriptionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A JavaFX ScheduledService to run the auto-update feature. Runs one
+ * minute after the application starts and repeats every 30 minutes. 
+ */
 public class ScheduledFeedService extends ScheduledService<Integer> {
 	
 	private static final Logger l = LoggerFactory.getLogger(ScheduledFeedService.class);
@@ -50,6 +54,11 @@ public class ScheduledFeedService extends ScheduledService<Integer> {
 		return new FeedTask(false);
 	}
 
+	/**
+	 * The JavaFX task used to update RSS feeds. With the "force" param
+	 * we indicate if we should force an update even if the subscription
+	 * is not updatable.
+	 */
 	public static class FeedTask extends Task<Integer> {
 		
 		private final Boolean force;

@@ -42,6 +42,10 @@ import jobhunter.utils.JavaFXUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Container with a menu to hold the different components so it's easier
+ * to modify a job's data.
+ */
 public class JobFormController implements Initializable, Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(JobFormController.class);

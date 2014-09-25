@@ -25,6 +25,9 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
+/**
+ * XStream Converter for RFC1123 Dates from an RSS feed
+ */
 public class DateTimeConverter implements Converter {
 
 	@Override

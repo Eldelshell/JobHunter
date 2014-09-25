@@ -27,6 +27,9 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 
+/**
+ * Class to render FreeMarker templates.
+ */
 public class FreeMarkerRenderer implements Localizable {
 
 	private static final Logger l = LoggerFactory.getLogger(FreeMarkerRenderer.class);

@@ -22,6 +22,9 @@ import javafx.util.Duration;
 import jobhunter.models.Job;
 import jobhunter.models.SubscriptionItem;
 
+/**
+ * Class used to render models to a WebView.
+ */
 public class WebViewRenderer {
 	
 	private final WebView view;

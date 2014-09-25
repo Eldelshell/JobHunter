@@ -25,6 +25,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import jobhunter.models.Subscription;
 
+/**
+ * Custom ListCell to be used by the subscriptionsList in the FXMLControler.
+ */
 public class SubscriptionListCell extends ListCell<Subscription> {
 	
 	private static Image DEFAULT;
@@ -90,6 +93,8 @@ public class SubscriptionListCell extends ListCell<Subscription> {
 		if(DEFAULT == null)
 			DEFAULT = new Image(getClass().getResourceAsStream("/images/rss.png"));
 		
+		// The idea was to have different icons for each RSS feed
+		// but Java doesn't support rendering of .ICO files.
 		return DEFAULT;
 	}
 	
@@ -100,7 +105,5 @@ public class SubscriptionListCell extends ListCell<Subscription> {
         public ListCell<Subscription> call(ListView<Subscription> p) {
             return new SubscriptionListCell();
         }
-        
     }
-	
 }

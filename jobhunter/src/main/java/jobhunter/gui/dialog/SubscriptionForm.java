@@ -39,6 +39,9 @@ import org.controlsfx.dialog.Dialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Dialog to add/edit a subscription
+ */
 public class SubscriptionForm implements Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(SubscriptionForm.class);

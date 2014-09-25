@@ -19,6 +19,9 @@ package jobhunter.rss;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
+/**
+ * Model to describe the XML root element in a RSS feed
+ */
 @XStreamAlias("rss")
 public class Root {
 	

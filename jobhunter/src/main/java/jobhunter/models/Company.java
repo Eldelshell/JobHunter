@@ -20,7 +20,7 @@ package jobhunter.models;
 import jobhunter.persistence.ObjectId;
 
 /**
- * @author eldelshell
+ * Model to define data about a company for a given job application
  */
 public class Company {
     

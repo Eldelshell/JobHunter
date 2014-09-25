@@ -29,6 +29,10 @@ import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 import org.w3c.dom.html.HTMLAnchorElement;
 
+/**
+ * Custom EventListener that allows a WebView to catch events and
+ * handle them in case we want to
+ */
 public class WebViewOnClickListener implements EventListener {
 
 	@Override

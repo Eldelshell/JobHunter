@@ -33,6 +33,9 @@ import jobhunter.models.Job;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Controller to edit a job's events data. Basically it's a table.
+ */
 public class ActivityLogController implements JobFormChild<ActivityLog> {
 	
 	private static final Logger l = LoggerFactory.getLogger(ActivityLogController.class);

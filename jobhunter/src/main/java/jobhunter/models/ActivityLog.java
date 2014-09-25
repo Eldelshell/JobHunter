@@ -26,6 +26,9 @@ import jobhunter.persistence.ObjectId;
 
 import com.sun.xml.internal.ws.util.StringUtils;
 
+/**
+ * Model to describe an event that happens to a job application
+ */
 public class ActivityLog implements Comparable<ActivityLog> {
 	
 	public enum Type {

@@ -25,6 +25,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 import jobhunter.models.Job;
 
+/**
+ * Custom ListCell for the jobsList ListView in the FXMLController
+ */
 public class JobCell extends ListCell<Job> {
 	
 	public static final Paint RED = Paint.valueOf("#b8002e");

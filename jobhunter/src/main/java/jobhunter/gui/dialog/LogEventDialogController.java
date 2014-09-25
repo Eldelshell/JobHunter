@@ -45,6 +45,10 @@ import jobhunter.utils.LocalizedEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Custom dialog to add Events
+ */
+//TODO: Modify to don't use the FXML file and instead use Dialogs
 public class LogEventDialogController implements Initializable, Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(LogEventDialogController.class);

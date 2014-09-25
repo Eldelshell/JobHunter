@@ -23,6 +23,9 @@ import java.util.TreeSet;
 
 import jobhunter.persistence.ObjectId;
 
+/**
+ * Model to work as a container for all the job applications
+ */
 public class Profile {
 
 	private ObjectId id;

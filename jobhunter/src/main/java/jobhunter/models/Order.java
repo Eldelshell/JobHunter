@@ -18,6 +18,10 @@ package jobhunter.models;
 
 import java.util.Comparator;
 
+/**
+ * Enum used to ease creating the different comparators and to store
+ * them in a single location instead of having them in each model
+ */
 public enum Order {
 	ASCENDING, DESCENDING;
 	

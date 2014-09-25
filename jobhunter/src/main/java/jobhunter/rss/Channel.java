@@ -23,6 +23,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+/**
+ * Model to describe the XML Channel element in a RSS feed
+ */
 @XStreamAlias("channel")
 public class Channel implements Comparable<Channel>{
 

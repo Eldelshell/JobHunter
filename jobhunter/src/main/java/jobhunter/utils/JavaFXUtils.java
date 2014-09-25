@@ -36,6 +36,9 @@ import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Some commonly used code-fragments
+ */
 public class JavaFXUtils {
 	
 	private static final Logger l = LoggerFactory.getLogger(JavaFXUtils.class);

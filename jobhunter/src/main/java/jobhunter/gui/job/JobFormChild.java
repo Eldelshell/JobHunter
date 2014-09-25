@@ -27,6 +27,10 @@ import jobhunter.utils.JavaFXUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * To be implemented by the elements used by the JobForm to display
+ * different elements of a job application
+ */
 public interface JobFormChild<T> extends Localizable, Initializable {
 	
 	static final Logger l = LoggerFactory.getLogger(JobFormChild.class);

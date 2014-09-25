@@ -29,7 +29,7 @@ import jobhunter.persistence.ObjectId;
 import com.sun.xml.internal.ws.util.StringUtils;
 
 /**
- * @author eldelshell
+ * Model to define a job application
  */
 public class Job implements Comparable<Job>{
 	

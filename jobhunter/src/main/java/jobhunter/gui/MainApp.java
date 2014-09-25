@@ -30,6 +30,9 @@ import jobhunter.utils.JavaFXUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The applications entry point.
+ */
 public class MainApp extends Application {
 	
 	private static final Logger l = LoggerFactory.getLogger(MainApp.class);
@@ -54,6 +57,7 @@ public class MainApp extends Application {
         stage.setScene(scene);
         stage.show();
         
+        // So the other elements can use this window
         controller.setParent(scene.getWindow());
     }
     

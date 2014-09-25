@@ -70,6 +70,9 @@ import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Our main controller. Called by the MainApp.
+ */
 public class FXMLController implements Initializable, Localizable {
 	
 	private static final Logger l = LoggerFactory.getLogger(FXMLController.class);
@@ -411,7 +414,7 @@ public class FXMLController implements Initializable, Localizable {
     
     @FXML
     void showJobs(ActionEvent e){
-    	DebugDialog.create(getBundle()).show();
+    	DebugDialog.create(getBundle()).setText(Persistence.debugProfile()).show();
     }
     
     @Override

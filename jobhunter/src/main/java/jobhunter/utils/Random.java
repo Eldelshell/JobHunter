@@ -34,6 +34,9 @@ import jobhunter.models.Subscription;
 import jobhunter.models.SubscriptionItem;
 import jobhunter.persistence.ObjectId;
 
+/**
+ * Generate random data
+ */
 public class Random {
 
     public static final int qr_code_length = 16;

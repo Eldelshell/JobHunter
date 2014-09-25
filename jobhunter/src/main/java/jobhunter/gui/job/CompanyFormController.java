@@ -30,6 +30,9 @@ import org.controlsfx.control.textfield.TextFields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Controller to edit a job's company data.
+ */
 public class CompanyFormController implements JobFormChild<Company> {
 	
 	private static final Logger l = LoggerFactory.getLogger(CompanyFormController.class);

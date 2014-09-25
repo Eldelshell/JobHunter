@@ -29,6 +29,9 @@ import jobhunter.utils.FreeMarkerRenderer;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+/**
+ * Model to describe a subscription to an RSS feed
+ */
 public class Subscription implements Comparable<Subscription> {
 	
 	private ObjectId id;

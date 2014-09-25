@@ -26,6 +26,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import jobhunter.models.SubscriptionItem;
 
+/**
+ * Custom TableRow to be used by the subscriptionItemsTable 
+ * in the FXMLController to display SubscriptionItems
+ */
 public class SubscriptionRow extends TableRow<SubscriptionItem> {
 	
 	public static final PropertyValueFactory<SubscriptionItem, LocalDateTime> 
@@ -78,6 +82,8 @@ public class SubscriptionRow extends TableRow<SubscriptionItem> {
 		
 		if(getItem() == null) return;
 		
+		// When the user clicks, we want to make it look 
+		// like the element has been read
 		if(getItem().getActive()){
 			setStyle("-fx-font-weight: bold;");
 		}else{

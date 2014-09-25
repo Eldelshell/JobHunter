@@ -28,6 +28,9 @@ import jobhunter.gui.Localizable;
 
 import org.controlsfx.dialog.Dialog;
 
+/**
+ * Dialog to display preferences options
+ */
 public class PreferencesDialog implements Localizable {
 
 	private final ResourceBundle bundle;

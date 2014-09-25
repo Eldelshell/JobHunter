@@ -19,6 +19,9 @@ package jobhunter.gui.job;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.HTMLEditor;
 
+/**
+ * Custom AnchorPane with a HTMLEditor to modify a job's description.
+ */
 public class DescriptionController extends AnchorPane {
 	
 	private final HTMLEditor editor;

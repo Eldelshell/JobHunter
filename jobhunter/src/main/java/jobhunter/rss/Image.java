@@ -18,6 +18,9 @@ package jobhunter.rss;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+/**
+ * Model to describe the XML Image element in a RSS feed channel
+ */
 @XStreamAlias("image")
 public class Image {
 	

@@ -22,7 +22,7 @@ import java.util.Comparator;
 import jobhunter.persistence.ObjectId;
 
 /**
- * @author eldelshell
+ * Model to describe a contact for a job application
  */
 public class Contact implements Comparable<Contact>{
     

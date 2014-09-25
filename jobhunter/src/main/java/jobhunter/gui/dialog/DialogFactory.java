@@ -29,6 +29,9 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 
+/**
+ * Factory to create different dialogs for the application.
+ */
 public enum DialogFactory implements Localizable {
 	
 	_INSTANCE;
@@ -125,6 +128,10 @@ public enum DialogFactory implements Localizable {
 			.showInformation();
 	}
 	
+	private void _error(final String message){
+		Dialogs.create().message(getTranslation(message)).showError();
+	}
+	
 	public static Boolean deleteItems() {
 		return _INSTANCE._delete("message.delete.item.confirmation");
 	}
@@ -159,10 +166,6 @@ public enum DialogFactory implements Localizable {
 	
 	public static Optional<File> exportPDF(final Window window){
 		return _INSTANCE._exportPDF(window);
-	}
-	
-	private void _error(final String message){
-		Dialogs.create().message(getTranslation(message)).showError();
 	}
 	
 	public static void error(final String message){

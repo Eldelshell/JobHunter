@@ -22,6 +22,9 @@ import jobhunter.persistence.ObjectId;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Model to describe an RSS feed item stored by our application
+ */
 public class SubscriptionItem implements Comparable<SubscriptionItem>{
 
 	private ObjectId id;

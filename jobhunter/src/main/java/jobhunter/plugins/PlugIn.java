@@ -20,6 +20,9 @@ import javafx.concurrent.Worker;
 import javafx.scene.control.MenuItem;
 import jobhunter.models.Job;
 
+/**
+ * Interface that defines the different operations a Plugin must implement.
+ */
 public interface PlugIn {
 
 	String getPortal();
