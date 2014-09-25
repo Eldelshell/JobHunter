@@ -101,6 +101,7 @@ public class JobFormController implements Initializable, Localizable {
 	@FXML
 	void saveButtonHandler(ActionEvent event) {
 		l.debug("Save: {}", job.toString());
+		this.job.setDescription(this.descriptionController.getDescription());
 		ProfileRepository.save(job);
 		close(event);
 	}
@@ -168,7 +169,8 @@ public class JobFormController implements Initializable, Localizable {
 		companyForm = CompanyFormController.create(bundle).setJob(job);
 		contactsForm = ContactsFormController.create(bundle).setJob(job);
 		logController = ActivityLogController.create(bundle).setJob(job);
-		descriptionController = DescriptionController.create(bundle).setJob(job);
+		descriptionController = DescriptionController.create(bundle)
+			.setDescription(job.getDescription());
 
 		applicationForm.show().ifPresent(this::drawForm);
 	}
