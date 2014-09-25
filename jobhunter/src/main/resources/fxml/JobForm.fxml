@@ -13,7 +13,7 @@
       <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
         <items>
             <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#cancelButtonHandler" styleClass="dialog-button" text="%label.cancel" />
-            <Button fx:id="saveButton" defaultButton="true" mnemonicParsing="false" onAction="#saveButtonHandler" styleClass="dialog-button" text="%label.save" />
+            <Button fx:id="saveButton" defaultButton="false" mnemonicParsing="false" onAction="#saveButtonHandler" styleClass="dialog-button" text="%label.save" />
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonHandler" styleClass="dialog-button" text="%label.delete" />
         </items>
       </ToolBar>
