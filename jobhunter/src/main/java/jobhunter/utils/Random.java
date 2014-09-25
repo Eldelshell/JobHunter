@@ -24,14 +24,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Currency;
 
 import jobhunter.models.ActivityLog;
 import jobhunter.models.Company;
 import jobhunter.models.Contact;
 import jobhunter.models.Job;
 import jobhunter.models.Profile;
-import jobhunter.models.Salary;
 import jobhunter.models.Subscription;
 import jobhunter.models.SubscriptionItem;
 import jobhunter.persistence.ObjectId;
@@ -152,14 +150,6 @@ public class Random {
 			.setName(Random.String(20))
 			.setAddress(Random.String(20))
 			.setUrl("www." + Random.String(25) + ".biz");
-    }
-    
-    public static Salary Salary() {
-    	return Salary.of(
-			40000, 
-			Currency.getInstance("EUR"), 
-			Salary.Period.YEARLY
-		);
     }
     
     public static Contact Contact() {
