@@ -22,6 +22,9 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
+/**
+ * XStream Converter for ObjectId
+ */
 public class ObjectIdConverter implements Converter {
 
 	@Override

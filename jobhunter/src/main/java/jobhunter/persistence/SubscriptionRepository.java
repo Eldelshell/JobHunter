@@ -30,6 +30,9 @@ import jobhunter.utils.ApplicationState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Repository to hold a list of subscriptions and handle persistence operations.
+ */
 public enum SubscriptionRepository {
 
 	_INSTANCE;

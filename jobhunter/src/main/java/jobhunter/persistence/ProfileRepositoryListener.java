@@ -16,6 +16,9 @@
 
 package jobhunter.persistence;
 
+/**
+ * Listen for events that happen in the ProfileRepository
+ */
 public interface ProfileRepositoryListener {
 
 	void changed();

@@ -32,6 +32,9 @@ import jobhunter.utils.ApplicationState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Repository to hold a Profile instance and handle persistence operations
+ */
 public enum ProfileRepository {
 
 	_INSTANCE;

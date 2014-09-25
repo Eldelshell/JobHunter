@@ -26,7 +26,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 /**
- * Converter for LocalDate
+ * XStream Converter for LocalDate
  */
 public class LocalDateConverter implements Converter {
 
