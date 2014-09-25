@@ -36,6 +36,7 @@
                   <ToggleGroup fx:id="buttonsGroup" />
                </toggleGroup>
             </ToggleButton>
+            <ToggleButton fx:id="descriptionButton" layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="185.0" text="%label.description" toggleGroup="$buttonsGroup" />
             <ToggleButton fx:id="companyButton" layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="185.0" text="%label.company" toggleGroup="$buttonsGroup" />
             <ToggleButton fx:id="contactsButton" layoutX="10.0" layoutY="54.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="185.0" text="%label.contacts" toggleGroup="$buttonsGroup" />
             <ToggleButton fx:id="eventsButton" layoutX="10.0" layoutY="98.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="185.0" text="%label.events" toggleGroup="$buttonsGroup" />

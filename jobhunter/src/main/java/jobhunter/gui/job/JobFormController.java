@@ -71,6 +71,9 @@ public class JobFormController implements Initializable, Localizable {
 
     @FXML
     private ToggleButton applicationButton;
+    
+    @FXML
+    private ToggleButton descriptionButton;
 
 	private final ResourceBundle bundle;
 	
@@ -78,6 +81,7 @@ public class JobFormController implements Initializable, Localizable {
 	private CompanyFormController companyForm;
 	private ContactsFormController contactsForm;
 	private ActivityLogController logController;
+	private DescriptionController descriptionController;
 	
 	public static JobFormController create(ResourceBundle bundle){
 		return new JobFormController(bundle);
@@ -119,6 +123,8 @@ public class JobFormController implements Initializable, Localizable {
 			contactsForm.show().ifPresent(this::drawForm);
 		}else if(event.getSource().equals(eventsButton)){
 			logController.show().ifPresent(this::drawForm);
+		}else if(event.getSource().equals(descriptionButton)){
+			descriptionController.show().ifPresent(this::drawForm);
 		}
     }
 	
@@ -162,6 +168,7 @@ public class JobFormController implements Initializable, Localizable {
 		companyForm = CompanyFormController.create(bundle).setJob(job);
 		contactsForm = ContactsFormController.create(bundle).setJob(job);
 		logController = ActivityLogController.create(bundle).setJob(job);
+		descriptionController = DescriptionController.create(bundle).setJob(job);
 
 		applicationForm.show().ifPresent(this::drawForm);
 	}
