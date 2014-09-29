@@ -17,6 +17,7 @@
 package jobhunter.rss;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -103,6 +104,8 @@ public class Channel implements Comparable<Channel>{
 	}
 
 	public List<Item> getItems() {
+		if(items == null)
+			items = new ArrayList<>();
 		return items;
 	}
 
