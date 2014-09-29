@@ -16,6 +16,8 @@
 
 package jobhunter.rss;
 
+import java.util.Optional;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
@@ -30,6 +32,10 @@ public class Root {
 	
 	@XStreamAsAttribute
 	private String version;
+	
+	public Optional<Channel> getOptionalChannel() {
+		return Optional.ofNullable(this.channel);
+	}
 
 	public Channel getChannel() {
 		return channel;
