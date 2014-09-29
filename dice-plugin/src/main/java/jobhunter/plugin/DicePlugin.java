@@ -67,7 +67,7 @@ public class DicePlugin implements PlugIn {
 	    		
 	    		s.setOnSucceeded((event) -> {
 	    			Job job = (Job) event.getSource().getValue();
-	    			ProfileRepository.instanceOf().saveJob(job);
+	    			ProfileRepository.save(job);
 	    		});
 	    		
 	    		s.setOnFailed((event) -> {
