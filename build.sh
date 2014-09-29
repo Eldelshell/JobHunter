@@ -15,10 +15,11 @@ cd infoempleo-plugin
 mvn clean install
 cd ..
 
-echo "Building InfoJobs plugin"
-cd infojobs-plugin
-mvn clean install
-cd ..
+# Must do it manually because of private key
+# echo "Building InfoJobs plugin"
+# cd infojobs-plugin
+# mvn clean install
+# cd ..
 
 echo "Building Monster plugin"
 cd monster-plugin
