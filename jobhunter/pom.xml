@@ -181,7 +181,7 @@
             <version>2.3.20</version>
         </dependency>
 
-        <!-- Our Plugins -->
+        <!-- Our Plugins Uncomment to package
         <dependency>
             <groupId>jobhunter</groupId>
             <artifactId>infojobs-plugin</artifactId>
@@ -246,6 +246,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        -->
         
     </dependencies>
 </project>
