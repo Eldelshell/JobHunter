@@ -8,6 +8,7 @@ cd ${0%/*}
 
 if [ "${JAVA_HOME}" == "" ]; then
     echo "JAVA_HOME Not set. Install the JRE and set the JAVA_HOME in your initialization file"
+    sleep 5
     exit 1
 fi
 
