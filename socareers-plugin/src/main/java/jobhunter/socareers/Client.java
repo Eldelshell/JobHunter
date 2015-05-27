@@ -70,12 +70,11 @@ public class Client extends Observable {
 		String address = header.select("span.location").first().text();
 		l.debug(address);
 		job.setAddress(address);
-		job.setExtId("wtf is an ext id"); //(form.getElementById("jobID").attr("value"));
 		job.getCompany().setName(header.select("a.employer").first().text());
 		
 		job.setDescription(
 			StringEscapeUtils.unescapeHtml4(
-				form.html();
+				form.select("div.description").html()
 			)
 		);
 		update("Done", 3L);
