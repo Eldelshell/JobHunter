@@ -56,8 +56,7 @@ private final String url;
 			try{
 				return Client.of(url).observe(this).execute();
 			}catch(Exception e) {
-				throw e;
-				//throw new SOCareersAPIException("Failed to import");
+				throw new SOCareersAPIException("Failed to import");
 			}
 		}
 		
