@@ -26,6 +26,11 @@ cd monster-plugin
 mvn clean install
 cd ..
 
+echo "Building craigslist plugin"
+cd craigslist-plugin
+mvn clean install
+cd ..
+
 echo "Building JobHunter plugin"
 cd jobhunter
 mvn clean install assembly:assembly
