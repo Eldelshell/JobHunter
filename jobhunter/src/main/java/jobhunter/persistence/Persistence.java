@@ -70,7 +70,7 @@ public enum Persistence {
     }
 	
 	private void _save(final File file, final Boolean rewrite) {
-		if(wasModified(file) && !rewrite)
+		if(file.exists() && wasModified(file) && !rewrite)
 			throw new ConcurrentModificationException("File has been modified");
 
 		ApplicationState.changesPending(false);
