@@ -31,6 +31,11 @@ cd monster-plugin
 mvn clean install
 cd ..
 
+echo "Building Stack Overflow Careers plugin"
+cd socareers-plugin
+mvn clean install
+cd ..
+
 echo "Assembling JobHunter"
 cd jobhunter
 mvn assembly:assembly
