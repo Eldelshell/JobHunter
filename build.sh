@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Building JobHunter plugin"
+echo "Building JobHunter"
 cd jobhunter
 mvn clean install
 cd ..
@@ -30,8 +30,8 @@ echo "Building Monster plugin"
 cd monster-plugin
 mvn clean install
 cd ..
- 
-echo "Building JobHunter plugin"
+
+echo "Assembling JobHunter"
 cd jobhunter
 mvn assembly:assembly
 cd ..
