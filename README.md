@@ -1,7 +1,7 @@
 JobHunter
 =========
 
-Open Source Jobs tracking tool. 
+Open Source Jobs tracking tool.
 
 ### Main view with some jobs
 ![http://i.imgur.com/Ns3RhgG](http://i.imgur.com/Ns3RhgG.png)
@@ -77,6 +77,8 @@ Currently you have plugins for:
 * InfoEmpleo (Spain)
 * TecnoEmpleo (Spain)
 * InfoJobs (Spain)
+* StackOverflow Careers
+* Craiglist
 
 ## JHF Files
 
