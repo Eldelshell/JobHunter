@@ -7,13 +7,13 @@
 
     <fileSets>
         <fileSet>
-            <directory>${settings.localRepository}/jobhunter/infojobs-plugin/0.2/</directory>
+            <directory>${settings.localRepository}/jobhunter/infojobs-plugin/0.3/</directory>
             <outputDirectory>/lib</outputDirectory>
             <includes>
-                <include>infojobs-plugin-0.2.jar</include>
+                <include>infojobs-plugin-0.3.jar</include>
             </includes>
         </fileSet>
-        
+
         <fileSet>
             <directory>${settings.localRepository}/jobhunter/infoempleo-plugin/0.3/</directory>
             <outputDirectory>/lib</outputDirectory>
@@ -21,31 +21,47 @@
                 <include>infoempleo-plugin-0.3.jar</include>
             </includes>
         </fileSet>
-        
+
         <fileSet>
-            <directory>${settings.localRepository}/jobhunter/monster-plugin/0.2/</directory>
+            <directory>${settings.localRepository}/jobhunter/monster-plugin/0.3/</directory>
             <outputDirectory>/lib</outputDirectory>
             <includes>
-                <include>monster-plugin-0.2.jar</include>
+                <include>monster-plugin-0.3.jar</include>
             </includes>
         </fileSet>
-        
+
         <fileSet>
-            <directory>${settings.localRepository}/jobhunter/cb-plugin/0.1/</directory>
+            <directory>${settings.localRepository}/jobhunter/cb-plugin/0.2/</directory>
             <outputDirectory>/lib</outputDirectory>
             <includes>
-                <include>cb-plugin-0.1.jar</include>
+                <include>cb-plugin-0.2.jar</include>
             </includes>
         </fileSet>
-        
+
         <fileSet>
-            <directory>${settings.localRepository}/jobhunter/dice-plugin/0.1/</directory>
+            <directory>${settings.localRepository}/jobhunter/dice-plugin/0.2/</directory>
             <outputDirectory>/lib</outputDirectory>
             <includes>
-                <include>dice-plugin-0.1.jar</include>
+                <include>dice-plugin-0.2.jar</include>
             </includes>
         </fileSet>
-        
+
+        <fileSet>
+            <directory>${settings.localRepository}/jobhunter/socareers-plugin/0.1/</directory>
+            <outputDirectory>/lib</outputDirectory>
+            <includes>
+                <include>socareers-plugin-0.1.jar</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${settings.localRepository}/jobhunter/craigslist-plugin/0.1/</directory>
+            <outputDirectory>/lib</outputDirectory>
+            <includes>
+                <include>craigslist-plugin-0.1.jar</include>
+            </includes>
+        </fileSet>
+
     </fileSets>
 
 </assembly>
