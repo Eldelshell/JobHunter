@@ -259,6 +259,19 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>jobhunter</groupId>
+            <artifactId>craigslist-plugin</artifactId>
+            <version>0.1</version>
+            <scope>assembly</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jobhunter</artifactId>
+                    <groupId>jobhunter</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         -->
         
     </dependencies>
