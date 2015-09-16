@@ -3,6 +3,10 @@ JobHunter
 
 Open Source Jobs tracking tool.
 
+This project is abandoned in favor of [https://github.com/Eldelshell/jobhunter-chrome-app](Jobhunter for Google Chrome)
+
+It's still a good example of a JavaFX application with a Maven build process and a simple plugin system.
+
 ### Main view with some jobs
 ![http://i.imgur.com/Ns3RhgG](http://i.imgur.com/Ns3RhgG.png)
 
